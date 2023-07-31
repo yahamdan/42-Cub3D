@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 16:21:31 by werrahma          #+#    #+#             */
-/*   Updated: 2022/12/02 19:25:53 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:56:50 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*ft_read(int fd, char *p)
 			return (p);
 		}
 		m[ret] = '\0';
-		p = ft_strjoin(p, m);
+		p = get_strjoin(p, m);
 	}
 	free (m);
 	return (p);
@@ -71,9 +71,9 @@ char	*ft_free(char *p, char *line)
 {
 	char	*tmp;
 
-	tmp = ft_strdup(p);
+	tmp = get_strdup(p);
 	free(p);
-	p = ft_strdup(tmp + ft_strlen(line));
+	p = get_strdup(tmp + get_strlen(line));
 	free(tmp);
 	return (p);
 }
@@ -97,7 +97,7 @@ char	*get_next_line(int fd)
 		i++;
 	}
 	line[i] = '\0';
-	if (ft_strlen(p) > ft_strlen(line))
+	if (get_strlen(p) > get_strlen(line))
 		p = ft_free (p, line);
 	else
 	{

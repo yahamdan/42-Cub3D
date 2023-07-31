@@ -4,6 +4,9 @@
 #include <mlx.h>
 #include <stdlib.h>
 #include "libft/libft.h"
+#include "parsing/get_next_line.h"
+
+
 
 typedef struct s_cub
 {
@@ -18,5 +21,8 @@ typedef struct s_pars
 	struct s_pars *next;
 }              t_pars ;
 
+void	create_list(t_pars **list, char *n_file);
+void	ft_lstadd_back(t_pars **lst, t_pars *new);
+t_pars	*ft_lstnew(char *str);
 
 #endif

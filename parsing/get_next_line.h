@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:53:37 by werrahma          #+#    #+#             */
-/*   Updated: 2022/12/02 19:14:00 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:55:08 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+#include <fcntl.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
@@ -24,8 +25,8 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char *s2);
-size_t	ft_strlen( char *ar);
-char	*ft_strdup( char *s1);
+char	*get_strjoin(char *s1, char *s2);
+size_t	get_strlen( char *ar);
+char	*get_strdup( char *s1);
 
 #endif

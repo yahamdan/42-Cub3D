@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 23:06:01 by werrahma          #+#    #+#             */
-/*   Updated: 2022/12/02 19:15:16 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/07/31 13:55:54 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*get_strjoin(char *s1, char *s2)
 {
 	int		a;
 	int		b;
@@ -21,10 +21,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	a = -1;
 	b = -1;
 	if (!s1 && s2)
-		return (ft_strdup(s2));
+		return (get_strdup(s2));
 	if (s1 && !s2)
-		return (ft_strdup(s1));
-	m = malloc((ft_strlen(s1) + ft_strlen(s2)) + 1);
+		return (get_strdup(s1));
+	m = malloc((get_strlen(s1) + get_strlen(s2)) + 1);
 	if (!m)
 		return (0);
 	while (s1[++a])
@@ -36,7 +36,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (m);
 }
 
-size_t	ft_strlen(char *ar)
+size_t	get_strlen(char *ar)
 {
 	size_t	a;
 
@@ -46,13 +46,13 @@ size_t	ft_strlen(char *ar)
 	return (a);
 }
 
-char	*ft_strdup(char *s1)
+char	*get_strdup(char *s1)
 {
 	int		a;
 	int		b;
 	char	*p;
 
-	b = ft_strlen(s1);
+	b = get_strlen(s1);
 	p = malloc(sizeof(char) * b + 1);
 	if (!p)
 		return (0);
