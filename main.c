@@ -1,12 +1,18 @@
 #include "cub.h"
-#include <mlx.h>
+// #include <mlx.h>
  
 
 
 int main(int ac, char **av)
 {
      t_pars *list;
+     char **map;
+
      create_list(&list, av[1]);
+     get_map(list);
+     // int i = 0;
+	// while (map[i])
+	// 	printf("%s\n", map[i++]);
 }
 // int main(int ac, char **av)
 // {

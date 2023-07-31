@@ -13,7 +13,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	cd libft && $(MAKE)
-	$(CC) $(OBJ)  $(LIBFT) -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(OBJ)  $(LIBFT)  -o $(NAME)
 
 clean :
 	rm -rf libft/*.o
