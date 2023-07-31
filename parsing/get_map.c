@@ -51,9 +51,6 @@ char	**get_map(t_pars *list)
 		i++;
 		tmp = tmp->next;
 	}
-	i = 0;
-	while (map[i])
-		printf("%s\n", map[i++]);
 	return (map);
 }
 

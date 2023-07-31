@@ -9,10 +9,10 @@ int main(int ac, char **av)
      char **map;
 
      create_list(&list, av[1]);
-     get_map(list);
-     // int i = 0;
-	// while (map[i])
-	// 	printf("%s\n", map[i++]);
+     map = get_map(list);
+     int i = 0;
+	while (map[i])
+		printf("%s\n", map[i++]);
 }
 // int main(int ac, char **av)
 // {
