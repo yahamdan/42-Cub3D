@@ -26,5 +26,6 @@ void	ft_lstadd_back(t_pars **lst, t_pars *new);
 t_pars	*ft_lstnew(char *str);
 int	ft_strcmp(char *s1, char *s2);
 char	**get_map(t_pars *list);
+int	check_characters(char **map);
 
 #endif
