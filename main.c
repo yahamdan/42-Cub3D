@@ -11,7 +11,11 @@ int main(int ac, char **av)
      list = NULL;
      create_list(&list, av[1]);
      map = get_map(list);
-     // check_characters(map);
+     check_characters(map);
+     if (!is_mapclosed(map))
+     {
+          write(2, "error map not closed\n", 21);
+     }
      // int i = 0;
 	// while (map[i])
 	// 	printf("%s\n", map[i++]);

@@ -1,5 +1,57 @@
 #include "../cub.h"
 
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		free(split[i++]);
+	free(split);
+}
+int is_mapclosed(char **map)
+{
+	int	i;
+	int j;
+	char **map_splited;
+
+	i = 0;
+	j = 0;
+	while (map[i])
+		i++;
+	i--;
+	while (map[i][j])
+	{
+		if (map[i][j] != '1' && map[i][j] != ' ')
+			return (0);
+		j++;
+	}
+	j = 0;
+	printf("%s\n", map[j]);
+	while (map[0][j])
+	{
+		if (map[0][j] != '1' && map[i][j] != ' ')
+		{
+			printf("%c\n", map[0][j]);
+			return (0);
+		}
+		j++;
+	}
+	return (1);
+	i = 0;
+	while (map[i])
+	{
+		map_splited = ft_split(map[i], '\n');
+		if (map_splited[0][0] != '1' || map_splited[0][ft_strlen(map_splited[0])] != '1')
+		{
+			free_split(map_splited);
+			return (0);
+		}
+		free_split(map_splited);
+	}
+	return (1);
+		
+}
 
 int	if_dup(t_pars *list)
 {
@@ -96,26 +148,33 @@ void	create_list(t_pars **list, char *n_file)
 	// 	(*list) = (*list)->next;
 	// }
 }
+
 int	check_characters(char **map)
 {
 	int i;
 	int j;
+	char	**map_splited;
 
 	i = 0;
 	while (map[i])
 	{
+		map_splited = ft_split(map[i], '\n');
 		j = 0;
-		while (map[i][j])
+		// if (!is_mapclosed(map_splited))
+		// 	return (0);
+		while (map_splited[0][j])
 		{
-			if (map[i][j] != ' ' && map[i][j] != '1' && map[i][j] != '0'
-				&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'E' && map[i][j] != 'W')
+			if (map_splited[0][j] != ' ' && map_splited[0][j] != '1' && map_splited[0][j] != '0'
+				&& map_splited[0][j] != 'N' && map_splited[0][j] != 'S' && map_splited[0][j] != 'E' && map_splited[0][j] != 'W')
 			{
-				printf("%c\n", map[i][j]);
+				printf("%c\n", map_splited[0][j]);
+				free_split(map_splited);
 				write(2, "character not valid\n", 20);
 				return (0);
 			}
 			j++;
 		}
+		free_split(map_splited);
 		i++;
 	}
 	return (1);

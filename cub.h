@@ -27,5 +27,6 @@ t_pars	*ft_lstnew(char *str);
 int	ft_strcmp(char *s1, char *s2);
 char	**get_map(t_pars *list);
 int	check_characters(char **map);
+int is_mapclosed(char **map);
 
 #endif
