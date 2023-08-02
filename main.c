@@ -11,7 +11,6 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	//}
 }
-// #include <mlx.h>
  
 
 
@@ -26,34 +25,60 @@ void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 // 	while (map[i])
 // 		printf("%s\n", map[i++]);
 // }
+void	drow(t_cub *data, int i, int j , int color)
+{
+	int x;
+	int y;
+	x = i - 64;
+	while(x < i - 1)
+	{
+		y = j - 64;
+		while(y < j - 1)
+		{
+			my_mlx_pixel_put(&data->img_, y, x, color);
+			y++;
+		}
+		x++;
+	}
+}
+
 void    drow_2d(char **map, t_cub *data)
 {
-    int i = 0 , j = 0;
-    int n;
+	int i, j;
 
-                while(n++ > 64)
-                    my_mlx_pixel_put(&data->img_, i, j, 0x785A54);
+	i = 0;
+	while(map[i])
+	{
+		j = 0;
+		while(map[i][j])
+		{
+			if (map[i][j] == '1')
+				drow(data, ((i + 1) *64), ((j + 1) * 64), 0x2F2D2C);
+			else if (map[i][j] != '1' && map[i][j] != '\n')
+				drow(data, ((i + 1) *64), ((j + 1) * 64), 0x785A54);
+			j++; 
+		}
+		i++;
+	}	
 }
 
 int main(int ac, char **av)
  {
-     t_cub   ma;
+	 t_cub   ma;
 
 
-    t_pars *list;
-    char **map;
-    
-    create_list(&list, av[1]);
-    map = get_map(list);
-    ma.mlx_ = mlx_init();
-    ma.win_ = mlx_new_window(ma.mlx_, 1820, 1080, "CUB3D");
-    ma.img_.img = mlx_new_image(ma.mlx_, 1820, 1080);
-    ma.img_.addr = mlx_get_data_addr(ma.img_.img, &ma.img_.bits_per_pixel, &ma.img_.line_length, &ma.img_.endian);
-    drow_2d(map, &ma);
-    mlx_loop(ma.mlx_);
+	t_pars *list;
+	list = NULL;
+	char **map;
+	
+	create_list(&list, av[1]);
+	map = get_map(list);
+	ma.mlx_ = mlx_init();
+	ma.win_ = mlx_new_window(ma.mlx_, (25 * 64), (10 * 64), "CUB3D");
+	ma.img_.img = mlx_new_image(ma.mlx_, (25 * 64), (10 * 64));
+	ma.img_.addr = mlx_get_data_addr(ma.img_.img, &ma.img_.bits_per_pixel, &ma.img_.line_length, &ma.img_.endian);
+	drow_2d(map, &ma);
+	mlx_put_image_to_window(ma.mlx_, ma.win_, ma.img_.img, 0, 0);
+	mlx_loop(ma.mlx_);
 
 }
-//     map.mlx_ = mlx_init();
-//     map.win_ = mlx_new_window(map.mlx_, 1820, 500, "CUB3D");
-//     mlx_loop(map.mlx_);
-// }
