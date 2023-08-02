@@ -13,7 +13,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	cd libft && $(MAKE)
-	$(CC) $(OBJ)  $(LIBFT)  -o $(NAME)
+	$(CC) $(OBJ)  $(LIBFT) -fsanitize=address -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean :
 	rm -rf libft/*.o
