@@ -1,5 +1,19 @@
 #include "../cub.h"
 
+char *switch_nline(char *str)
+{
+    int	i;
+
+	i = 0;
+    while (str && str[i])
+	{
+		if (str[i] == '\n' && str[0] != '\n')
+			str[i] = '\0';
+		i++;
+	}
+	return (str);
+}
+
 void	free_split(char **split)
 {
 	int	i;
@@ -100,11 +114,11 @@ char	**get_map(t_pars *list)
 	t_pars *tmp;
 
 	i = 0; 
-	if (!check_ifvalid(list))
-	{
-		write(2, "not valid\n", 10);
-		exit (1);
-	}
+	// if (!check_ifvalid(list))
+	// {
+	// 	write(2, "not valid\n", 10);
+	// 	exit (1);
+	// }
 	while (list)
 	{
 		if (list->string[0] == '1' || list->string[0] == '0')
@@ -135,12 +149,12 @@ void	create_list(t_pars **list, char *n_file)
 	int fd;
 
 	fd = open(n_file, O_RDONLY);
-	str = get_next_line(fd);
+	str = switch_nline(get_next_line(fd));
 	while (str)
 	{
 		ft_lstadd_back(list, ft_lstnew(str));
 		free(str);
-		str = get_next_line(fd);
+		str = switch_nline(get_next_line(fd));
 	}
 	// while (*list)
 	// {

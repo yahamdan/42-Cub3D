@@ -1,5 +1,6 @@
 #include "cub.h"
 
+
 // void	my_mlx_pixel_put(t_img *data, int x, int y, int color)
 // {
 //      t_pars *list;
@@ -30,14 +31,15 @@
 
 int main(int ac, char **av)
 {
-     t_pars *list;
-     char **map;
+    t_pars *list;
+    char **map;
 
-     create_list(&list, av[1]);
-     map = get_map(list);
+	list = NULL;
+	create_list(&list, av[1]);
+	map = get_map(list);
      int i = 0;
 	while (map[i])
-		printf("%s\n", map[i++]);
+		printf("%s***", map[i++]);
 }
 // void	drow(t_cub *data, int i, int j , int color)
 // {
