@@ -85,8 +85,9 @@ void	drow_map(t_cub *data, int i, int j , int color)
 
 void    drow_2d(t_cub *data)
 {
-	int i, j;
-
+    t_pars *list;
+    char **map;
+	int i,j;
 	i = 0;
 	while(data->map[i])
 	{
