@@ -6,7 +6,20 @@
 #include "libft/libft.h"
 #include "parsing/get_next_line.h"
 
+# define WIDTH (21 * 64)
+# define HEIGHT (10 * 64)
+# define SIZE 9
 
+typedef struct s_dda
+{
+	int		dx;
+	int		dy;
+	int		steps;
+	float	xi;
+	float	yi;
+	float	xinc;
+	float	yinc;
+}		t_dda;
 
 typedef struct	s_img {
 	void	*img;
@@ -16,17 +29,24 @@ typedef struct	s_img {
 	int		endian;
 }				t_img;
 
+typedef struct s_player
+{
+	int	x;
+	int y;
+}	t_player;
+
 typedef struct s_cub
 {
-    void    *mlx_;
-    void    *win_;
-    t_img   img_;
+	void    *mlx_;
+	void    *win_;
+	char	**map;
+	struct s_img   img_;
+	struct s_player player;
 }   t_cub;
-
 
 typedef struct s_pars
 {
-    char *string;
+	char *string;
 	struct s_pars *next;
 }              t_pars ;
 
