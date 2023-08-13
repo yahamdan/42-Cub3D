@@ -1,7 +1,9 @@
 #ifndef CUB_H
 #define CUB_H
 
-#include <mlx.h>
+#include "mlx/mlx.h"
+#include "mlx/mlx_int.h"
+//#include <mlx.h>
 #include <stdlib.h>
 #include "libft/libft.h"
 #include "parsing/get_next_line.h"
@@ -21,13 +23,13 @@ typedef struct s_dda
 	float	yinc;
 }		t_dda;
 
-typedef struct	s_img {
+typedef struct	s_immg {
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-}				t_img;
+}				t_immg;
 
 typedef struct s_player
 {
@@ -40,7 +42,7 @@ typedef struct s_cub
 	void    *mlx_;
 	void    *win_;
 	char	**map;
-	struct s_img   img_;
+	struct s_immg   img_;
 	struct s_player player;
 }   t_cub;
 

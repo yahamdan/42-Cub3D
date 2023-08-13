@@ -1,4 +1,5 @@
 NAME = cub
+MLX = -Lmlx -lmlx -Imlx -lXext -lX11 -lm -lz
 LIBFT = libft/libft.a
 
 SRC = main.c parsing/get_map.c parsing/get_next_line_utils.c parsing/get_next_line.c \
@@ -12,8 +13,8 @@ all : $(NAME)
 
 
 $(NAME) : $(OBJ)
-	cd libft && $(MAKE)
-	$(CC) $(OBJ)  $(LIBFT) -fsanitize=address -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(MAKE) -C ./libft
+	$(CC) $(OBJ)  $(LIBFT)  $(MLX) -o $(NAME)
 
 clean :
 	rm -rf libft/*.o
