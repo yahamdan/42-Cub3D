@@ -14,13 +14,13 @@
 
 typedef struct s_dda
 {
-	int		dx;
-	int		dy;
-	int		steps;
-	float	xi;
-	float	yi;
-	float	xinc;
-	float	yinc;
+	double	dx;
+	double	dy;
+	double 	steps;
+	double	xi;
+	double	yi;
+	double	xinc;
+	double	yinc;
 }		t_dda;
 
 typedef struct	s_immg {
@@ -33,8 +33,13 @@ typedef struct	s_immg {
 
 typedef struct s_player
 {
-	int	x;
-	int y;
+	double	xtmp;
+	double	ytmp;
+	double	x;
+	double	y;
+	double	rotation;
+	double	xin;
+	double	yin;
 }	t_player;
 
 typedef struct s_cub
@@ -59,5 +64,14 @@ int	ft_strcmp(char *s1, char *s2);
 char	**get_map(t_pars *list);
 int	check_characters(char **map);
 int is_mapclosed(char **map);
+
+
+// raycasting 
+void    rightrotation(t_cub *data);
+void    leftrotation(t_cub *data);
+void    move_up(t_cub *data);
+void    move_down(t_cub *data);
+void    move_right(t_cub *data);
+void    move_left(t_cub *data);
 
 #endif

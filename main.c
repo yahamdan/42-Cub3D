@@ -10,36 +10,30 @@ void	my_mlx_pixel_put(t_immg *data, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	}
 }
- 
-int abs(int nub)
-{
-	if (nub > 0)
-		return (nub);
-	else
-		nub *= -1;
-	return (nub);
-}
 
-void	dda_line(t_cub	*data, int	x, int y)
+void	dda_line(t_cub	*data, double x, double y)
 {
 	t_dda	dda;
 
 	dda.dx = x - data->player.x;
 	dda.dy = y - data->player.y;
-	if (abs(dda.dx) > abs(dda.dy))
-		dda.steps = abs(dda.dx);
+	if (fabs(dda.dx) > fabs(dda.dy))
+		dda.steps = fabs(dda.dx);
 	else
-		dda.steps = abs(dda.dy);
+		dda.steps = fabs(dda.dy);
 	dda.xinc = dda.dx / dda.steps;
 	dda.yinc = dda.dy / dda.steps;
 	dda.xi = data->player.x;
 	dda.yi = data->player.y;
-	while(dda.steps--)
+	//double i = 0;
+	//printf("%f\n", dda.steps);
+	while((int)dda.steps--)
 	{
 		my_mlx_pixel_put(&data->img_, dda.xi, dda.yi, 0x000000FF);
 		dda.xi += dda.xinc;
 		dda.yi += dda.yinc;
 	}
+	//printf("%f.     %f\n", dda.xi, x);
 }
 
 void	draw_player(t_cub *data, int x, int y, int color)
@@ -69,18 +63,22 @@ void	drow_map(t_cub *data, int i, int j , int color)
 	int x;
 	int y;
 	y = i - 64;
-	while(y < i - 1)
+	while(y < i)
 	{
 		x = j - 64;
-		while(x < j - 1)
+		while(x < j)
 		{
-			my_mlx_pixel_put(&data->img_, x, y, color);
+			if (x == j - 1)
+				my_mlx_pixel_put(&data->img_, x, y, 0x17202A);
+			else if (y == i - 1)
+				my_mlx_pixel_put(&data->img_, x, y, 0x17202A);
+			else
+				my_mlx_pixel_put(&data->img_, x, y, color);
 			x++;
 		}
 		y++;
 	}
-	draw_player(data, data->player.x, data->player.y, 0x0000FF);
-	dda_line(data, data->player.x, (data->player.y - 25));
+	
 }
 
 void    drow_2d(t_cub *data)
@@ -101,32 +99,45 @@ void    drow_2d(t_cub *data)
 			j++; 
 		}
 		i++;
-	}	
+	}
+	my_mlx_pixel_put(&data->img_, data->player.x, data->player.y, 0x0000FF);
+	draw_player(data, data->player.x, data->player.y, 0x0000FF);
+	//dda_line(data, data->player.xin, data->player.yin);
+	float x,y;
+	x = data->player.x , y = data->player.y;
+	for (int i = 0; i < 33 ; i++)
+	{
+		my_mlx_pixel_put(&data->img_ ,x,y, 0x0000FF);
+		x += cos(data->player.rotation);
+		y += sin(data->player.rotation);
+	}
 }
 int	key_hook(int key, t_cub *data)
 {
-	// printf("%d\n", key);
+	printf("%f\n",  data->player.rotation);
 	if (key == 53)
 		exit(0);
-	int x = data->player.x;
-	int y = data->player.y;
+	data->player.xtmp = data->player.x;
+	data->player.ytmp = data->player.y;
 	if (key == 13)
-		y = data->player.y - 2;
+		move_up(data);
 	else if (key == 1)
-		y = data->player.y + 2;
+		move_down(data);
 	else if (key == 0)
-		x = data->player.x - 2;
+		move_left(data);
 	else if (key == 2)
-		x = data->player.x + 2;
-	// else if (key == 123)
-	// 	x = data->player.x - 4;
-	// else if (key == 124)
-	// 	x = data->player.x + 4;
-	if (data->map[y / 64][x / 64] != '1')
+		move_right(data);
+	else if (key == 123)
+		leftrotation(data);
+	else if (key == 124)
+		rightrotation(data);
+	if (data->map[(int)data->player.ytmp / 64][(int)data->player.xtmp / 64] != '1')
 	{
-		data->player.x = x;
-		data->player.y = y;
+		data->player.x = data->player.xtmp;
+		data->player.y = data->player.ytmp;
 		mlx_clear_window(data->mlx_, data->win_);
+		data->player.xin = data->player.x + cos(data->player.rotation) * 35;
+    	data->player.yin = data->player.y + sin(data->player.rotation) * 35;
 		drow_2d(data);
 		mlx_put_image_to_window(data->mlx_, data->win_, data->img_.img, 0, 0);
 	}
@@ -148,6 +159,9 @@ int	key_hook(int key, t_cub *data)
 		}
 		i++;
 	}
+	data->player.rotation = 1.570796;
+	data->player.xin =  data->player.x + cos(data->player.rotation) * 35;
+    data->player.yin = data->player.y + sin(data->player.rotation) * 35;
 }
 
 int main(int ac, char **av)
@@ -155,15 +169,14 @@ int main(int ac, char **av)
 	t_cub   data;
 	t_pars *list;
 	list = NULL;
-	//char **map;
 	
 	create_list(&list, av[1]);
-	//map = get_map(list);
 	data.map = get_map(list);
 	data.mlx_ = mlx_init();
 	data.win_ = mlx_new_window(data.mlx_, WIDTH , HEIGHT, "CUB3D");
 	data.img_.img = mlx_new_image(data.mlx_, WIDTH, HEIGHT);
-	data.img_.addr = mlx_get_data_addr(data.img_.img, &data.img_.bits_per_pixel, &data.img_.line_length, &data.img_.endian);
+	data.img_.addr = mlx_get_data_addr(data.img_.img, &data.img_.bits_per_pixel,
+		&data.img_.line_length, &data.img_.endian);
 	player_position(&data);
 	drow_2d(&data);
 	mlx_put_image_to_window(data.mlx_, data.win_, data.img_.img, 0, 0);
