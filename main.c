@@ -131,11 +131,6 @@ int	key_hook(int key, t_cub *data)
 		mlx_put_image_to_window(data->mlx_, data->win_, data->img_.img, 0, 0);
 	}
 	return (0);
-}
-
-
-void	player_position(t_cub *data)
-{
 	int i = 0;
 	int j;
 
