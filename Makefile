@@ -2,10 +2,11 @@ NAME = cub
 LIBFT = libft/libft.a
 
 SRC = main.c parsing/get_map.c parsing/get_next_line_utils.c parsing/get_next_line.c \
-	ft_lstadd_back.c ft_lstlast.c ft_lstnew.c
+	ft_lstadd_back.c ft_lstlast.c ft_lstnew.c \
+	raycasting/rotation.c raycasting/move_player.c
  
 CC = cc
-
+CFLAGS = -fsanitize=address -g # -Wall -Wextra -Werror
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
@@ -13,7 +14,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	cd libft && $(MAKE)
-	$(CC) $(OBJ)  $(LIBFT) -fsanitize=address -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ)  $(LIBFT)  -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 clean :
 	rm -rf libft/*.o
