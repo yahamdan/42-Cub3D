@@ -1,16 +1,43 @@
 #ifndef CUB_H
 #define CUB_H
 
-#include "mlx/mlx.h"
-#include "mlx/mlx_int.h"
-//#include <mlx.h>
+#include <mlx.h>
+#include <math.h>
 #include <stdlib.h>
 #include "libft/libft.h"
 #include "parsing/get_next_line.h"
 
-# define WIDTH (21 * 64)
-# define HEIGHT (10 * 64)
+# define WIDTH (23 * 64)
+# define HEIGHT (11 * 64)
 # define SIZE 9
+# define FOV 1.0472
+# define CRNUM (21 * 64)
+# define SQRTS 64
+# define PI 3.14159265359
+
+typedef struct s_horcheck
+{
+	float	xstep;
+	float	ystep;
+	float	next_horx;
+	float	next_hory;
+	float	hitwallx;
+	float	hitwally;
+	float	xintercept;
+	float	yintercept;
+}	t_hor;
+
+typedef struct s_vercheck
+{
+	float	xstep;
+	float	ystep;
+	float	next_verx;
+	float	next_very;
+	float	hitwallx;
+	float	hitwally;
+	float	xintercept;
+	float	yintercept;
+}	t_ver;
 
 typedef struct s_dda
 {
@@ -38,8 +65,8 @@ typedef struct s_player
 	double	x;
 	double	y;
 	double	rotation;
-	double	xin;
-	double	yin;
+	double	xintercept;
+	double	yintercept;
 }	t_player;
 
 typedef struct s_cub
@@ -47,8 +74,11 @@ typedef struct s_cub
 	void    *mlx_;
 	void    *win_;
 	char	**map;
+	double rayangle;
 	struct s_immg   img_;
 	struct s_player player;
+	struct s_horcheck	hor;
+	struct s_vercheck	ver;
 }   t_cub;
 
 typedef struct s_pars
@@ -73,5 +103,6 @@ void    move_up(t_cub *data);
 void    move_down(t_cub *data);
 void    move_right(t_cub *data);
 void    move_left(t_cub *data);
+double rad(double ang);
 
 #endif

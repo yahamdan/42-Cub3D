@@ -1,13 +1,12 @@
 NAME = cub
-MLX = -Lmlx -lmlx -Imlx -lXext -lX11 -lm -lz
 LIBFT = libft/libft.a
 
 SRC = main.c parsing/get_map.c parsing/get_next_line_utils.c parsing/get_next_line.c \
 	ft_lstadd_back.c ft_lstlast.c ft_lstnew.c \
 	raycasting/rotation.c raycasting/move_player.c
  
-CC = cc
-CFLAGS = -fsanitize=address -g # -Wall -Wextra -Werror
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 # 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
@@ -15,7 +14,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	$(MAKE) -C ./libft
-	$(CC) $(OBJ)  $(LIBFT)  $(MLX) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ)  $(LIBFT) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean :
 	rm -rf libft/*.o

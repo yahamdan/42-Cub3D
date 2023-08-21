@@ -8,7 +8,7 @@ SRC = ft_atoi.c ft_isalpha.c ft_isdigit.c ft_memchr.c \
 
 NAME = libft.a
 OBJ = $(SRC:.c=.o)
-CC = cc
+CC = clang
 CFLAGS = -Wall -Wextra -Werror 
 
 all: $(NAME)
