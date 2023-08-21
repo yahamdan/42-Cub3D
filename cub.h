@@ -7,12 +7,12 @@
 #include "libft/libft.h"
 #include "parsing/get_next_line.h"
 
-# define WIDTH (23 * 64)
-# define HEIGHT (11 * 64)
+# define WIDTH (21 * 64)
+# define HEIGHT (10 * 64)
 # define SIZE 9
 # define FOV 1.0472
 # define CRNUM (21 * 64)
-# define SQRTS 64
+# define SQRS 64
 # define PI 3.14159265359
 
 typedef struct s_horcheck

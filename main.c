@@ -60,10 +60,10 @@ void	drow_map(t_cub *data, int i, int j , int color)
 {
 	int x;
 	int y;
-	y = i - SQRTS;
+	y = i - SQRS;
 	while(y < i)
 	{
-		x = j - SQRTS;
+		x = j - SQRS;
 		while(x < j)
 		{
 			if (x == j - 1)
@@ -100,22 +100,22 @@ double	*horizontal_check(t_cub *data)
 {
 
 	double *horhitwall = malloc(2 * sizeof(double));
-	data->hor.yintercept = floor((data->player.y / SQRTS)) * SQRTS;
+	data->hor.yintercept = floor((data->player.y / SQRS)) * SQRS;
 	if (sin(data->rayangle) > 0)
-		data->hor.yintercept += SQRTS;
+		data->hor.yintercept += SQRS;
 	data->hor.xintercept = ((data->player.y - data->hor.yintercept) / tan(data->rayangle));
 	if (cos(data->rayangle) < 0)
 		data->hor.xintercept = data->player.x - fabs(data->hor.xintercept);
 	else
 		data->hor.xintercept = data->player.x + fabs(data->hor.xintercept);
-	data->hor.ystep = SQRTS;
+	data->hor.ystep = SQRS;
 	if (sin(data->rayangle) < 0)
 		data->hor.ystep *= -1;
-	data->hor.xstep = SQRTS / tan(data->rayangle);
+	data->hor.xstep = SQRS / tan(data->rayangle);
 	if ((cos(data->rayangle) < 0 && data->hor.xstep > 0)
 		|| (cos(data->rayangle) > 0 && data->hor.xstep < 0))
 		data->hor.xstep *= -1;
-	printf("{%f     %f}\n", data->hor.xstep, data->hor.ystep);
+	//printf("{%f     %f}\n", data->hor.xstep, data->hor.ystep);
 		
 	data->hor.next_horx = data->hor.xintercept;
 	data->hor.next_hory = data->hor.yintercept;
@@ -140,18 +140,18 @@ double	*horizontal_check(t_cub *data)
 double	*vertical_check(t_cub *data)
 {
 	double * hitwall = malloc(2 * sizeof(double));
-	data->ver.xintercept = floor(data->player.x / SQRTS) * SQRTS;
+	data->ver.xintercept = floor(data->player.x / SQRS) * SQRS;
 	if(cos(data->rayangle) > 0)
-		data->ver.xintercept += SQRTS;
+		data->ver.xintercept += SQRS;
 	data->ver.yintercept = (data->player.x - data->ver.xintercept) * tan(data->rayangle) ;
 	if (sin(data->rayangle) < 0)
 		data->ver.yintercept = data->player.y - fabs(data->ver.yintercept);
 	else
 		data->ver.yintercept = data->player.y + fabs(data->ver.yintercept);
-	data->ver.xstep = SQRTS;
+	data->ver.xstep = SQRS;
 	if (cos(data->rayangle) < 0)
 		data->ver.xstep *= -1;
-	data->ver.ystep = SQRTS * tan(data->rayangle);
+	data->ver.ystep = SQRS * tan(data->rayangle);
 	if((sin(data->rayangle) > 0 && data->ver.ystep < 0)
 		|| (sin(data->rayangle) < 0 && data->ver.ystep > 0))
 		data->ver.ystep *= -1;
@@ -184,54 +184,109 @@ double	count_distance(t_cub *data, double x,  double y)
 
 	return (distance);
 }
-void	ray_caster(t_cub *data)
+void	ray_caster(t_cub *data, int x)
 {
-	double *verhitwall;
-	double *horhitwall;
-
+	double	*verhitwall;
+	double	*horhitwall;
+	double	PPDistance;
+	double	PPhight;
+	double	verdist;
+	double	hordist;
+	double	y;
+	int		i = 0;
+	
 	horhitwall = horizontal_check(data);
 	verhitwall =  vertical_check(data);
+	verdist = count_distance(data, verhitwall[0], verhitwall[1]);
+	hordist = count_distance(data, horhitwall[0], horhitwall[1]);
+	PPDistance = (WIDTH / 2) / tan(rad(30));
 	if (horhitwall[1] < 0 || horhitwall[0] < 0)
 	{
-		dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
+		verdist *= cos(data->player.rotation - data->rayangle);
+		PPhight = (SQRS / verdist) * PPDistance;
+		y = (HEIGHT / 2) - (PPhight / 2);
+		
+		while(i < PPhight)
+		{
+			my_mlx_pixel_put(&data->img_, x, y, 0x46FF33);
+			y++;
+			i++;
+		}
+		free(verhitwall);
+		free(horhitwall);
+		//dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
 		return ;
 	}
 	if (verhitwall[1] < 0 || verhitwall[0] < 0)
 	{
-		dda_line(data, horhitwall[0], horhitwall[1], 0x000000FF);
+		hordist *= cos(data->player.rotation - data->rayangle);
+		PPhight = (SQRS / hordist) * PPDistance;
+		y = (HEIGHT / 2) - (PPhight / 2);
+		while(i < PPhight)
+		{
+			my_mlx_pixel_put(&data->img_, x, y, 0x2596be);
+			y++;
+			i++;
+		}
+		//dda_line(data, horhitwall[0], horhitwall[1], 0x000000FF);
+		free(verhitwall);
+		free(horhitwall);
 		return ;
 	}
-	printf("vertical = %f   horizental == %f\n",  count_distance(data, verhitwall[0], verhitwall[1]), count_distance(data, horhitwall[0], horhitwall[1]));
 	if (count_distance(data, horhitwall[0], horhitwall[1]) >= count_distance(data, verhitwall[0], verhitwall[1]))
-		dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
+	{
+		verdist *= cos(data->player.rotation - data->rayangle);
+		PPhight = (SQRS / verdist) * PPDistance;
+		y = (HEIGHT / 2) - (PPhight / 2);
+		while(i < PPhight)
+		{
+			my_mlx_pixel_put(&data->img_, x, y, 0x46FF33);
+			y++;
+			i++;
+		}
+		//dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
+	}
 	else
-		dda_line(data, horhitwall[0], horhitwall[1], 0x000000FF);
+	{
+		hordist *= cos(data->player.rotation - data->rayangle);
+		PPhight = (SQRS / hordist) * PPDistance;
+		y = ( HEIGHT / 2) - (PPhight / 2);
+		while(i < PPhight)
+		{
+			my_mlx_pixel_put(&data->img_, x, y, 0x2596be);
+			y++;
+			i++;
+		}
+		//dda_line(data, horhitwall[0], horhitwall[1], 0x000000FF);
+	}
+	free(verhitwall);
+	free(horhitwall);
 }
 
 void    drow_2d(t_cub *data)
 {
-	int i,j;
-	i = 0;
-	while(data->map[i])
-	{
-		j = 0;
-		while(data->map[i][j])
+	// int i,j;
+	// i = 0;
+	// while(data->map[i])
+	// {
+	// 	j = 0;
+	// 	while(data->map[i][j])
 
-		{
-			if (data->map[i][j] == '1')
-				drow_map(data, ((i + 1) * SQRTS), ((j + 1) * SQRTS), 0x2F2D2C);
-			else if (data->map[i][j] != '1' && data->map[i][j] != '\n' && data->map[i][j] != ' ')
-				drow_map(data, ((i + 1) * SQRTS), ((j + 1) * SQRTS), 0xB8AFAF);
-			j++;
-		}
-		i++;
-	}
-	my_mlx_pixel_put(&data->img_, data->player.x, data->player.y, 0x0000FF);
+	// 	{
+	// 		if (data->map[i][j] == '1')
+	// 			drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0x2F2D2C);
+	// 		else if (data->map[i][j] != '1' && data->map[i][j] != '\n' && data->map[i][j] != ' ')
+	// 			drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0xB8AFAF);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+	// my_mlx_pixel_put(&data->img_, data->player.x, data->player.y, 0x0000FF);
 	//draw_player(data, data->player.x, data->player.y, 0x0000FF);
 	//dda_line(data, data->player.xintercept, data->player.yintercept);
 	// double  x,y;
 	// x = data->player.x , y = data->player.y;
-	// while (data->map[(int)(y + 1) / SQRTS][(int)(x + 1) / SQRTS] != '1')
+	// while (data->map[(int)(y + 1) / SQRS][(int)(x + 1) / SQRS] != '1')
 	// {
 	// 	my_mlx_pixel_put(&data->img_ ,x,y, 0x0000FF);
 	// 	x += cos(data->player.rotation);
@@ -241,7 +296,7 @@ void    drow_2d(t_cub *data)
 	data->rayangle = data->player.rotation - rad(30);
 	while(k < CRNUM)
 	{
-		ray_caster(data);
+		ray_caster(data, k);
 		data->rayangle += FOV / CRNUM;
 		k++;
 	}
@@ -266,11 +321,15 @@ int	keey_hook(int key, t_cub *data)
 		leftrotation(data);
 	else if (key == 65363)
 		rightrotation(data);
-	if (data->map[(int)data->player.ytmp / SQRTS][(int)data->player.xtmp / SQRTS] != '1')
+	if (data->map[(int)data->player.ytmp / SQRS][(int)data->player.xtmp / SQRS] != '1')
 	{
 		data->player.x = data->player.xtmp;
 		data->player.y = data->player.ytmp;
-		mlx_clear_window(data->mlx_, data->win_);
+		//mlx_clear_window(data->mlx_, data->win_);
+
+		data->img_.img = mlx_new_image(data->mlx_, WIDTH, HEIGHT);
+	data->img_.addr = mlx_get_data_addr(data->img_.img, &data->img_.bits_per_pixel,
+		&data->img_.line_length, &data->img_.endian);
 		// data->player.xintercept = data->player.x + cos(data->player.rotation);
     	// data->player.yintercept = data->player.y + sin(data->player.rotation);
 		drow_2d(data);
@@ -291,8 +350,8 @@ void	player_position(t_cub *data)
 		{
 			if(data->map[i][j] == 'P')
 			{
-				data->player.x = (j * SQRTS) + 32;
-				data->player.y = (i * SQRTS) + 32;
+				data->player.x = (j * SQRS) + 32;
+				data->player.y = (i * SQRS) + 32;
 				// data->player.x = WIDTH / 2;
 				// data->player.y = HEIGHT /2;
 			}
@@ -300,7 +359,7 @@ void	player_position(t_cub *data)
 		}
 		i++;
 	}
-	data->player.rotation = rad(90);
+	data->player.rotation = rad(180);
 	// data->player.xintercept =  data->player.x + cos(data->player.rotation) * 32;
    	// data->player.yintercept = data->player.y + sin(data->player.rotation) * 32;
 }
