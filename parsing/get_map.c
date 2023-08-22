@@ -18,6 +18,11 @@ void	ifvalid_floor(char **map)
 					write(2, "floor not valid\n", 16);
 					exit(1);
 				}
+				else if (map[i][j-1] == ' ' || map[i][j+1] == ' ' || map[i+1][j] == ' ' || map[i-1][j] == ' ')
+				{
+					write(2, "floor not valid\n", 16);
+					exit(1);
+				}
 			}
 			j++;
 		}

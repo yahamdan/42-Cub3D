@@ -121,6 +121,7 @@ void	path__(t_pars *list, t_path **path);
 void	ifvalid_space(char **map);
 void	ifvalid_floor(char **map);
 void	rgbtoint(t_path *path);
+char	**rectagle_map(char **map);
 
 // void	create_list(t_pars **list, char *n_file);
 // void	ft_lstadd_back(t_pars **lst, t_pars *new);

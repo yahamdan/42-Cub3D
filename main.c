@@ -155,7 +155,13 @@ int main(int ac, char **av)
 	ifvalid_space(data.map);
 	path__(list, &path);
 	rgbtoint(path);
-
+	data.map = rectagle_map(data.map);
+	// for(int a = 0; data.map[a]; a++)
+	// {
+	// 	printf("%s\n", data.map[a]);
+	// }
+	// exit (1);
+	////
 	data.mlx_ = mlx_init();
 	data.win_ = mlx_new_window(data.mlx_, WIDTH , HEIGHT, "Abomination3D");
 	data.img_.img = mlx_new_image(data.mlx_, WIDTH, HEIGHT);
