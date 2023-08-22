@@ -7,11 +7,11 @@
 #include "libft/libft.h"
 #include "parsing/get_next_line.h"
 
-# define WIDTH (21 * 64)
-# define HEIGHT (10 * 64)
+# define WIDTH (34 * 64)
+# define HEIGHT (16 * 64)
 # define SIZE 9
 # define FOV 1.0472
-# define CRNUM (21 * 64)
+# define CRNUM (WIDTH)
 # define SQRS 64
 # define PI 3.14159265359
 
@@ -121,6 +121,7 @@ void	path__(t_pars *list, t_path **path);
 void	ifvalid_space(char **map);
 void	ifvalid_floor(char **map);
 void	rgbtoint(t_path *path);
+char	**rectagle_map(char **map);
 
 // void	create_list(t_pars **list, char *n_file);
 // void	ft_lstadd_back(t_pars **lst, t_pars *new);
