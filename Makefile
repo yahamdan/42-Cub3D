@@ -8,7 +8,7 @@ SRC = main.c parsing/get_map.c parsing/get_next_line_utils.c parsing/get_next_li
 	raycasting/horizontal_check.c
  
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 
+ CFLAGS = -fsanitize=address -g3#-Wall -Wextra -Werror  
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

@@ -84,7 +84,7 @@ double rad(double ang)
 
 int	check_if_hitwall(t_cub *data, float x, float y)
 {
-	if(data->map[(int)(x/ 64)][(int)(y / 64)] == '1')
+	if(data->map[(int)(x/ SQRS)]  && data->map[(int)(x/ SQRS)][(int)(y / SQRS)] == '1')
 		return (1);
 	return (0);
 }

@@ -11,6 +11,7 @@ void	ray_caster(t_cub *data, int x)
 	double	hordist;
 	double	y;
 	int		i = 0;
+	int color;
 	
 	horhitwall = horizontal_check(data);
 	verhitwall =  vertical_check(data);
@@ -22,13 +23,17 @@ void	ray_caster(t_cub *data, int x)
 		verdist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / verdist) * PPDistance;
 		y = (HEIGHT / 2) - (PPhight / 2);
-		
+		if(cos(data->rayangle) > 0)
+			color = 0x46FF33;
+		else
+			color = 0x2d5a1b;
 		while(i < PPhight)
 		{
-			my_mlx_pixel_put(&data->img_, x, y, 0x46FF33);
+			my_mlx_pixel_put(&data->img_, x, y, color);
 			y++;
 			i++;
 		}
+		// dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
 		free(verhitwall);
 		free(horhitwall);
 		return ;
@@ -38,12 +43,17 @@ void	ray_caster(t_cub *data, int x)
 		hordist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / hordist) * PPDistance;
 		y = (HEIGHT / 2) - (PPhight / 2);
+		if(sin(data->rayangle) > 0)
+			color = 0x2596be;
+		else
+			color = 0x45ffe1;
 		while(i < PPhight)
 		{
-			my_mlx_pixel_put(&data->img_, x, y, 0x2596be);
+			my_mlx_pixel_put(&data->img_, x, y, color);
 			y++;
 			i++;
 		}
+		// dda_line(data, horhitwall[0], horhitwall[1], 0x46FF33);
 		free(verhitwall);
 		free(horhitwall);
 		return ;
@@ -53,24 +63,34 @@ void	ray_caster(t_cub *data, int x)
 		verdist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / verdist) * PPDistance;
 		y = (HEIGHT / 2) - (PPhight / 2);
+		if(cos(data->rayangle) > 0)
+			color = 0x46FF33;
+		else
+			color = 0x2d5a1b;
 		while(i < PPhight)
 		{
-			my_mlx_pixel_put(&data->img_, x, y, 0x46FF33);
+			my_mlx_pixel_put(&data->img_, x, y, color);
 			y++;
 			i++;
 		}
+		// dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
 	}
 	else
 	{
 		hordist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / hordist) * PPDistance;
 		y = ( HEIGHT / 2) - (PPhight / 2);
+		if(sin(data->rayangle) > 0)
+			color = 0x2596be;
+		else
+			color = 0x45ffe1;
 		while(i < PPhight)
 		{
-			my_mlx_pixel_put(&data->img_, x, y, 0x2596be);
+			my_mlx_pixel_put(&data->img_, x, y, color);
 			y++;
 			i++;
 		}
+		// dda_line(data, horhitwall[0], horhitwall[1], 0x46FF33);
 	}
 	free(verhitwall);
 	free(horhitwall);
@@ -88,8 +108,8 @@ void	player_position(t_cub *data)
 		{
 			if(data->map[i][j] == 'W')
 			{
-				data->player.x = (j * SQRS) + 32;
-				data->player.y = (i * SQRS) + 32;
+				data->player.x = (j * SQRS) + 16;
+				data->player.y = (i * SQRS) + 16;
 			}
 			j++;
 		}
@@ -129,6 +149,7 @@ void    drow_2d(t_cub *data)
 	// }
 	int k = 0;
 	data->rayangle = data->player.rotation - rad(30);
+	//printf("here\n");
 	while(k < CRNUM)
 	{
 		ray_caster(data, k);

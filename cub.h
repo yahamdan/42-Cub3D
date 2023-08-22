@@ -7,12 +7,12 @@
 #include "libft/libft.h"
 #include "parsing/get_next_line.h"
 
-# define WIDTH (21 * 64)
-# define HEIGHT (10 * 64)
+# define WIDTH (33 * 32)
+# define HEIGHT (16 * 32)
 # define SIZE 9
 # define FOV 1.0472
-# define CRNUM (21 * 64)
-# define SQRS 64
+# define CRNUM (WIDTH)
+# define SQRS 32
 # define PI 3.14159265359
 
 typedef struct s_horcheck
@@ -147,5 +147,6 @@ double	*vertical_check(t_cub *data);
 void	my_mlx_pixel_put(t_immg *data, int x, int y, int color);
 double	count_distance(t_cub *data, double x,  double y);
 int	check_if_hitwall(t_cub *data, float x, float y);
-
+void	drow_map(t_cub *data, int i, int j , int color);
+void	dda_line(t_cub	*data, double x, double y, int color);
 #endif
