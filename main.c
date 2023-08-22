@@ -133,11 +133,29 @@ int main(int ac, char **av)
  {
 	(void)ac;
 	t_cub   data;
-	t_pars *list;
-	list = NULL;
+	// t_pars *list;
+	// list = NULL;
 	
+	// create_list(&list, av[1]);
+	// data.map = get_map(list);
+
+    t_pars *list;
+    t_path *path;
+
+	list = NULL;
 	create_list(&list, av[1]);
 	data.map = get_map(list);
+	check_characters(data.map);
+	ifvalid_floor(data.map);
+	if (!is_mapclosed(data.map))
+	{
+		write(2, "error map not closed\n", 21);
+		exit (1);
+	}
+	ifvalid_space(data.map);
+	path__(list, &path);
+	rgbtoint(path);
+
 	data.mlx_ = mlx_init();
 	data.win_ = mlx_new_window(data.mlx_, WIDTH , HEIGHT, "Abomination3D");
 	data.img_.img = mlx_new_image(data.mlx_, WIDTH, HEIGHT);

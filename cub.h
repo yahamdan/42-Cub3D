@@ -87,13 +87,48 @@ typedef struct s_pars
 	struct s_pars *next;
 }              t_pars ;
 
+
+typedef struct s_flag
+{
+	int	SO;
+	int	WE;
+	int	EA;
+	int	NO;
+	int	F;
+	int	C;
+}				t_flag;
+
+typedef struct s_path
+{
+	char	*SO_path;
+	char	*WE_path;
+	char	*EA_path;
+	char	*NO_path;
+	char	*F_path;
+	char	*C_path;
+	int		c;
+	int		f;
+}				t_path;
+
 void	create_list(t_pars **list, char *n_file);
 void	ft_lstadd_back(t_pars **lst, t_pars *new);
 t_pars	*ft_lstnew(char *str);
 int	ft_strcmp(char *s1, char *s2);
 char	**get_map(t_pars *list);
-int	check_characters(char **map);
+void	check_characters(char **map);
 int is_mapclosed(char **map);
+void	path__(t_pars *list, t_path **path);
+void	ifvalid_space(char **map);
+void	ifvalid_floor(char **map);
+void	rgbtoint(t_path *path);
+
+// void	create_list(t_pars **list, char *n_file);
+// void	ft_lstadd_back(t_pars **lst, t_pars *new);
+// t_pars	*ft_lstnew(char *str);
+// int	ft_strcmp(char *s1, char *s2);
+// char	**get_map(t_pars *list);
+// int	check_characters(char **map);
+// int is_mapclosed(char **map);
 
 
 // raycasting 

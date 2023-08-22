@@ -86,7 +86,7 @@ void	player_position(t_cub *data)
 		j = 0;
 		while(data->map[i][j])
 		{
-			if(data->map[i][j] == 'P')
+			if(data->map[i][j] == 'W')
 			{
 				data->player.x = (j * SQRS) + 32;
 				data->player.y = (i * SQRS) + 32;
