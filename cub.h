@@ -103,6 +103,14 @@ void    move_up(t_cub *data);
 void    move_down(t_cub *data);
 void    move_right(t_cub *data);
 void    move_left(t_cub *data);
-double rad(double ang);
+void	ray_caster(t_cub *data, int x);
+double	rad(double ang);
+void	player_position(t_cub *data);
+void    drow_2d(t_cub *data);
+double	*horizontal_check(t_cub *data);
+double	*vertical_check(t_cub *data);
+void	my_mlx_pixel_put(t_immg *data, int x, int y, int color);
+double	count_distance(t_cub *data, double x,  double y);
+int	check_if_hitwall(t_cub *data, float x, float y);
 
 #endif

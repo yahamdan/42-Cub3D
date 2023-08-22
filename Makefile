@@ -3,10 +3,12 @@ LIBFT = libft/libft.a
 
 SRC = main.c parsing/get_map.c parsing/get_next_line_utils.c parsing/get_next_line.c \
 	ft_lstadd_back.c ft_lstlast.c ft_lstnew.c \
-	raycasting/rotation.c raycasting/move_player.c
+	raycasting/rotation.c raycasting/move_player.c \
+	raycasting/raycasting_utils.c raycasting/vertical_check.c \
+	raycasting/horizontal_check.c
  
 CC = clang
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 # 
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
