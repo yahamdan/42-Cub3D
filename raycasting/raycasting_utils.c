@@ -23,13 +23,17 @@ void	ray_caster(t_cub *data, int x)
 		verdist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / verdist) * PPDistance;
 		y = (HEIGHT / 2) - (PPhight / 2);
-		if(cos(data->rayangle) > 0)
-			color = 0x46FF33;
-		else
-			color = 0x2d5a1b;
-		while(i < PPhight)
+		while(i < HEIGHT)
 		{
-			my_mlx_pixel_put(&data->img_, x, y, color);
+			if(cos(data->rayangle) > 0)
+				color = 0x527f81;
+			else
+				color = 0xCec26b;
+			if (i < (HEIGHT /2 ) - (PPhight / 2))
+				color = 0x45adff;
+			else if (i > (HEIGHT /2 ) + (PPhight / 2))
+			color = 0x758189;
+			my_mlx_pixel_put(&data->img_, x, i, color);
 			y++;
 			i++;
 		}
@@ -43,13 +47,17 @@ void	ray_caster(t_cub *data, int x)
 		hordist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / hordist) * PPDistance;
 		y = (HEIGHT / 2) - (PPhight / 2);
-		if(sin(data->rayangle) > 0)
-			color = 0x2596be;
-		else
-			color = 0x45ffe1;
-		while(i < PPhight)
+		while(i < HEIGHT)
 		{
-			my_mlx_pixel_put(&data->img_, x, y, color);
+			if(sin(data->rayangle) > 0)
+				color = 0x1f4821;
+			else
+				color = 0x9e8d8b;
+			if (i < (HEIGHT /2 ) - (PPhight / 2))
+				color = 0x45adff;
+			else if (i > (HEIGHT /2 ) + (PPhight / 2))
+				color = 0x758189;
+			my_mlx_pixel_put(&data->img_, x, i, color);
 			y++;
 			i++;
 		}
@@ -63,13 +71,17 @@ void	ray_caster(t_cub *data, int x)
 		verdist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / verdist) * PPDistance;
 		y = (HEIGHT / 2) - (PPhight / 2);
-		if(cos(data->rayangle) > 0)
-			color = 0x46FF33;
-		else
-			color = 0x2d5a1b;
-		while(i < PPhight)
+		while(i < HEIGHT)
 		{
-			my_mlx_pixel_put(&data->img_, x, y, color);
+			if(cos(data->rayangle) > 0)
+				color = 0x527f81;
+			else
+				color = 0xCec26b;
+			if (i < (HEIGHT /2 ) - (PPhight / 2))
+				color = 0x45adff;
+			else if (i > (HEIGHT /2 ) + (PPhight / 2))
+				color = 0x758189;
+			my_mlx_pixel_put(&data->img_, x, i, color);
 			y++;
 			i++;
 		}
@@ -80,13 +92,17 @@ void	ray_caster(t_cub *data, int x)
 		hordist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / hordist) * PPDistance;
 		y = ( HEIGHT / 2) - (PPhight / 2);
-		if(sin(data->rayangle) > 0)
-			color = 0x2596be;
-		else
-			color = 0x45ffe1;
-		while(i < PPhight)
+		while(i < HEIGHT)
 		{
-			my_mlx_pixel_put(&data->img_, x, y, color);
+			if(sin(data->rayangle) > 0)
+				color = 0x1f4821;
+			else
+				color = 0x9e8d8b;
+			if (i < (HEIGHT /2 ) - (PPhight / 2))
+				color = 0x45adff;
+			else if (i > (HEIGHT /2 ) + (PPhight / 2))
+				color = 0x758189;
+			my_mlx_pixel_put(&data->img_, x, i, color);
 			y++;
 			i++;
 		}
