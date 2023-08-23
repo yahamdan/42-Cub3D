@@ -59,6 +59,7 @@ void	drow_map(t_cub *data, int i, int j , int color)
 {
 	int x;
 	int y;
+	x = 0;
 	y = i - SQRS;
 	while(y < i)
 	{
@@ -91,7 +92,7 @@ int	check_if_hitwall(t_cub *data, float x, float y)
 
 double	count_distance(t_cub *data, double x,  double y)
 {
-	double distance;
+	double distance = 0;
 
 	distance = sqrt(pow(data->player.x - x, 2) + pow(data->player.y - y, 2));
 	return (distance);

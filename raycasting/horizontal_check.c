@@ -2,7 +2,6 @@
 
 double	*horizontal_check(t_cub *data)
 {
-
 	double *horhitwall = malloc(2 * sizeof(double));
 	data->hor.yintercept = floor((data->player.y / SQRS)) * SQRS;
 	if (sin(data->rayangle) > 0)
@@ -23,7 +22,7 @@ double	*horizontal_check(t_cub *data)
 	data->hor.next_hory = data->hor.yintercept;
 	if(sin(data->rayangle) < 0)
 		data->hor.next_hory -= 0.001;
-	while (data->hor.next_horx >= 0 && data->hor.next_horx <= WIDTH && data->hor.next_hory >= 0 && data->hor.next_hory <= HEIGHT)
+	while (data->hor.next_horx >= 0 && data->hor.next_horx < WIDTH && data->hor.next_hory >= 0 && data->hor.next_hory < HEIGHT)
 	{
 		if (check_if_hitwall(data, data->hor.next_hory, data->hor.next_horx))
 		{

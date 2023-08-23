@@ -6,10 +6,10 @@ void	ray_caster(t_cub *data, int x)
 	double	*verhitwall;
 	double	*horhitwall;
 	double	PPDistance;
-	double	PPhight;
+	double	PPhight = 0;
 	double	verdist;
 	double	hordist;
-	double	y;
+	double	y = 0;
 	int		i = 0;
 	int color;
 	
@@ -18,7 +18,7 @@ void	ray_caster(t_cub *data, int x)
 	verdist = count_distance(data, verhitwall[0], verhitwall[1]);
 	hordist = count_distance(data, horhitwall[0], horhitwall[1]);
 	PPDistance = (WIDTH / 2) / tan(rad(30));
-	if (horhitwall[1] < 0 || horhitwall[0] < 0)
+	if (horhitwall[1] <= 0 || horhitwall[0] <= 0)
 	{
 		verdist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / verdist) * PPDistance;
@@ -37,12 +37,12 @@ void	ray_caster(t_cub *data, int x)
 			y++;
 			i++;
 		}
-		// dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
+		//dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
 		free(verhitwall);
 		free(horhitwall);
 		return ;
 	}
-	if (verhitwall[1] < 0 || verhitwall[0] < 0)
+	if (verhitwall[1] <= 0 || verhitwall[0] <= 0)
 	{
 		hordist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / hordist) * PPDistance;
@@ -85,7 +85,7 @@ void	ray_caster(t_cub *data, int x)
 			y++;
 			i++;
 		}
-		// dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
+		//  dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
 	}
 	else
 	{
@@ -153,6 +153,7 @@ void    drow_2d(t_cub *data)
 	// 	i++;
 	// }
 	// my_mlx_pixel_put(&data->img_, data->player.x, data->player.y, 0x0000FF);
+
 	//draw_player(data, data->player.x, data->player.y, 0x0000FF);
 	//dda_line(data, data->player.xintercept, data->player.yintercept);
 	// double  x,y;
