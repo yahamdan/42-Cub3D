@@ -130,12 +130,38 @@ int	keey_hook(int key, t_cub *data)
 	return (0);
 }
 
+int mouse_hook(int x, int y, t_cub *data)
+{
+	if (x >= WIDTH || x <= 0)
+		mlx_mouse_move(data->mlx_, data->win_, WIDTH / 2, HEIGHT /2);
+	if (x > data->mouse.x)
+	{
+		data->player.rotation += rad(1);
+		if (data->player.rotation > 6.283185)
+			data->player.rotation = 0;	
+	}
+	else
+	{
+		data->player.rotation -= rad(1);
+		if (data->player.rotation < 0)
+			data->player.rotation = 6.283185;
+	}
+	data->mouse.x = x;
+	data->mouse.y = y;
+	data->img_.img = mlx_new_image(data->mlx_, WIDTH, HEIGHT);
+	data->img_.addr = mlx_get_data_addr(data->img_.img, &data->img_.bits_per_pixel,
+	&data->img_.line_length, &data->img_.endian);
+	drow_2d(data);
+	mlx_put_image_to_window(data->mlx_, data->win_, data->img_.img, 0, 0);
+	return (0);
+}
+
 int main(int ac, char **av)
  {
 	(void)ac;
 	t_cub   data;
-    t_pars *list;
-    t_path *path;
+	t_pars *list;
+	t_path *path;
 
 	list = NULL;
 	create_list(&list, av[1]);
@@ -166,5 +192,7 @@ int main(int ac, char **av)
 	drow_2d(&data);
 	mlx_put_image_to_window(data.mlx_, data.win_, data.img_.img, 0, 0);
 	mlx_hook(data.win_, 2, 1L<<0, keey_hook, &data);
+	mlx_hook(data.win_, 6, 1L<<6 , mouse_hook, &data);
+	mlx_mouse_hide(data.mlx_, data.win_);
 	mlx_loop(data.mlx_);
 }

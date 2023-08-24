@@ -34,7 +34,6 @@ void	ray_caster(t_cub *data, int x)
 			else if (i > (HEIGHT /2 ) + (PPhight / 2))
 				color = 0x758189;
 			my_mlx_pixel_put(&data->img_, x, i, color);
-			y++;
 			i++;
 		};
 		free(verhitwall);
@@ -57,7 +56,6 @@ void	ray_caster(t_cub *data, int x)
 			else if (i > (HEIGHT /2 ) + (PPhight / 2))
 				color = 0x758189;
 			my_mlx_pixel_put(&data->img_, x, i, color);
-			y++;
 			i++;
 		}
 		free(verhitwall);
@@ -142,6 +140,8 @@ void	player_position(t_cub *data)
 		}
 		i++;
 	}
+	data->mouse.x = 0;
+	data->mouse.y = 0;
 }
 void draw_player_2d(t_cub *data)
 {
@@ -152,7 +152,7 @@ void draw_player_2d(t_cub *data)
 	verhitwall =  vertical_check(data);
 	if (horhitwall[1] <= 0 || horhitwall[0] <= 0)
 		dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
-	if (verhitwall[1] <= 0 || verhitwall[0] <= 0)
+	else if (verhitwall[1] <= 0 || verhitwall[0] <= 0)
 		dda_line(data, horhitwall[0], horhitwall[1], 0x46FF33);
 	if (count_distance(data, horhitwall[0], horhitwall[1]) >= count_distance(data, verhitwall[0], verhitwall[1]))
 		 dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
@@ -214,5 +214,4 @@ void    drow_2d(t_cub *data)
 		k++;
 	}
 	//minimap(data);
-	//raw_player_2d(data);
 }

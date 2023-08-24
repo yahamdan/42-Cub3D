@@ -24,12 +24,10 @@ double	*horizontal_check(t_cub *data)
 		data->hor.next_hory -= 0.001;
 	while (1)
 	{
-		if (data->hor.next_horx >= (32 * 33) || data->hor.next_horx < 0 || data->hor.next_hory >= (32* 16) || data->hor.next_hory <= 0)
+		if (data->hor.next_horx >= (32 * 19) || data->hor.next_horx <= 0 || data->hor.next_hory >= (32* 10) || data->hor.next_hory <= 0)
 		{
-			data->hor.hitwallx = 0;
-			data->hor.hitwally = 0;
-			horhitwall[0] = data->hor.hitwallx;
-			horhitwall[1] = data->hor.next_hory;
+			horhitwall[0] = -1;
+			horhitwall[1] = -1;
 			break;
 		}
 		if (check_if_hitwall(data, data->hor.next_hory, data->hor.next_horx))

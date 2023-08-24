@@ -25,13 +25,11 @@ double	*vertical_check(t_cub *data)
 		data->ver.next_verx -= 0.001;
 	while(1)
 	{
-		if (data->ver.next_very >= (32* 16) || data->ver.next_very <= 0
-			|| data->ver.next_verx >= (32 * 33) || data->ver.next_verx <= 0)
+		if (data->ver.next_very >= (32* 10) || data->ver.next_very <= 0
+			|| data->ver.next_verx >= (32 * 19) || data->ver.next_verx <= 0)
 		{
-			data->ver.hitwallx = 0;
-			data->ver.hitwally = 0;
-			hitwall[0] = data->ver.hitwallx;
-			hitwall[1] = data->ver.next_very;
+			hitwall[0] = -1;
+			hitwall[1] = -1;
 			break;
 		}
 		if (check_if_hitwall(data, (data->ver.next_very), (data->ver.next_verx)))

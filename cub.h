@@ -7,8 +7,8 @@
 #include "libft/libft.h"
 #include "parsing/get_next_line.h"
 
-# define WIDTH 1080
-# define HEIGHT 480
+# define WIDTH 1000
+# define HEIGHT 500
 # define SIZE 9
 # define FOV 1.0472
 # define CRNUM (WIDTH)
@@ -69,12 +69,20 @@ typedef struct s_player
 	double	yintercept;
 }	t_player;
 
+typedef	struct s_mouse
+{
+	int x;
+	int y;
+}	t_mouse;
+
+
 typedef struct s_cub
 {
 	void    *mlx_;
 	void    *win_;
 	char	**map;
 	double rayangle;
+	struct s_mouse mouse;
 	struct s_immg   img_;
 	struct s_player player;
 	struct s_horcheck	hor;
