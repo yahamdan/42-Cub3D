@@ -23,8 +23,17 @@ double	*vertical_check(t_cub *data)
 	data->ver.next_very = data->ver.yintercept;
 	if(cos(data->rayangle) < 0)
 		data->ver.next_verx -= 0.001;
-	while(data->ver.next_verx >= 0 && data->ver.next_verx < WIDTH && data->ver.next_very >= 0 && data->ver.next_very < HEIGHT)
+	while(1)
 	{
+		if (data->ver.next_very >= (32* 16) || data->ver.next_very <= 0
+			|| data->ver.next_verx >= (32 * 33) || data->ver.next_verx <= 0)
+		{
+			data->ver.hitwallx = 0;
+			data->ver.hitwally = 0;
+			hitwall[0] = data->ver.hitwallx;
+			hitwall[1] = data->ver.next_very;
+			break;
+		}
 		if (check_if_hitwall(data, (data->ver.next_very), (data->ver.next_verx)))
 		{
 			data->ver.hitwallx = data->ver.next_verx;

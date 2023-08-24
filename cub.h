@@ -7,8 +7,8 @@
 #include "libft/libft.h"
 #include "parsing/get_next_line.h"
 
-# define WIDTH (33 * 32)
-# define HEIGHT (16 * 32)
+# define WIDTH 1080
+# define HEIGHT 480
 # define SIZE 9
 # define FOV 1.0472
 # define CRNUM (WIDTH)
@@ -150,4 +150,6 @@ double	count_distance(t_cub *data, double x,  double y);
 int	check_if_hitwall(t_cub *data, float x, float y);
 void	drow_map(t_cub *data, int i, int j , int color);
 void	dda_line(t_cub	*data, double x, double y, int color);
+void	drow_map(t_cub *data, int i, int j , int color);
+void	draw_player(t_cub *data, int x, int y, int color);
 #endif

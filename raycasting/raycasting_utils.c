@@ -32,12 +32,11 @@ void	ray_caster(t_cub *data, int x)
 			if (i < (HEIGHT /2 ) - (PPhight / 2))
 				color = 0x45adff;
 			else if (i > (HEIGHT /2 ) + (PPhight / 2))
-			color = 0x758189;
+				color = 0x758189;
 			my_mlx_pixel_put(&data->img_, x, i, color);
 			y++;
 			i++;
-		}
-		//dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
+		};
 		free(verhitwall);
 		free(horhitwall);
 		return ;
@@ -61,7 +60,6 @@ void	ray_caster(t_cub *data, int x)
 			y++;
 			i++;
 		}
-		// dda_line(data, horhitwall[0], horhitwall[1], 0x46FF33);
 		free(verhitwall);
 		free(horhitwall);
 		return ;
@@ -85,7 +83,6 @@ void	ray_caster(t_cub *data, int x)
 			y++;
 			i++;
 		}
-		//  dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
 	}
 	else
 	{
@@ -106,10 +103,21 @@ void	ray_caster(t_cub *data, int x)
 			y++;
 			i++;
 		}
-		// dda_line(data, horhitwall[0], horhitwall[1], 0x46FF33);
 	}
 	free(verhitwall);
 	free(horhitwall);
+}
+
+void	player_rotation(t_cub *data, int x, int y)
+{
+	if (data->map[x][y] == 'N')
+		data->player.rotation = rad(270);
+	else if (data->map[x][y] == 'S')
+		data->player.rotation = rad(90);
+	else if (data->map[x][y] == 'W')
+		data->player.rotation = rad(180);
+	else if (data->map[x][y] == 'E')
+		data->player.rotation = 0;
 }
 
 void	player_position(t_cub *data)
@@ -122,16 +130,56 @@ void	player_position(t_cub *data)
 		j = 0;
 		while(data->map[i][j])
 		{
-			if(data->map[i][j] == 'W')
+			if(data->map[i][j] == 'N' || data->map[i][j] == 'S'
+				|| data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
-				data->player.x = (j * SQRS) + 16;
-				data->player.y = (i * SQRS) + 16;
+				data->player.x = (j * SQRS) + 12;
+				data->player.y = (i * SQRS) + 12;
+				player_rotation(data, i, j);
+				return ;
 			}
 			j++;
 		}
 		i++;
 	}
-	data->player.rotation = rad(180);
+}
+void draw_player_2d(t_cub *data)
+{
+	double	*verhitwall;
+	double	*horhitwall;
+	
+	horhitwall = horizontal_check(data);
+	verhitwall =  vertical_check(data);
+	if (horhitwall[1] <= 0 || horhitwall[0] <= 0)
+		dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
+	if (verhitwall[1] <= 0 || verhitwall[0] <= 0)
+		dda_line(data, horhitwall[0], horhitwall[1], 0x46FF33);
+	if (count_distance(data, horhitwall[0], horhitwall[1]) >= count_distance(data, verhitwall[0], verhitwall[1]))
+		 dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
+	else
+		 dda_line(data, horhitwall[0], horhitwall[1], 0x46FF33);
+}
+
+void	minimap(t_cub *data)
+{
+	int i,j;
+	i = 0;
+	while(data->map[i])
+	{
+		j = 0;
+		while(data->map[i][j])
+
+		{
+			if (data->map[i][j] == '1')
+				drow_map(data, ((i + 1) *  10), ((j + 1) *  10), 0x2F2D2C);
+			else if (data->map[i][j] != '1' && data->map[i][j] != '\n' && data->map[i][j] != ' ')
+				drow_map(data, ((i + 1) *  10), ((j + 1) *  10), 0xB8AFAF);
+			j++;
+		}
+		i++;
+	}
+	//my_mlx_pixel_put(&data->img_, ((data->player.x / 64) - 32) * 10, ((data->player.y / 64) -32) * 10, 0x0000FF);
+	draw_player(data, ((data->player.x / 64) - 32) * 10, ((data->player.y / 64) - 32) * 10, 0x0000FF);
 }
 
 void    drow_2d(t_cub *data)
@@ -154,23 +202,17 @@ void    drow_2d(t_cub *data)
 	// }
 	// my_mlx_pixel_put(&data->img_, data->player.x, data->player.y, 0x0000FF);
 
-	//draw_player(data, data->player.x, data->player.y, 0x0000FF);
-	//dda_line(data, data->player.xintercept, data->player.yintercept);
-	// double  x,y;
-	// x = data->player.x , y = data->player.y;
-	// while (data->map[(int)(y + 1) / SQRS][(int)(x + 1) / SQRS] != '1')
-	// {
-	// 	my_mlx_pixel_put(&data->img_ ,x,y, 0x0000FF);
-	// 	x += cos(data->player.rotation);
-	// 	y += sin(data->player.rotation);
-	// }
+	// draw_player(data, data->player.x, data->player.y, 0x0000FF);
 	int k = 0;
 	data->rayangle = data->player.rotation - rad(30);
-	//printf("here\n");
+	// //printf("here\n");
 	while(k < CRNUM)
 	{
 		ray_caster(data, k);
+		//draw_player_2d(data);
 		data->rayangle += FOV / CRNUM;
 		k++;
 	}
+	//minimap(data);
+	//raw_player_2d(data);
 }

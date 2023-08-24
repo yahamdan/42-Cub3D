@@ -40,12 +40,12 @@ void	draw_player(t_cub *data, int x, int y, int color)
 
 	i = 0;
 	j = 0;
-	while (i < SIZE / 3)
+	while (i < SIZE / 4)
 	{
 		j = 0;
-		while (j < SIZE / 3)
+		while (j < SIZE / 4)
 		{
-			my_mlx_pixel_put(&data->img_, x + i, y + j, color);
+			my_mlx_pixel_put(&data->img_, x + i , y + j, color);
 			my_mlx_pixel_put(&data->img_, x - i, y + j, color);
 			my_mlx_pixel_put(&data->img_, x + i, y - j, color);
 			my_mlx_pixel_put(&data->img_, x - i, y - j, color);
@@ -134,12 +134,6 @@ int main(int ac, char **av)
  {
 	(void)ac;
 	t_cub   data;
-	// t_pars *list;
-	// list = NULL;
-	
-	// create_list(&list, av[1]);
-	// data.map = get_map(list);
-
     t_pars *list;
     t_path *path;
 
