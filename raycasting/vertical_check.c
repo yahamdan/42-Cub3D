@@ -18,15 +18,14 @@ double	*vertical_check(t_cub *data)
 	if((sin(data->rayangle) > 0 && data->ver.ystep < 0)
 		|| (sin(data->rayangle) < 0 && data->ver.ystep > 0))
 		data->ver.ystep *= -1;
-
 	data->ver.next_verx = data->ver.xintercept;
 	data->ver.next_very = data->ver.yintercept;
 	if(cos(data->rayangle) < 0)
 		data->ver.next_verx -= 0.001;
 	while(1)
 	{
-		if (data->ver.next_very >= (32* 10) || data->ver.next_very <= 0
-			|| data->ver.next_verx >= (32 * 19) || data->ver.next_verx <= 0)
+		if (data->ver.next_very >= (SQRS * 16) || data->ver.next_very <= 0
+			|| data->ver.next_verx >= (SQRS * 34) || data->ver.next_verx <= 0)
 		{
 			hitwall[0] = -1;
 			hitwall[1] = -1;
@@ -34,9 +33,7 @@ double	*vertical_check(t_cub *data)
 		}
 		if (check_if_hitwall(data, (data->ver.next_very), (data->ver.next_verx)))
 		{
-			data->ver.hitwallx = data->ver.next_verx;
-			data->ver.hitwally = data->ver.next_very;
-			hitwall[0] = data->ver.hitwallx;
+			hitwall[0] = data->ver.next_verx;
 			hitwall[1] = data->ver.next_very;
 			break;
 		}

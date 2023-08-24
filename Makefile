@@ -5,10 +5,12 @@ SRC = parsing/make_rectangle_map.c main.c parsing/get_map.c parsing/get_next_lin
 	ft_lstadd_back.c ft_lstlast.c ft_lstnew.c \
 	raycasting/rotation.c raycasting/move_player.c \
 	raycasting/raycasting_utils.c raycasting/vertical_check.c \
-	raycasting/horizontal_check.c
+	raycasting/horizontal_check.c raycasting/mlx_hook.c \
+	raycasting/mlx_funcs.c raycasting/mini_map_.c \
+	raycasting/machimath.c
  
-CC = clang
- CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3# 
+CC = cc
+ CFLAGS = #-Wall -Wextra -Werror -fsanitize=address -g3# 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

@@ -21,8 +21,6 @@ typedef struct s_horcheck
 	float	ystep;
 	float	next_horx;
 	float	next_hory;
-	float	hitwallx;
-	float	hitwally;
 	float	xintercept;
 	float	yintercept;
 }	t_hor;
@@ -33,8 +31,6 @@ typedef struct s_vercheck
 	float	ystep;
 	float	next_verx;
 	float	next_very;
-	float	hitwallx;
-	float	hitwally;
 	float	xintercept;
 	float	yintercept;
 }	t_ver;
@@ -78,7 +74,7 @@ typedef	struct s_mouse
 
 typedef struct s_cub
 {
-	void    *mlx_;
+	void	*mlx_;
 	void    *win_;
 	char	**map;
 	double rayangle;
@@ -141,23 +137,28 @@ char	**rectagle_map(char **map);
 
 
 // raycasting 
-void    rightrotation(t_cub *data);
-void    leftrotation(t_cub *data);
-void    move_up(t_cub *data);
-void    move_down(t_cub *data);
-void    move_right(t_cub *data);
-void    move_left(t_cub *data);
+void	rightrotation(t_cub *data);
+void	leftrotation(t_cub *data);
+void	move_up(t_cub *data);
+void	move_down(t_cub *data);
+void	move_right(t_cub *data);
+void	move_left(t_cub *data);
 void	ray_caster(t_cub *data, int x);
 double	rad(double ang);
 void	player_position(t_cub *data);
-void    drow_2d(t_cub *data);
+void	drow_2d(t_cub *data);
 double	*horizontal_check(t_cub *data);
 double	*vertical_check(t_cub *data);
 void	my_mlx_pixel_put(t_immg *data, int x, int y, int color);
 double	count_distance(t_cub *data, double x,  double y);
-int	check_if_hitwall(t_cub *data, float x, float y);
+int		check_if_hitwall(t_cub *data, float x, float y);
 void	drow_map(t_cub *data, int i, int j , int color);
 void	dda_line(t_cub	*data, double x, double y, int color);
-void	drow_map(t_cub *data, int i, int j , int color);
 void	draw_player(t_cub *data, int x, int y, int color);
+void	mlx_render_img(t_cub *data);
+int		mouse_hook(int x, int y,t_cub *data);
+int		keey_hook(int key, t_cub *data);
+double	count_distance(t_cub *data, double x,  double y);
+double	rad(double ang);
+
 #endif
