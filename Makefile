@@ -7,10 +7,10 @@ SRC = parsing/make_rectangle_map.c main.c parsing/get_map.c parsing/get_next_lin
 	raycasting/raycasting_utils.c raycasting/vertical_check.c \
 	raycasting/horizontal_check.c raycasting/mlx_hook.c \
 	raycasting/mlx_funcs.c raycasting/mini_map_.c \
-	raycasting/machimath.c
+	raycasting/mamathch.c raycasting/player.c
  
 CC = cc
- CFLAGS = #-Wall -Wextra -Werror -fsanitize=address -g3# 
+ CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3# 
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
@@ -18,7 +18,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJ)
 	$(MAKE) -C ./libft
-	$(CC) $(CFLAGS) $(OBJ)  $(LIBFT) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC)  $(OBJ)  $(LIBFT) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean :
 	rm -rf libft/*.o

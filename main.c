@@ -22,6 +22,9 @@ void	dda_line(t_cub	*data, double x, double y, int color)
 	}
 }
 
+
+
+
 int main(int ac, char **av)
  {
 	(void)ac;

@@ -9,7 +9,7 @@
 
 # define WIDTH 1000
 # define HEIGHT 500
-# define SIZE 9
+# define SIZE 8
 # define FOV 1.0472
 # define CRNUM (WIDTH)
 # define SQRS 32

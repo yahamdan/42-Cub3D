@@ -47,7 +47,7 @@ void	ray_caster(t_cub *data, int x)
 		free(horhitwall);
 		return ;
 	}
-	if (verhitwall[1] <= 0 || verhitwall[0] <= 0)
+	else if (verhitwall[1] <= 0 || verhitwall[0] <= 0)
 	{
 		hordist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / hordist) * PPDistance;
@@ -69,7 +69,8 @@ void	ray_caster(t_cub *data, int x)
 		free(horhitwall);
 		return ;
 	}
-	if (count_distance(data, horhitwall[0], horhitwall[1]) >= count_distance(data, verhitwall[0], verhitwall[1]))
+	else if (count_distance(data, horhitwall[0], horhitwall[1])
+		>= count_distance(data, verhitwall[0], verhitwall[1]))
 	{
 		verdist *= cos(data->player.rotation - data->rayangle);
 		PPhight = (SQRS / verdist) * PPDistance;
@@ -113,55 +114,22 @@ void	ray_caster(t_cub *data, int x)
 	free(horhitwall);
 }
 
-void	player_rotation(t_cub *data, int x, int y)
-{
-	if (data->map[x][y] == 'N')
-		data->player.rotation = rad(270);
-	else if (data->map[x][y] == 'S')
-		data->player.rotation = rad(90);
-	else if (data->map[x][y] == 'W')
-		data->player.rotation = rad(180);
-	else if (data->map[x][y] == 'E')
-		data->player.rotation = 0;
-}
-
-void	player_position(t_cub *data)
-{
-	int i = 0;
-	int j;
-
-	while(data->map[i])
-	{
-		j = 0;
-		while(data->map[i][j])
-		{
-			if(data->map[i][j] == 'N' || data->map[i][j] == 'S'
-				|| data->map[i][j] == 'W' || data->map[i][j] == 'E')
-			{
-				data->player.x = (j * SQRS) + SQRS / 2;
-				data->player.y = (i * SQRS) + SQRS /2;
-				player_rotation(data, i, j);
-				return ;
-			}
-			j++;
-		}
-		i++;
-	}
-	data->mouse.x = 0;
-	data->mouse.y = 0;
-}
 void draw_player_2d(t_cub *data)
 {
 	double	*verhitwall;
 	double	*horhitwall;
 	
+	
+
+
 	horhitwall = horizontal_check(data);
 	verhitwall =  vertical_check(data);
 	if (horhitwall[1] <= 0 || horhitwall[0] <= 0)
 		dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
 	else if (verhitwall[1] <= 0 || verhitwall[0] <= 0)
 		dda_line(data, horhitwall[0], horhitwall[1], 0x46FF33);
-	if (count_distance(data, horhitwall[0], horhitwall[1]) >= count_distance(data, verhitwall[0], verhitwall[1]))
+	else if (count_distance(data, horhitwall[0], horhitwall[1]) 
+		>= count_distance(data, verhitwall[0], verhitwall[1]))
 		 dda_line(data, verhitwall[0], verhitwall[1], 0x46FF33);
 	else
 		 dda_line(data, horhitwall[0], horhitwall[1], 0x46FF33);
@@ -171,6 +139,8 @@ void	minimap(t_cub *data)
 {
 	int i,j;
 	i = 0;
+	int x , y ;
+	
 	while(data->map[i])
 	{
 		j = 0;
@@ -186,39 +156,40 @@ void	minimap(t_cub *data)
 		i++;
 	}
 	//my_mlx_pixel_put(&data->img_, ((data->player.x / 64) - 32) * 10, ((data->player.y / 64) -32) * 10, 0x0000FF);
-	draw_player(data, ((data->player.x / 64) - 32) * 10, ((data->player.y / 64) - 32) * 10, 0x0000FF);
+	draw_player(data, (data->player.x - SQRS / 2) / SQRS * 10, (data->player.y - SQRS / 2) / SQRS *10, 0x0000FF);
 }
 
 void    drow_2d(t_cub *data)
 {
-	int i,j;
-	i = 0;
-	while(data->map[i])
-	{
-		j = 0;
-		while(data->map[i][j])
+	// int i,j;
+	// i = 0;
+	// while(data->map[i])
+	// {
+	// 	j = 0;
+	// 	while(data->map[i][j])
 
-		{
-			if (data->map[i][j] == '1')
-				drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0x2F2D2C);
-			else if (data->map[i][j] != '1' && data->map[i][j] != '\n' && data->map[i][j] != ' ')
-				drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0xB8AFAF);
-			j++;
-		}
-		i++;
-	}
-	my_mlx_pixel_put(&data->img_, data->player.x, data->player.y, 0x0000FF);
+	// 	{
+	// 		if (data->map[i][j] == '1')
+	// 			drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0x2F2D2C);
+	// 		else if (data->map[i][j] != '1' && data->map[i][j] != '\n' && data->map[i][j] != ' ')
+	// 			drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0xB8AFAF);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+	// my_mlx_pixel_put(&data->img_, data->player.x, data->player.y, 0x0000FF);
 
-	draw_player(data, data->player.x, data->player.y, 0x0000FF);
+	// //draw_player(data, data->player.x, data->player.y, 0x0000FF);
+	
+	
 	int k = 0;
 	data->rayangle = data->player.rotation - rad(30);
-	// //printf("here\n");
 	while(k < CRNUM)
 	{
-		//ray_caster(data, k);
-		draw_player_2d(data);
+		ray_caster(data, k);
+		//**draw_player_2d(data);
 		data->rayangle += FOV / CRNUM;
 		k++;
 	}
-	//minimap(data);
+	minimap(data);
 }
