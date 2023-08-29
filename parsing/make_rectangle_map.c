@@ -47,9 +47,9 @@ char	**rectagle_map(char **map)
         }
         i++;
     }
-	for(int a = 0; map[a]; a++)
-	{
-		printf("%s\n", map[a]);
-	}
+	// for(int a = 0; map[a]; a++)
+	// {
+	// 	printf("%s\n", map[a]);
+	// }
     return (map);
 }

@@ -8,9 +8,9 @@ SRC = parsing/make_rectangle_map.c main.c parsing/get_map.c parsing/get_next_lin
 	raycasting/horizontal_check.c raycasting/mlx_hook.c \
 	raycasting/mlx_funcs.c raycasting/mini_map_.c \
 	raycasting/mamathch.c raycasting/player.c
- 
+
 CC = cc
- CFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3# 
+ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

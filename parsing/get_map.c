@@ -4,9 +4,14 @@ void	ifvalid_floor(char **map)
 {
 	size_t	i;
 	size_t	j;
+	size_t	hight;
 
-	i = 0;
-	while (map[i])
+	i = 1;
+	hight = 0;
+	while (map[hight])
+		hight++;
+	hight--;
+	while (map[i] && i < hight)
 	{
 		j = 0;
 		while (map[i][j])
@@ -18,7 +23,7 @@ void	ifvalid_floor(char **map)
 					write(2, "floor not valid\n", 16);
 					exit(1);
 				}
-				else if (map[i][j-1] == ' ' || map[i][j+1] == ' ' || map[i+1][j] == ' ' || map[i-1][j] == ' ')
+				else if ((j > 0 && map[i][j-1] == ' ') || map[i][j+1] == ' ' || map[i+1][j] == ' ' || map[i-1][j] == ' ')
 				{
 					write(2, "floor not valid\n", 16);
 					exit(1);
@@ -157,11 +162,9 @@ void	rang_color(int r, int g, int b)
 
 void	rgbtoint(t_path *path)
 {
-	int	i;
 	char	**ceiling;
 	char	**floor;
 
-	i = 0;
 	ceiling = ft_split(path->C_path, ',');
 	floor = ft_split(path->F_path, ',');
 	iscolorvalid(ceiling);
@@ -332,7 +335,7 @@ char	**ignor_space(char **map)
 	int j;
 	int	x;
 	i = 0;
-	while (map[i])
+	while (map[i] && map[i][0] != '\0')
 	{
 		j = 0;
 		x = ft_strlen(map[i]) - 1;
@@ -399,10 +402,8 @@ int is_mapclosed(char **map)
 int	check_ifvalid(t_pars *list)
 {
 	int	i;
-	int flag;
 
 	i = 0;
-	flag = 0;
 	while (list && list->string[0] != '1' && list->string[0] != '0')
 	{
 		if (ft_strncmp(list->string, "NO ", 3) && ft_strncmp(list->string, "WE ", 3) && ft_strncmp(list->string, "EA ", 3) 

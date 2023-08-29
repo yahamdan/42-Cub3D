@@ -15,6 +15,28 @@
 # define SQRS 32
 # define PI 3.14159265359
 
+
+typedef struct s_weapon
+{
+	void	*img;
+	char	*relative_path;
+	int		img_width;
+	int		img_height;
+	char	*data_img;
+	int width, height, bits_per_pixel, size_line, endian;
+	int		check;
+}				t_weapon;
+
+typedef struct s_xpm
+{
+	void	*img;
+	char	*relative_path;
+	int		img_width;
+	int		img_height;
+	char	*data_img;
+	int width, height, bits_per_pixel, size_line, endian;
+}				t_xpm;
+
 typedef struct s_horcheck
 {
 	float	xstep;
@@ -83,6 +105,8 @@ typedef struct s_cub
 	struct s_player player;
 	struct s_horcheck	hor;
 	struct s_vercheck	ver;
+	struct s_xpm		*xpm;
+	struct s_weapon		*weapon;
 }   t_cub;
 
 typedef struct s_pars

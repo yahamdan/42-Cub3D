@@ -139,7 +139,6 @@ void	minimap(t_cub *data)
 {
 	int i,j;
 	i = 0;
-	int x , y ;
 	
 	while(data->map[i])
 	{

@@ -2,6 +2,7 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "cub.h": "c",
-        "__node_handle": "c"
+        "__node_handle": "c",
+        "libft.h": "c"
     }
 }

@@ -3,11 +3,6 @@
 
 void	draw_player(t_cub *data, int x, int y, int color)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	x += 5;
 	y += 5;
 	my_mlx_pixel_put(&data->img_, x , y, color);
