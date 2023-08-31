@@ -12,7 +12,7 @@ void	my_mlx_pixel_put(t_immg *data, int x, int y, int color)
 
 ////my_mlx_pixel_put2(&data->img_, &data->xpm,x, y);
 
-int	my_mlx_pixel_put2(t_immg *data, t_xpm *xpm,int x, int y)
+int	get_pixels(t_xpm *xpm,int x, int y)
 {
 
 	char	*dst;
@@ -248,6 +248,30 @@ void	setting_texwalls(t_cub *data)
 	data->xpm[3].data_img = (char *)mlx_get_data_addr(data->xpm[3].img, &data->xpm[3].bits_per_pixel, &data->xpm[3].size_line, &data->xpm[3].endian);
 }
 
+void	h_w_map(char **map, t_h_w *h_w)
+{
+
+	h_w->height = 0;
+	h_w->width = 0;
+	while(map[h_w->height])
+		h_w->height++;
+	h_w->width = ft_strlen(map[0]);
+}
+
+void	ifvalid_mapname(char *av)
+{
+	int	i;
+
+	i = 0;
+	while (av[i] != '.')
+		i++;
+	if (ft_strcmp(&av[i], ".cub"))
+	{
+		write(2, "invalid name map\n", 17);
+		exit(1);
+	}
+}
+
 
 int main(int ac, char **av)
  {
@@ -259,19 +283,21 @@ int main(int ac, char **av)
     t_path *path;
 
 	list = NULL;
+	ifvalid_mapname(av[1]);
 	create_list(&list, av[1]);
 	data.map = get_map(list);
-	check_characters(data.map);
 	ifvalid_floor(data.map);
 	if (!is_mapclosed(data.map))
 	{
 		write(2, "error map not closed\n", 21);
 		exit (1);
 	}
-	ifvalid_space(data.map); ///this check is not important
-	path__(list, &path);
+	// ifvalid_space(data.map); ///this check is not important
+	check_characters(data.map);
+	path_checker(list, &path);
 	rgbtoint(path);
 	data.map = rectagle_map(data.map);
+	h_w_map(data.map, &data.h_w); //// that's function is return a struct of height and width of map;
 	data.mlx_ = mlx_init();
 	data.win_ = mlx_new_window(data.mlx_, WIDTH , HEIGHT, "Abomination3D");
 	setting_texweapons(&data);

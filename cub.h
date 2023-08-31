@@ -17,6 +17,12 @@
 # define PI 3.14159265359
 
 
+typedef struct s_h_w
+{
+	int	height;
+	int width;
+}				t_h_w;
+
 typedef struct s_weapon
 {
 	void	*img;
@@ -107,6 +113,7 @@ typedef struct s_cub
 	struct s_vercheck	ver;
 	struct s_xpm		*xpm;
 	struct s_weapon		*weapon;
+	struct s_h_w		h_w;
 }   t_cub;
 
 typedef struct s_pars
@@ -151,7 +158,9 @@ void	ifvalid_floor(char **map);
 void	rgbtoint(t_path *path);
 char	**rectagle_map(char **map);
 void	draw_weapon(int x, t_weapon *weapon, t_cub *data);
-
+void	path_checker(t_pars *list, t_path **path);
+char	*pathfind(char *str);
+char	*findrgb(char *str);
 // void	create_list(t_pars **list, char *n_file);
 // void	ft_lstadd_back(t_pars **lst, t_pars *new);
 // t_pars	*ft_lstnew(char *str);
@@ -179,7 +188,7 @@ double	count_distance(t_cub *data, double x,  double y);
 int	check_if_hitwall(t_cub *data, float x, float y);
 void	drow_map(t_cub *data, int i, int j , int color);
 void	dda_line(t_cub	*data, double x, double y, int color);
-int	my_mlx_pixel_put2(t_immg *data, t_xpm *xpm,int x, int y);
+int	get_pixels(t_xpm *xpm,int x, int y);
 void	mlx_render_img(t_cub *data);
 int		mouse_hook(int x, int y,t_cub *data);
 int		keey_hook(int key, t_cub *data);

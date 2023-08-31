@@ -26,13 +26,12 @@ void	get_steps(t_cub *data)
 double	*vertical_check(t_cub *data)
 {
 	double * hitwall;
-
 	hitwall = malloc(2 * sizeof(double));
 	get_steps(data);
 	while(1)
 	{
-		if (data->ver.next_very >= (SQRS * 16) || data->ver.next_very <= 0
-			|| data->ver.next_verx >= (SQRS * 34) || data->ver.next_verx <= 0)
+		if (data->ver.next_very >= (SQRS * data->h_w.height) || data->ver.next_very <= 0
+			|| data->ver.next_verx >= (SQRS * data->h_w.width) || data->ver.next_verx <= 0)
 		{
 			hitwall[0] = -1;
 			hitwall[1] = -1;

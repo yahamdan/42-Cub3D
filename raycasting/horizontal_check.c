@@ -31,8 +31,8 @@ double	*horizontal_check(t_cub *data)
 	get_stepss(data);
 	while (1)
 	{
-		if (data->hor.next_horx >= (SQRS * 34) || data->hor.next_horx <= 0
-			|| data->hor.next_hory >= (SQRS* 16) || data->hor.next_hory <= 0)
+		if (data->hor.next_horx >= (SQRS * data->h_w.width) || data->hor.next_horx <= 0
+			|| data->hor.next_hory >= (SQRS* data->h_w.height) || data->hor.next_hory <= 0)
 		{
 			horhitwall[0] = -1;
 			horhitwall[1] = -1;

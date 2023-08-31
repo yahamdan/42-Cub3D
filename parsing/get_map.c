@@ -1,5 +1,40 @@
 #include "../cub.h"
 
+void	firstandlast_line(char **map, int height)
+{
+	int	j;
+
+	j = 0;
+	//first line////
+	while (map[0][j])
+	{
+		if (map[0][j] == ' ')
+		{
+			if ((map[0][j + 1] == '0' || map[0][j - 1] == '0' || map[1][j] == '0'))
+			{
+				write(2, "map not valid\n", 14);
+				exit(1);
+			}
+		}
+		j++;
+	}
+	///last line ///
+	j = 0;
+	while (map[height][j])
+	{
+		if (map[height][j] == ' ')
+		{
+			if (map[height][j + 1] == '0' || map[height][j - 1] == '0' || map[height - 1][j] == '0')
+			{
+				write(2, "map not valid\n", 14);
+				exit(1);
+			}
+		}
+		j++;
+	}
+
+}
+
 void	ifvalid_floor(char **map)
 {
 	size_t	i;
@@ -35,81 +70,37 @@ void	ifvalid_floor(char **map)
 	}
 }
 
-void	firstandlast_line(char **map, int height)
-{
-	int	j;
+// void	ifvalid_space(char **map)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	len;
 
-	j = 0;
-	//first line////
-	while (map[0][j])
-	{
-		if (map[0][j] == ' ')
-		{
-			if ((map[0][j + 1] == '0' || map[0][j - 1] == '0' || map[1][j] == '0'))
-			{
-				write(2, "map not valid\n", 14);
-				exit(1);
-			}
-		}
-		j++;
-	}
-	///last line ///
-	j = 0;
-	while (map[height][j])
-	{
-		if (map[height][j] == ' ')
-		{
-			if (map[height][j + 1] == '0' || map[height][j - 1] == '0' || map[height - 1][j] == '0')
-			{
-				write(2, "map not valid\n", 14);
-				exit(1);
-			}
-		}
-		j++;
-	}
-
-}
-void	ifvalid_space(char **map)
-{
-	int	i;
-	int	j;
-	int	len;
-
-	i = 0;
-	len = 0;
-	j = 0;
-
-	while (map[len])
-		len++;
-	len--;
-	firstandlast_line(map, len);
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == ' ')
-			{
-				// if (i >= 1 && i < len)
-				// {
-				// 	printf("%s\n", map[i]);
-				// 	printf("j+1 === %c\n", map[i][j + 1]);
-				// 	printf("j-1 === %c\n", map[i][j - 1]);
-				// 	printf("i+1 === %c\n", map[i + 1][j]);
-				// 	printf("i-1 **===** %c\n", map[i - 1][j]);
-				// 	printf("len i - 1** %zu**** index j === %d\n", ft_strlen(map[i - 1]), j);
-				// }
-				if (i >= 1 && i < len && (map[i][j + 1] == '0' || map[i][j - 1] == '0' || map[i + 1][j] == '0' || map[i - 1][j] == '0'))
-				{
-					write(2, "map not valid\n", 14);
-					exit(1);
-				}
-			}
-			j++;
-		}
-		i++;
-	}
-}
+// 	i = 0;
+// 	len = 0;
+// 	j = 0;
+// 	while (map[len])
+// 		len++;
+// 	len--;
+// 	firstandlast_line(map, len);
+// 	while (map[i])
+// 	{
+// 		j = 0;
+// 		while (map[i][j])
+// 		{
+// 			if (map[i][j] == ' ')
+// 			{
+// 				if (i >= 1 && i < len && (map[i][j + 1] == '0' || map[i][j - 1] == '0' || map[i + 1][j] == '0' || map[i - 1][j] == '0'))
+// 				{
+// 					write(2, "map not valid\n", 14);
+// 					exit(1);
+// 				}
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// }
 
 int	hieghtlen(char **map)
 {
@@ -153,10 +144,28 @@ void	rang_color(int r, int g, int b)
 {
 	if (!(r >= 0 && r <= 255) || !(g >= 0 && g <= 255) || !(b >= 0 && b <= 255))
 	{
-		printf("here\n");
-		printf("%d\n", b);
 		write (2, "invalid color\n", 13);
 		exit (1);
+	}
+}
+
+void	count_comma(char *path)
+{
+	int i;
+	int	flag;
+
+	i = 0;
+	flag = 0;
+	while (path[i])
+	{
+		if (path[i] == ',')
+			flag++;
+		i++;
+	}
+	if (flag >= 3)
+	{
+		write(2, "multiple comma\n", 15);
+		exit(1);
 	}
 }
 
@@ -167,6 +176,8 @@ void	rgbtoint(t_path *path)
 	char	**floor;
 
 	i = 0;
+	count_comma(path->C_path);
+	count_comma(path->F_path);
 	ceiling = ft_split(path->C_path, ',');
 	floor = ft_split(path->F_path, ',');
 	iscolorvalid(ceiling);
@@ -174,6 +185,12 @@ void	rgbtoint(t_path *path)
 	if (!ceiling[0] || !ceiling[1] || !ceiling[2] || !floor[0] || !floor[1] || !floor[2])
 	{
 		write (2, "invalid color\n", 14);
+		exit (1);
+	}
+	else if (ft_strlen(ceiling[0]) > 3 || ft_strlen(ceiling[1]) > 3 || ft_strlen(ceiling[2]) > 3 ||
+		ft_strlen(floor[0]) > 3 || ft_strlen(floor[1]) > 3 || ft_strlen(floor[2]) > 3)
+	{
+		write (2, "invalid color\n", 13);
 		exit (1);
 	}
 	rang_color(ft_atoi(ceiling[0]), ft_atoi(ceiling[1]), ft_atoi(ceiling[2]));
@@ -189,10 +206,12 @@ char	*pathfind(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == '.')
+		if (str[i] == '.' && str[i + 1] == '/')
 			return (ft_strdup(&str[i]));
 		i++;
 	}
+	write(2, "invalid path\n", 13);
+	exit(1);
 	return (NULL);
 }
 char	*findrgb(char *str)
@@ -212,98 +231,98 @@ char	*findrgb(char *str)
 	return (NULL);
 }
 
-void	path__(t_pars *list, t_path **path)
-{
-	t_flag	flag;
-	int		i;
+// void	path__(t_pars *list, t_path **path)
+// {
+// 	t_flag	flag;
+// 	int		i;
 
-	i = 0;
-	flag.C = 0;
-	flag.EA = 0;
-	flag.F = 0;
-	flag.NO = 0;
-	flag.SO = 0;
-	flag.WE = 0;
-	*path = malloc(sizeof(t_path));
-	while (list && list->string && list->string[0] != '1' && list->string[0] != '0' && list->string[0] != ' ')
-	{
+// 	i = 0;
+// 	flag.C = 0;
+// 	flag.EA = 0;
+// 	flag.F = 0;
+// 	flag.NO = 0;
+// 	flag.SO = 0;
+// 	flag.WE = 0;
+// 	*path = malloc(sizeof(t_path));
+// 	while (list && list->string && list->string[0] != '1' && list->string[0] != '0' && list->string[0] != ' ')
+// 	{
 		
-		if (list->string && list->string[0] != '\0')
-			i++;
-		if (!ft_strncmp(list->string, "NO ", 3))
-		{
-			if (flag.NO == 0)
-				(*path)->NO_path = pathfind(list->string);
-			else
-			{
-				write(2, "duplicate_\n", 10);
-				exit(1);
-			}
-			flag.NO++;
-		}
-		else if (!ft_strncmp(list->string, "WE ", 3))
-		{
-			if (flag.WE == 0)
-				(*path)->WE_path = pathfind(list->string);
-			else
-			{
-				write(2, "duplicate\n", 10);
-				exit(1);
-			}
-			flag.WE++;
-		}
-		else if (!ft_strncmp(list->string, "EA ", 3))
-		{
-			if (flag.EA == 0)
-				(*path)->EA_path = pathfind(list->string);
-			else
-			{
-				write(2, "duplicate\n", 10);
-				exit(1);
-			}
-			flag.EA++;
-		}
-		else if (!ft_strncmp(list->string, "SO ", 3))
-		{
-			if (flag.SO == 0)
-				(*path)->SO_path = pathfind(list->string);
-			else
-			{
-				write(2, "duplicate\n", 10);
-				exit(1);
-			}
-			flag.SO++;
-		}
-		else if (!ft_strncmp(list->string, "F ", 2))
-		{
-			if (flag.F == 0)
-				(*path)->F_path = findrgb(list->string);
-			else
-			{
-				write(2, "duplicate\n", 10);
-				exit(1);
-			}
-			flag.F++;
-		}
-		else if (!ft_strncmp(list->string, "C ", 2))
-		{
-			if (flag.C == 0)
-				(*path)->C_path = findrgb(list->string);
-			else
-			{
-				write(2, "duplicate\n", 10);
-				exit(1);
-			}
-			flag.C++;
-		}
-		list = list->next;
-	}
-	if (i != 6 || (flag.C == 0 || flag.EA == 0 || flag.F == 0 || flag.NO == 0 || flag.SO == 0 || flag.WE == 0))
-	{
-		write (2, "error\n", 6);
-		exit (1);
-	}
-}
+// 		if (list->string && list->string[0] != '\0')
+// 			i++;
+// 		if (!ft_strncmp(list->string, "NO ", 3))
+// 		{
+// 			if (flag.NO == 0)
+// 				(*path)->NO_path = pathfind(list->string);
+// 			else
+// 			{
+// 				write(2, "duplicate_\n", 10);
+// 				exit(1);
+// 			}
+// 			flag.NO++;
+// 		}
+// 		else if (!ft_strncmp(list->string, "WE ", 3))
+// 		{
+// 			if (flag.WE == 0)
+// 				(*path)->WE_path = pathfind(list->string);
+// 			else
+// 			{
+// 				write(2, "duplicate\n", 10);
+// 				exit(1);
+// 			}
+// 			flag.WE++;
+// 		}
+// 		else if (!ft_strncmp(list->string, "EA ", 3))
+// 		{
+// 			if (flag.EA == 0)
+// 				(*path)->EA_path = pathfind(list->string);
+// 			else
+// 			{
+// 				write(2, "duplicate\n", 10);
+// 				exit(1);
+// 			}
+// 			flag.EA++;
+// 		}
+// 		else if (!ft_strncmp(list->string, "SO ", 3))
+// 		{
+// 			if (flag.SO == 0)
+// 				(*path)->SO_path = pathfind(list->string);
+// 			else
+// 			{
+// 				write(2, "duplicate\n", 10);
+// 				exit(1);
+// 			}
+// 			flag.SO++;
+// 		}
+// 		else if (!ft_strncmp(list->string, "F ", 2))
+// 		{
+// 			if (flag.F == 0)
+// 				(*path)->F_path = findrgb(list->string);
+// 			else
+// 			{
+// 				write(2, "duplicate\n", 10);
+// 				exit(1);
+// 			}
+// 			flag.F++;
+// 		}
+// 		else if (!ft_strncmp(list->string, "C ", 2))
+// 		{
+// 			if (flag.C == 0)
+// 				(*path)->C_path = findrgb(list->string);
+// 			else
+// 			{
+// 				write(2, "duplicate\n", 10);
+// 				exit(1);
+// 			}
+// 			flag.C++;
+// 		}
+// 		list = list->next;
+// 	}
+// 	if (i != 6 || (flag.C == 0 || flag.EA == 0 || flag.F == 0 || flag.NO == 0 || flag.SO == 0 || flag.WE == 0))
+// 	{
+// 		write (2, "error\n", 6);
+// 		exit (1);
+// 	}
+// }
 
 char *switch_nline(char *str)
 {
@@ -436,6 +455,11 @@ void	create_list(t_pars **list, char *n_file)
 	int fd;
 
 	fd = open(n_file, O_RDONLY);
+	if (fd == -1)
+	{
+		write(2, "open failed\n", 12);
+		exit(1);
+	}
 	str = switch_nline(get_next_line(fd));
 	while (str)
 	{
@@ -443,6 +467,22 @@ void	create_list(t_pars **list, char *n_file)
 		free(str);
 		str = switch_nline(get_next_line(fd));
 	}
+	if (!*list)
+	{
+		write(2, "file .cub is empty\n", 19);
+		exit(1);
+	}	
+}
+
+int	height_map(char **map)
+{
+	int	i;
+
+	i = 0;
+	while(map[i])
+		i++;
+	i--;
+	return (i);
 }
 
 void	check_characters(char **map)
@@ -453,7 +493,12 @@ void	check_characters(char **map)
 
 	i = 0;
 	check = 0;
-	while (map[i])
+	if (!map[0])
+	{
+		write(2, "need to setting map\n", 20);
+		exit(1);
+	}
+	while (map[i] && i < height_map(map))
 	{
 		j = 0;
 		while (map[i][j])
@@ -465,14 +510,22 @@ void	check_characters(char **map)
 				exit (1);
 			}
 			if (map[i] && (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E' || map[i][j] == 'W'))
+			{
+				if (j > 0 && i > 0 && (map[i + 1][j] == ' ' || map[i - 1][j] == ' '
+					|| map[i][j - 1] == ' ' || map[i][j + 1] == ' '))
+				{
+					write (2, "there is space nearby player\n", 29);
+					exit (1);
+				}
 				check++;
+			}
 			j++;
 		}
 		i++;
 	}
 	if (check != 1)
 	{
-		write(2, "invalid player\n", 15);
+		write(2, "more than player in map\n", 24);
 		exit(1);
 	}
 }

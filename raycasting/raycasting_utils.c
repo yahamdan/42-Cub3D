@@ -2,7 +2,7 @@
 #include "../cub.h"
 
 
-int	get_position(double pos, double height_wall, int tex_width)
+int	get_position(double pos, int tex_width)
 {
 	int	position;
 	// int  px = tex_width /( (int)pos % tex_width);
@@ -45,7 +45,7 @@ void	ray_caster(t_cub *data, int x)
 		// 	y = 0;
 			// y = (PPhight - HEIGHT) /2;
 		// printf("%f\n", y);
-		size = data->xpm[0].img_height / PPhight;
+size = data->xpm[0].img_height / PPhight;
 		while (i < y)
 		{
 			color = 0x45adff;
@@ -57,9 +57,9 @@ void	ray_caster(t_cub *data, int x)
 		{
 				// printf("x === %f,,,,,, y = %f\n", verhitwall[0], verhitwall[1]);
 			if(cos(data->rayangle) > 0)
-				color = my_mlx_pixel_put2(&data->img_, &data->xpm[0],get_position(verhitwall[1], PPhight, data->xpm[0].img_width), hight);
+				color = get_pixels(&data->xpm[0],get_position(verhitwall[1], data->xpm[0].img_width), hight);
 			else
-				color = my_mlx_pixel_put2(&data->img_, &data->xpm[1],get_position(verhitwall[1], PPhight, data->xpm[1].img_width), hight);
+				color = get_pixels(&data->xpm[1],get_position(verhitwall[1], data->xpm[1].img_width), hight);
 			
 			my_mlx_pixel_put(&data->img_, x, i, color);
 			hight += size;
@@ -97,9 +97,9 @@ void	ray_caster(t_cub *data, int x)
 		while(i < y_down)
 		{
 			if(sin(data->rayangle) > 0)
-				color = my_mlx_pixel_put2(&data->img_, &data->xpm[2],get_position(horhitwall[0], PPhight, data->xpm[2].img_width), hight);
+				color = get_pixels(&data->xpm[2],get_position(horhitwall[0], data->xpm[2].img_width), hight);
 			else
-				color = my_mlx_pixel_put2(&data->img_, &data->xpm[3],get_position(horhitwall[0], PPhight, data->xpm[3].img_width), hight);
+				color = get_pixels(&data->xpm[3],get_position(horhitwall[0], data->xpm[3].img_width), hight);
 			my_mlx_pixel_put(&data->img_, x, i, color);
 			hight += size;
 			i++;
@@ -133,9 +133,9 @@ void	ray_caster(t_cub *data, int x)
 		while(i < y_down)
 		{
 			if(cos(data->rayangle) > 0)
-				color = my_mlx_pixel_put2(&data->img_, &data->xpm[0],get_position(verhitwall[1], PPhight, data->xpm[0].img_width), hight);
+				color = get_pixels(&data->xpm[0],get_position(verhitwall[1], data->xpm[0].img_width), hight);
 			else
-				color = my_mlx_pixel_put2(&data->img_, &data->xpm[1],get_position(verhitwall[1], PPhight, data->xpm[1].img_width), hight);
+				color = get_pixels(&data->xpm[1],get_position(verhitwall[1], data->xpm[1].img_width), hight);
 			hight += size;
 			my_mlx_pixel_put(&data->img_, x, i, color);
 			i++;
@@ -171,19 +171,20 @@ void	ray_caster(t_cub *data, int x)
 		while(i < y_down)
 		{
 			if(sin(data->rayangle) > 0)
-				color = my_mlx_pixel_put2(&data->img_, &data->xpm[2],get_position(horhitwall[0], PPhight, data->xpm[2].img_width), hight);
+				color = get_pixels(&data->xpm[2],get_position(horhitwall[0], data->xpm[2].img_width), hight);
 			else
-				color = my_mlx_pixel_put2(&data->img_, &data->xpm[3],get_position(horhitwall[0], PPhight, data->xpm[3].img_width), hight);
+				color = get_pixels(&data->xpm[3],get_position(horhitwall[0], data->xpm[3].img_width), hight);
 			hight += size;
 			my_mlx_pixel_put(&data->img_, x, i, color);
 			i++;
 		}
 		while(i < HEIGHT)
 		{
-				color = 0x758189;
+							color = 0x758189;
 				my_mlx_pixel_put(&data->img_, x, i, color);
 				i++;
 		}
+
 	}
 	free(verhitwall);
 	free(horhitwall);
