@@ -162,9 +162,11 @@ void	rang_color(int r, int g, int b)
 
 void	rgbtoint(t_path *path)
 {
+	int	i;
 	char	**ceiling;
 	char	**floor;
 
+	i = 0;
 	ceiling = ft_split(path->C_path, ',');
 	floor = ft_split(path->F_path, ',');
 	iscolorvalid(ceiling);
@@ -301,7 +303,6 @@ void	path__(t_pars *list, t_path **path)
 		write (2, "error\n", 6);
 		exit (1);
 	}
-	// printf("***%s****\n", path->NO_path);
 }
 
 char *switch_nline(char *str)
@@ -334,6 +335,7 @@ char	**ignor_space(char **map)
 	int	i;
 	int j;
 	int	x;
+
 	i = 0;
 	while (map[i] && map[i][0] != '\0')
 	{
@@ -366,10 +368,7 @@ int is_mapclosed(char **map)
 		write(2, "ivalid map\n", 11);
 		exit(1);
 	}
-	// char **tmp_map = map;
 	map = ignor_space(map);
-	// free_split(tmp_map);
-	// free_split(tmp_map);
 	while (map[i])
 		i++;
 	i--;
@@ -398,37 +397,13 @@ int is_mapclosed(char **map)
 	return (1);
 }
 
-
-int	check_ifvalid(t_pars *list)
-{
-	int	i;
-
-	i = 0;
-	while (list && list->string[0] != '1' && list->string[0] != '0')
-	{
-		if (ft_strncmp(list->string, "NO ", 3) && ft_strncmp(list->string, "WE ", 3) && ft_strncmp(list->string, "EA ", 3) 
-			&& ft_strncmp(list->string, "SO ", 3) && ft_strncmp(list->string, "F ", 2) && ft_strncmp(list->string, "C ", 2) && ft_strncmp(list->string, "\n", 2))
-				return (0);
-		// else if (!if_dup(list))
-		// 	return (0);
-		i++;	
-		list = list->next;
-	}
-	return (1);
-}
-
 char	**get_map(t_pars *list)
 {
-	int	i;	
-	char **map;
-	t_pars *tmp;
+	int		i;	
+	char	**map;
+	t_pars	*tmp;
 
-	i = 0; 
-	// if (!check_ifvalid(list))
-	// {
-	// 	write(2, "not valid\n", 10);
-	// 	exit (1);
-	// }
+	i = 0;
 	while (list)
 	{
 		if (ft_strncmp(list->string, "NO ", 3) && ft_strncmp(list->string, "WE ", 3) 
@@ -468,11 +443,6 @@ void	create_list(t_pars **list, char *n_file)
 		free(str);
 		str = switch_nline(get_next_line(fd));
 	}
-	// while (*list)
-	// {
-	// 	printf("%s\n",  (*list)->string);
-	// 	(*list) = (*list)->next;
-	// }
 }
 
 void	check_characters(char **map)
@@ -485,10 +455,7 @@ void	check_characters(char **map)
 	check = 0;
 	while (map[i])
 	{
-		// map_splited = ft_split(map[i], '\n');
 		j = 0;
-		// if (!is_mapclosed(map_splited))
-		// 	return (0);
 		while (map[i][j])
 		{
 			if (map[i] && map[i][j] != ' ' && map[i][j] != '1' && map[i][j] != '0'

@@ -10,9 +10,10 @@
 # define WIDTH 1000
 # define HEIGHT 500
 # define SIZE 8
+# define SPEED 32
 # define FOV 1.0472
 # define CRNUM (WIDTH)
-# define SQRS 32
+# define SQRS 64
 # define PI 3.14159265359
 
 
@@ -93,10 +94,9 @@ typedef	struct s_mouse
 	int y;
 }	t_mouse;
 
-
 typedef struct s_cub
 {
-	void	*mlx_;
+	void    *mlx_;
 	void    *win_;
 	char	**map;
 	double rayangle;
@@ -150,6 +150,7 @@ void	ifvalid_space(char **map);
 void	ifvalid_floor(char **map);
 void	rgbtoint(t_path *path);
 char	**rectagle_map(char **map);
+void	draw_weapon(int x, t_weapon *weapon, t_cub *data);
 
 // void	create_list(t_pars **list, char *n_file);
 // void	ft_lstadd_back(t_pars **lst, t_pars *new);
@@ -161,28 +162,28 @@ char	**rectagle_map(char **map);
 
 
 // raycasting 
-void	rightrotation(t_cub *data);
-void	leftrotation(t_cub *data);
-void	move_up(t_cub *data);
-void	move_down(t_cub *data);
-void	move_right(t_cub *data);
-void	move_left(t_cub *data);
+void    rightrotation(t_cub *data);
+void    leftrotation(t_cub *data);
+void    move_up(t_cub *data);
+void    move_down(t_cub *data);
+void    move_right(t_cub *data);
+void    move_left(t_cub *data);
 void	ray_caster(t_cub *data, int x);
 double	rad(double ang);
 void	player_position(t_cub *data);
-void	drow_2d(t_cub *data);
+void    drow_2d(t_cub *data);
 double	*horizontal_check(t_cub *data);
 double	*vertical_check(t_cub *data);
 void	my_mlx_pixel_put(t_immg *data, int x, int y, int color);
 double	count_distance(t_cub *data, double x,  double y);
-int		check_if_hitwall(t_cub *data, float x, float y);
+int	check_if_hitwall(t_cub *data, float x, float y);
 void	drow_map(t_cub *data, int i, int j , int color);
 void	dda_line(t_cub	*data, double x, double y, int color);
-void	draw_player(t_cub *data, int x, int y, int color);
+int	my_mlx_pixel_put2(t_immg *data, t_xpm *xpm,int x, int y);
 void	mlx_render_img(t_cub *data);
 int		mouse_hook(int x, int y,t_cub *data);
 int		keey_hook(int key, t_cub *data);
 double	count_distance(t_cub *data, double x,  double y);
 double	rad(double ang);
-
+int	position_check(t_cub *data, float newx, float newy);
 #endif

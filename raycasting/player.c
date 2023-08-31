@@ -1,5 +1,5 @@
-
 #include "../cub.h"
+
 
 void	player_angle(t_cub *data, int x, int y)
 {
@@ -15,15 +15,16 @@ void	player_angle(t_cub *data, int x, int y)
 
 void	player_position(t_cub *data)
 {
-	int i = 0;
+	int i;
 	int j;
 
-	while(data->map[i])
+	i = 0;
+	while (data->map[i])
 	{
 		j = 0;
-		while(data->map[i][j])
+		while (data->map[i][j])
 		{
-			if(data->map[i][j] == 'N' || data->map[i][j] == 'S'
+			if (data->map[i][j] == 'N' || data->map[i][j] == 'S'
 				|| data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
 				data->player.x = (j * SQRS) + SQRS / 2;

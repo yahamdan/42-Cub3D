@@ -1,8 +1,7 @@
 # include "../cub.h"
 
-double	*horizontal_check(t_cub *data)
+void	get_stepss(t_cub *data)
 {
-	double *horhitwall = malloc(2 * sizeof(double));
 	data->hor.yintercept = floor((data->player.y / SQRS)) * SQRS;
 	if (sin(data->rayangle) > 0)
 		data->hor.yintercept += SQRS;
@@ -22,6 +21,14 @@ double	*horizontal_check(t_cub *data)
 	data->hor.next_hory = data->hor.yintercept;
 	if(sin(data->rayangle) < 0)
 		data->hor.next_hory -= 0.001;
+}
+
+double	*horizontal_check(t_cub *data)
+{
+	double *horhitwall;
+
+	horhitwall = malloc(2 * sizeof(double));
+	get_stepss(data);
 	while (1)
 	{
 		if (data->hor.next_horx >= (SQRS * 34) || data->hor.next_horx <= 0
@@ -42,5 +49,3 @@ double	*horizontal_check(t_cub *data)
 	}
 	return (horhitwall);
 }
-
-
