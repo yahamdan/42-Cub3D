@@ -286,6 +286,7 @@ int main(int ac, char **av)
 	ifvalid_mapname(av[1]);
 	create_list(&list, av[1]);
 	data.map = get_map(list);
+	path_checker(list, &path);
 	ifvalid_floor(data.map);
 	if (!is_mapclosed(data.map))
 	{
@@ -294,7 +295,6 @@ int main(int ac, char **av)
 	}
 	// ifvalid_space(data.map); ///this check is not important
 	check_characters(data.map);
-	path_checker(list, &path);
 	rgbtoint(path);
 	data.map = rectagle_map(data.map);
 	h_w_map(data.map, &data.h_w); //// that's function is return a struct of height and width of map;
