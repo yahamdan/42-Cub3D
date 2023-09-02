@@ -268,6 +268,7 @@ void	ifvalid_mapname(char *av)
 }
 
 
+
 int main(int ac, char **av)
  {
 	(void)ac;
@@ -283,28 +284,21 @@ int main(int ac, char **av)
 	data.map = get_map(list);
 	path_checker(list, &path);
 	ifvalid_floor(data.map);
-	if (!is_mapclosed(data.map))
-	{
-		write(2, "error map not closed\n", 21);
-		exit (1);
-	}
-	// ifvalid_space(data.map); ///this check is not important
+	is_mapclosed(data.map);
 	check_characters(data.map);
 	rgbtoint(path);
 	data.map = rectagle_map(data.map);
 	h_w_map(data.map, &data.h_w); //// that's function is return a struct of height and width of map;
+	// exit (1);
 	data.mlx_ = mlx_init();
 	data.win_ = mlx_new_window(data.mlx_, WIDTH , HEIGHT, "Abomination3D");
 	setting_texweapons(&data);
 	setting_texwalls(&data);
-	data.img_.img = mlx_new_image(data.mlx_, WIDTH, HEIGHT);
-	data.img_.addr = mlx_get_data_addr(data.img_.img, &data.img_.bits_per_pixel,
-		&data.img_.line_length, &data.img_.endian);
 	player_position(&data);
-	drow_2d(&data);
-	mlx_put_image_to_window(data.mlx_, data.win_, data.img_.img, 0, 0);
+	mlx_render_img(&data);
 	mlx_hook(data.win_, 2, 1L<<0, keey_hook, &data);
 	mlx_hook(data.win_, 6, 1L<<6 , mouse_hook, &data);
+	mlx_hook(data.win_, 17, 0, event_hook, NULL);
 	mlx_mouse_hide(data.mlx_, data.win_);
 	mlx_loop(data.mlx_);
 }

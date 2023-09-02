@@ -10,7 +10,7 @@
 # define WIDTH 1000
 # define HEIGHT 500
 # define SIZE 8
-# define SPEED 10
+# define SPEED 20
 # define FOV 1.0472
 # define CRNUM (WIDTH)
 # define SQRS 64
@@ -151,7 +151,7 @@ t_pars	*ft_lstnew(char *str);
 int	ft_strcmp(char *s1, char *s2);
 char	**get_map(t_pars *list);
 void	check_characters(char **map);
-int is_mapclosed(char **map);
+void is_mapclosed(char **map);
 void	path__(t_pars *list, t_path **path);
 void	ifvalid_space(char **map);
 void	ifvalid_floor(char **map);
@@ -161,6 +161,13 @@ void	draw_weapon(int x, t_weapon *weapon, t_cub *data);
 void	path_checker(t_pars *list, t_path **path);
 char	*pathfind(char *str);
 char	*findrgb(char *str);
+char	**ignor_space(char **map);
+void	free_split(char **split);
+void	check_characters(char **map);
+int		height_map(char **map);
+void	error_handler3(int flag);
+void	error_handler(int i, t_flag flag);
+int		shifting(char *r, char *g, char *b);
 // void	create_list(t_pars **list, char *n_file);
 // void	ft_lstadd_back(t_pars **lst, t_pars *new);
 // t_pars	*ft_lstnew(char *str);
@@ -196,5 +203,6 @@ double	count_distance(t_cub *data, double x,  double y);
 double	rad(double ang);
 int	position_check(t_cub *data, float newx, float newy);
 void	drow_minimap(t_cub *data);
+int event_hook(void);
 
 #endif

@@ -39,3 +39,8 @@ int	mouse_hook(int x, int y,t_cub *data)
 	mlx_render_img(data);
 	return (0);
 }
+
+int event_hook(void)
+{
+	exit(0);
+}

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/12 21:53:37 by werrahma          #+#    #+#             */
-/*   Updated: 2023/07/31 13:55:08 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/02 08:53:01 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#include <fcntl.h>
+# include <fcntl.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <unistd.h>
