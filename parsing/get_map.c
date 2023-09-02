@@ -55,6 +55,7 @@ void	ifvalid_floor(char **map)
 			{
 				if ((i > 0 && (j >= ft_strlen(map[i - 1]) || j >= ft_strlen(map[i + 1]))))
 				{
+					printf("%s\n", map[i]);
 					write(2, "floor not valid\n", 16);
 					exit(1);
 				}
@@ -203,11 +204,13 @@ char	*pathfind(char *str)
 {
 	int	i;
 
-	i = 0;
+	i = 3;
 	while (str[i])
 	{
-		if (str[i] == '.' && str[i + 1] == '/')
+		if ((str[i] == '.' && str[i + 1] == '/') || str[i] == ' ')
 			return (ft_strdup(&str[i]));
+		else
+			break;
 		i++;
 	}
 	write(2, "invalid path\n", 13);

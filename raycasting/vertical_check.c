@@ -27,7 +27,6 @@ double	*vertical_check(t_cub *data)
 {
 	double * hitwall;
 	hitwall = malloc(2 * sizeof(double));
-
 	get_steps(data);
 	while(1)
 	{
