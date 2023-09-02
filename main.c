@@ -127,77 +127,8 @@ int	keey_hook(int key, t_cub *data)
 	{
 		data->player.x = data->player.xtmp;
 		data->player.y = data->player.ytmp;
-		data->img_.img = mlx_new_image(data->mlx_, WIDTH, HEIGHT);
-		data->img_.addr = mlx_get_data_addr(data->img_.img, &data->img_.bits_per_pixel,
-		&data->img_.line_length, &data->img_.endian);
-		drow_2d(data);
-		mlx_put_image_to_window(data->mlx_, data->win_, data->img_.img, 0, 0);
-		// if (key == 32)
-		// 	data->weapon[0].check = 32;
-		// printf("%d\n", data->weapon.width);
-		// static int i;
-		
-		// 	// if (key == 32)
-		// 	// {
-		// 	// 	i = 0;
-		// 	// 	while(i < 4)
-		// 	// 	{
-		// 	// 		x = WIDTH / 2.3;
-		// 	// 		a = 0;
-		// 	// 		while(a < data->weapon[i].img_width)
-		// 	// 		{
-		// 	// 			draw_weapon(x, &data->weapon[i], data);
-		// 	// 			x++;
-		// 	// 			a++;
-		// 	// 		}
-		// 	// 		i++;
-		// 	// 	}
-		// 	// }
-		// 		draw_weapon(x, &data->weapon[i], data);
-		// 		x++;
-		// 		a++;
-		// 	}
-		// 	int z = 0;
-		// 	// while (z < 1000000000)
-		// 	// 	z++;
-		// 	drow_2d(data);
-		// 	i++;
-		// }
-		// i = 0;
+		mlx_render_img(data);
 	}
-	// static int i;
-	// while(i < 4)
-	// 	{
-	// 		int x = WIDTH / 2.3;
-	// 		int a = 0;
-	// 		while(a < data->weapon[i].img_width)
-	// 		{
-	// 		// if (key == 32)
-	// 		// {
-	// 		// 	i = 0;
-	// 		// 	while(i < 4)
-	// 		// 	{
-	// 		// 		x = WIDTH / 2.3;
-	// 		// 		a = 0;
-	// 		// 		while(a < data->weapon[i].img_width)
-	// 		// 		{
-	// 		// 			draw_weapon(x, &data->weapon[i], data);
-	// 		// 			x++;
-	// 		// 			a++;
-	// 		// 		}
-	// 		// 		i++;
-	// 		// 	}
-	// 		// }
-	// 			draw_weapon(x, &data->weapon[i], data);
-	// 			x++;
-	// 			a++;
-	// 		}
-	// 		int z = 0;
-	// 		// while (z < 1000000000)
-	// 		// 	z++;
-	// 		// drow_2d(data);
-	// 		i++;
-	// }
 	return (0);
 }
 
@@ -278,8 +209,6 @@ void	ifvalid_mapname(char *av)
 		exit(1);
 	}
 }
-
-
 
 int main(int ac, char **av)
  {
