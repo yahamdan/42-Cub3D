@@ -127,11 +127,7 @@ int	keey_hook(int key, t_cub *data)
 	{
 		data->player.x = data->player.xtmp;
 		data->player.y = data->player.ytmp;
-		data->img_.img = mlx_new_image(data->mlx_, WIDTH, HEIGHT);
-		data->img_.addr = mlx_get_data_addr(data->img_.img, &data->img_.bits_per_pixel,
-		&data->img_.line_length, &data->img_.endian);
-		drow_2d(data);
-		mlx_put_image_to_window(data->mlx_, data->win_, data->img_.img, 0, 0);
+		mlx_render_img(data);
 	}
 	return (0);
 }
@@ -192,8 +188,6 @@ void	ifvalid_mapname(char *av)
 		exit(1);
 	}
 }
-
-
 
 int main(int ac, char **av)
  {
