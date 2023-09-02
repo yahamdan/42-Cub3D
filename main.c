@@ -288,16 +288,12 @@ int main(int ac, char **av)
 	data.map = get_map(list);
 	path_checker(list, &path);
 	ifvalid_floor(data.map);
-	if (!is_mapclosed(data.map))
-	{
-		write(2, "error map not closed\n", 21);
-		exit (1);
-	}
-	// ifvalid_space(data.map); ///this check is not important
+	is_mapclosed(data.map);
 	check_characters(data.map);
 	rgbtoint(path);
 	data.map = rectagle_map(data.map);
 	h_w_map(data.map, &data.h_w); //// that's function is return a struct of height and width of map;
+	// exit (1);
 	data.mlx_ = mlx_init();
 	data.win_ = mlx_new_window(data.mlx_, WIDTH , HEIGHT, "Abomination3D");
 	setting_texweapons(&data);

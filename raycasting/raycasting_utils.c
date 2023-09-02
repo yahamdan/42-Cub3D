@@ -45,7 +45,7 @@ void	ray_caster(t_cub *data, int x)
 		// 	y = 0;
 			// y = (PPhight - HEIGHT) /2;
 		// printf("%f\n", y);
-size = data->xpm[0].img_height / PPhight;
+		size = data->xpm[0].img_height / PPhight;
 		while (i < y)
 		{
 			color = 0x45adff;
