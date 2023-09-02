@@ -17,6 +17,18 @@
 # define PI 3.14159265359
 
 
+typedef struct s_path
+{
+	char	*SO_path;
+	char	*WE_path;
+	char	*EA_path;
+	char	*NO_path;
+	char	*F_path;
+	char	*C_path;
+	int		c;
+	int		f;
+}				t_path;
+
 typedef struct s_h_w
 {
 	int	height;
@@ -114,6 +126,7 @@ typedef struct s_cub
 	struct s_xpm		*xpm;
 	struct s_weapon		*weapon;
 	struct s_h_w		h_w;
+	struct s_path		*path;
 }   t_cub;
 
 typedef struct s_pars
@@ -133,17 +146,6 @@ typedef struct s_flag
 	int	C;
 }				t_flag;
 
-typedef struct s_path
-{
-	char	*SO_path;
-	char	*WE_path;
-	char	*EA_path;
-	char	*NO_path;
-	char	*F_path;
-	char	*C_path;
-	int		c;
-	int		f;
-}				t_path;
 
 void	create_list(t_pars **list, char *n_file);
 void	ft_lstadd_back(t_pars **lst, t_pars *new);

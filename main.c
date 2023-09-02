@@ -228,15 +228,27 @@ void	setting_texweapons(t_cub *data)
 
 void	setting_texwalls(t_cub *data)
 {
+	int	i;
+
+	i = 0;
 	data->xpm = malloc(sizeof(t_xpm) * 4);
-	data->xpm[0].relative_path = "./textures/marble/m1.xpm";
-	data->xpm[1].relative_path = "./textures/map2/wall1.xpm";
+	data->xpm[0].relative_path = "./textures/ap1/flag.xpm";
+	data->xpm[1].relative_path = "./textures/map1/wall.xpm";
 	data->xpm[2].relative_path = "./textures/map2/wall2.xpm";
-	data->xpm[3].relative_path = "./textures/marble/m2.xpm";
+	data->xpm[3].relative_path = "./textures/map1/svastika_tmp.xpm";
 	data->xpm[0].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[0].relative_path, &data->xpm[0].img_width, &data->xpm[0].img_height);
 	data->xpm[1].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[1].relative_path, &data->xpm[1].img_width, &data->xpm[1].img_height);
 	data->xpm[2].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[2].relative_path, &data->xpm[2].img_width, &data->xpm[2].img_height);
 	data->xpm[3].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[3].relative_path, &data->xpm[3].img_width, &data->xpm[3].img_height);
+	while (i < 4)
+	{
+		if (!data->xpm[i].img)
+		{
+			write(2, "invalid texture\n", 15);
+			exit(1);
+		}
+		i++;
+	}
 	data->xpm[0].data_img = (char *)mlx_get_data_addr(data->xpm[0].img, &data->xpm[0].bits_per_pixel, &data->xpm[0].size_line, &data->xpm[0].endian);
 	data->xpm[1].data_img = (char *)mlx_get_data_addr(data->xpm[1].img, &data->xpm[1].bits_per_pixel, &data->xpm[1].size_line, &data->xpm[1].endian);
 	data->xpm[2].data_img = (char *)mlx_get_data_addr(data->xpm[2].img, &data->xpm[2].bits_per_pixel, &data->xpm[2].size_line, &data->xpm[2].endian);
@@ -276,23 +288,23 @@ int main(int ac, char **av)
 	t_weapon weapon;
 
     t_pars *list;
-    t_path *path;
+    // t_path *path;
 
 	list = NULL;
 	ifvalid_mapname(av[1]);
 	create_list(&list, av[1]);
 	data.map = get_map(list);
-	path_checker(list, &path);
+	path_checker(list, &data.path);
 	ifvalid_floor(data.map);
 	is_mapclosed(data.map);
 	check_characters(data.map);
-	rgbtoint(path);
+	rgbtoint(data.path);
 	data.map = rectagle_map(data.map);
 	h_w_map(data.map, &data.h_w); //// that's function is return a struct of height and width of map;
 	// exit (1);
 	data.mlx_ = mlx_init();
 	data.win_ = mlx_new_window(data.mlx_, WIDTH , HEIGHT, "Abomination3D");
-	setting_texweapons(&data);
+	// setting_texweapons(&data);
 	setting_texwalls(&data);
 	player_position(&data);
 	mlx_render_img(&data);
