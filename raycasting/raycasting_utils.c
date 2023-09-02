@@ -32,7 +32,8 @@ void	horizontal_rayrander(t_cub *data, double hordist, double *horhitwall, doubl
 	size = data->xpm[0].img_height / PPhight;
 	while (i < y)
 	{
-		color = 0x45adff;
+		//color = 0x45adff;
+		color	= data->path->c;
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		i++;
 	}
@@ -51,7 +52,8 @@ void	horizontal_rayrander(t_cub *data, double hordist, double *horhitwall, doubl
 	}
 	while(i < HEIGHT)
 	{
-		color = 0x758189;
+		//color = 0x758189;
+		color = data->path->f;
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		i++;
 	}
@@ -74,7 +76,8 @@ void	vertical_rayrander(t_cub *data, double verdist, double *verhitwall, double 
 	size = data->xpm[0].img_height / PPhight;
 	while (i < y)
 	{
-		color = 0x45adff;
+		//color = 0x45adff;
+		color	= data->path->c;
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		i++;
 	}
@@ -94,7 +97,8 @@ void	vertical_rayrander(t_cub *data, double verdist, double *verhitwall, double 
 	}
 	while(i < HEIGHT)
 	{
-		color = 0x758189;
+		//color = 0x758189;
+		color	= data->path->f;
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		i++;
 	}
