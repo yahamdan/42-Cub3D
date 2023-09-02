@@ -237,9 +237,12 @@ void	setting_texwalls(t_cub *data)
 
 	i = 0;
 	data->xpm = malloc(sizeof(t_xpm) * 4);
-	data->xpm[0].relative_path = "./textures/ap1/flag.xpm";
-	data->xpm[1].relative_path = "./textures/map1/wall.xpm";
-	data->xpm[2].relative_path = "./textures/map2/wall2.xpm";
+	// data->xpm[0].relative_path = "./textures/map1/flag.xpm";
+	data->xpm[0].relative_path = data->path->WE_path;
+	// data->xpm[1].relative_path = "./textures/map1/wall.xpm";
+	data->xpm[1].relative_path = data->path->EA_path;
+	// data->xpm[2].relative_path = "./textures/map2/wall2.xpm";
+	data->xpm[2].relative_path = data->path.;
 	data->xpm[3].relative_path = "./textures/map1/svastika_tmp.xpm";
 	data->xpm[0].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[0].relative_path, &data->xpm[0].img_width, &data->xpm[0].img_height);
 	data->xpm[1].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[1].relative_path, &data->xpm[1].img_width, &data->xpm[1].img_height);

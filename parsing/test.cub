@@ -1,11 +1,11 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
+NO ./textures/map1/flag.xpm
+SO ./textures/map1/wall.xpm
+WE ./textures/map2/wall2.xpm
 
 
 
 
-EA ./path_to_the_east_texture
+EA ./textures/map1/svastika_tmp.xpm
 
 
 
