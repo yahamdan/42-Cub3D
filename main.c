@@ -107,21 +107,21 @@ int	check_if_hitwall(t_cub *data, float x, float y)
 
 int	keey_hook(int key, t_cub *data)
 {
-	if (key == 65307)
-		exit(0);
 	data->player.xtmp = data->player.x;
 	data->player.ytmp = data->player.y;
+	if (key == 65307)
+		exit(0);
 	if (key == 119)
 		move_up(data);
-	else if (key == 115)
+	if (key == 115)
 		move_down(data);
-	else if (key == 97)
+	if (key == 97)
 		move_left(data);
-	else if (key == 100)
+	if (key == 100)
 		move_right(data);
-	else if (key == 65361)
+	if (key == 65361)
 		leftrotation(data);
-	else if (key == 65363)
+	if (key == 65363)
 		rightrotation(data);
 	if (position_check(data, data->player.xtmp, data->player.ytmp))
 	{
@@ -136,12 +136,7 @@ int	keey_hook(int key, t_cub *data)
 		// 	data->weapon[0].check = 32;
 		// printf("%d\n", data->weapon.width);
 		// static int i;
-		// while(i < 4)
-		// {
-		// 	int x = WIDTH / 2.3;
-		// 	int a = 0;
-		// 	while(a < data->weapon[i].img_width)
-		// 	{
+		
 		// 	// if (key == 32)
 		// 	// {
 		// 	// 	i = 0;

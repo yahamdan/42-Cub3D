@@ -15,6 +15,90 @@ int	get_position(double pos, int tex_width)
 	return (position);
 }
 
+void	horizontal_rayrander(t_cub *data, double hordist, double *horhitwall, double PPDistance, int x)
+{
+	double	PPhight;
+	double	y;
+	double	hight = 0.0;
+	int color;
+	double size;
+	int		i = 0;
+	
+	hordist *= cos(data->player.rotation - data->rayangle);
+	PPhight = (SQRS / hordist) * PPDistance;
+	y = (HEIGHT / 2) - (PPhight / 2);
+	int y_top = y;
+	int y_down = (HEIGHT / 2) + (PPhight / 2);
+	size = data->xpm[0].img_height / PPhight;
+	while (i < y)
+	{
+		color = 0x45adff;
+		my_mlx_pixel_put(&data->img_, x, i, color);
+		i++;
+	}
+	i = y_top;
+	while(i < y_down)
+	{
+		if(sin(data->rayangle) > 0)
+			color = get_pixels(&data->xpm[2],get_position(horhitwall[0], data->xpm[2].img_width), hight);
+		else
+			color = get_pixels(&data->xpm[3],get_position(horhitwall[0], data->xpm[3].img_width), hight);
+		my_mlx_pixel_put(&data->img_, x, i, color);
+		hight += size;
+		i++;
+	}
+	while(i < HEIGHT)
+	{
+		color = 0x758189;
+		my_mlx_pixel_put(&data->img_, x, i, color);
+		i++;
+	}
+	//free(horhitwall);
+}
+
+void	vertical_rayrander(t_cub *data, double verdist, double *verhitwall, double PPDistance, int x)
+{
+	double	PPhight;
+	double	y;
+	double	hight = 0.0;
+	int color;
+	double size;
+	int		i = 0;
+
+	verdist *= cos(data->player.rotation - data->rayangle);
+	PPhight = (SQRS / verdist) * PPDistance;
+	y = (HEIGHT / 2) - (PPhight / 2);
+	int y_top = y;
+	int y_down = (HEIGHT / 2) + (PPhight / 2);
+	size = data->xpm[0].img_height / PPhight;
+	while (i < y)
+	{
+		color = 0x45adff;
+		my_mlx_pixel_put(&data->img_, x, i, color);
+		i++;
+	}
+	i = y_top;
+	while(i < y_down)
+	{
+		if(cos(data->rayangle) > 0)
+			color = get_pixels(&data->xpm[0],get_position(verhitwall[1], data->xpm[0].img_width), hight);
+		else
+			color = get_pixels(&data->xpm[1],get_position(verhitwall[1], data->xpm[1].img_width), hight);
+		
+		my_mlx_pixel_put(&data->img_, x, i, color);
+		hight += size;
+		i++;
+	}
+	while(i < HEIGHT)
+	{
+		color = 0x758189;
+		my_mlx_pixel_put(&data->img_, x, i, color);
+		i++;
+	}
+	//free(verhitwall);
+}
+
+
 void	ray_caster(t_cub *data, int x)
 {
 	double	*verhitwall;
@@ -36,156 +120,161 @@ void	ray_caster(t_cub *data, int x)
 	PPDistance = (WIDTH / 2) / tan(rad(30));
 	if (horhitwall[1] <= 0 || horhitwall[0] <=0)
 	{
-		verdist *= cos(data->player.rotation - data->rayangle);
-		PPhight = (SQRS / verdist) * PPDistance;
-		y = (HEIGHT / 2) - (PPhight / 2);
-		int y_top = y;
-		int y_down = (HEIGHT / 2) + (PPhight / 2);
-		// if (y < 0)
-		// 	y = 0;
-			// y = (PPhight - HEIGHT) /2;
-		// printf("%f\n", y);
-size = data->xpm[0].img_height / PPhight;
-		while (i < y)
-		{
-			color = 0x45adff;
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			i++;
-		}
-		i = y_top;
-		while(i < y_down)
-		{
-				// printf("x === %f,,,,,, y = %f\n", verhitwall[0], verhitwall[1]);
-			if(cos(data->rayangle) > 0)
-				color = get_pixels(&data->xpm[0],get_position(verhitwall[1], data->xpm[0].img_width), hight);
-			else
-				color = get_pixels(&data->xpm[1],get_position(verhitwall[1], data->xpm[1].img_width), hight);
+		vertical_rayrander(data, verdist, verhitwall, PPDistance, x);
+		// verdist *= cos(data->player.rotation - data->rayangle);
+		// PPhight = (SQRS / verdist) * PPDistance;
+		// y = (HEIGHT / 2) - (PPhight / 2);
+		// int y_top = y;
+		// int y_down = (HEIGHT / 2) + (PPhight / 2);
+		// // if (y < 0)
+		// // 	y = 0;
+		// 	// y = (PPhight - HEIGHT) /2;
+		// // printf("%f\n", y);
+		// size = data->xpm[0].img_height / PPhight;
+		// while (i < y)
+		// {
+		// 	color = 0x45adff;
+		// 	my_mlx_pixel_put(&data->img_, x, i, color);
+		// 	i++;
+		// }
+		// i = y_top;
+		// while(i < y_down)
+		// {
+		// 		// printf("x === %f,,,,,, y = %f\n", verhitwall[0], verhitwall[1]);
+		// 	if(cos(data->rayangle) > 0)
+		// 		color = get_pixels(&data->xpm[0],get_position(verhitwall[1], data->xpm[0].img_width), hight);
+		// 	else
+		// 		color = get_pixels(&data->xpm[1],get_position(verhitwall[1], data->xpm[1].img_width), hight);
 			
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			hight += size;
-			i++;
-		}
-		while(i < HEIGHT)
-		{
-			color = 0x758189;
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			i++;
-		}
-		free(verhitwall);
-		free(horhitwall);
-		return ;
+		// 	my_mlx_pixel_put(&data->img_, x, i, color);
+		// 	hight += size;
+		// 	i++;
+		// }
+		// while(i < HEIGHT)
+		// {
+		// 	color = 0x758189;
+		// 	my_mlx_pixel_put(&data->img_, x, i, color);
+		// 	i++;
+		// }
+		// free(verhitwall);
+		//free(horhitwall);
+		//return ;
 	}
 	else if (verhitwall[1] <= 0 || verhitwall[0] <= 0)
 	{
-		hordist *= cos(data->player.rotation - data->rayangle);
-		PPhight = (SQRS / hordist) * PPDistance;
-		y = (HEIGHT / 2) - (PPhight / 2);
-		// if(y < 0)
-		// 	y = 0;;
-			// y=(PPhight - HEIGHT) / 2;
-		// printf("------(%f\n", y);
-				int y_top = y;
-		int y_down = (HEIGHT / 2) + (PPhight / 2);
-		size = data->xpm[0].img_height / PPhight;
-		while (i < y)
-		{
-			color = 0x45adff;
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			i++;
-		}
-		i = y_top;
-		while(i < y_down)
-		{
-			if(sin(data->rayangle) > 0)
-				color = get_pixels(&data->xpm[2],get_position(horhitwall[0], data->xpm[2].img_width), hight);
-			else
-				color = get_pixels(&data->xpm[3],get_position(horhitwall[0], data->xpm[3].img_width), hight);
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			hight += size;
-			i++;
-		}
-		while(i < HEIGHT)
-		{
-			color = 0x758189;
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			i++;
-		}
+		horizontal_rayrander(data, hordist, horhitwall, PPDistance,x);
+		// hordist *= cos(data->player.rotation - data->rayangle);
+		// PPhight = (SQRS / hordist) * PPDistance;
+		// y = (HEIGHT / 2) - (PPhight / 2);
+		// // if(y < 0)
+		// // 	y = 0;;
+		// 	// y=(PPhight - HEIGHT) / 2;
+		// // printf("------(%f\n", y);
+		// 		int y_top = y;
+		// int y_down = (HEIGHT / 2) + (PPhight / 2);
+		// size = data->xpm[0].img_height / PPhight;
+		// while (i < y)
+		// {
+		// 	color = 0x45adff;
+		// 	my_mlx_pixel_put(&data->img_, x, i, color);
+		// 	i++;
+		// }
+		// i = y_top;
+		// while(i < y_down)
+		// {
+		// 	if(sin(data->rayangle) > 0)
+		// 		color = get_pixels(&data->xpm[2],get_position(horhitwall[0], data->xpm[2].img_width), hight);
+		// 	else
+		// 		color = get_pixels(&data->xpm[3],get_position(horhitwall[0], data->xpm[3].img_width), hight);
+		// 	my_mlx_pixel_put(&data->img_, x, i, color);
+		// 	hight += size;
+		// 	i++;
+		// }
+		// while(i < HEIGHT)
+		// {
+		// 	color = 0x758189;
+		// 	my_mlx_pixel_put(&data->img_, x, i, color);
+		// 	i++;
+		// }
 
-		free(verhitwall);
-		free(horhitwall);
-		return ;
+		//free(verhitwall);
+		// free(horhitwall);
+		///return ;
 	}
 	else if (count_distance(data, horhitwall[0], horhitwall[1]) >= count_distance(data, verhitwall[0], verhitwall[1]))
 	{
-		verdist *= cos(data->player.rotation - data->rayangle);
-		PPhight = (SQRS / verdist) * PPDistance;
-		y = (HEIGHT / 2) - (PPhight / 2);
-		int y_top = y;
-		int y_down = (HEIGHT / 2) + (PPhight / 2);
-			size = data->xpm[0].img_height / PPhight;
-		while (i < y)
-		{
-			color = 0x45adff;
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			i++;
-		}
-		i = y_top;
-		while(i < y_down)
-		{
-			if(cos(data->rayangle) > 0)
-				color = get_pixels(&data->xpm[0],get_position(verhitwall[1], data->xpm[0].img_width), hight);
-			else
-				color = get_pixels(&data->xpm[1],get_position(verhitwall[1], data->xpm[1].img_width), hight);
-			hight += size;
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			i++;
-		}
+		// verdist *= cos(data->player.rotation - data->rayangle);
+		// PPhight = (SQRS / verdist) * PPDistance;
+		// y = (HEIGHT / 2) - (PPhight / 2);
+		// int y_top = y;
+		// int y_down = (HEIGHT / 2) + (PPhight / 2);
+		// 	size = data->xpm[0].img_height / PPhight;
+		// while (i < y)
+		// {
+		// 	color = 0x45adff;
+		// 	my_mlx_pixel_put(&data->img_, x, i, color);
+		// 	i++;
+		// }
+		// i = y_top;
+		// while(i < y_down)
+		// {
+		// 	if(cos(data->rayangle) > 0)
+		// 		color = get_pixels(&data->xpm[0],get_position(verhitwall[1], data->xpm[0].img_width), hight);
+		// 	else
+		// 		color = get_pixels(&data->xpm[1],get_position(verhitwall[1], data->xpm[1].img_width), hight);
+		// 	hight += size;
+		// 	my_mlx_pixel_put(&data->img_, x, i, color);
+		// 	i++;
+		// }
 				
-		while(i < HEIGHT)
-		{
-			color = 0x758189;
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			i++;
-		}
+		// while(i < HEIGHT)
+		// {
+		// 	color = 0x758189;
+		// 	my_mlx_pixel_put(&data->img_, x, i, color);
+		// 	i++;
+		// }
+		vertical_rayrander(data, verdist, verhitwall, PPDistance, x);
+		//return ;
 
 	}
 	else
-	{
-		hordist *= cos(data->player.rotation - data->rayangle);
-		PPhight = (SQRS / hordist) * PPDistance;
-		y = ( HEIGHT / 2) - (PPhight / 2);
-				// if(y < 0)
-				// 	y = 0;;
-					// y=(PPhight - HEIGHT)/2;
-				// printf("------(%f\n", y);
-		int y_top = y;
-		int y_down = (HEIGHT / 2) + (PPhight / 2);
-		size = data->xpm[0].img_height / PPhight;
-		while (i < y)
-		{
-			color = 0x45adff;
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			i++;
-		}
-		i = y_top;
-		while(i < y_down)
-		{
-			if(sin(data->rayangle) > 0)
-				color = get_pixels(&data->xpm[2],get_position(horhitwall[0], data->xpm[2].img_width), hight);
-			else
-				color = get_pixels(&data->xpm[3],get_position(horhitwall[0], data->xpm[3].img_width), hight);
-			hight += size;
-			my_mlx_pixel_put(&data->img_, x, i, color);
-			i++;
-		}
-		while(i < HEIGHT)
-		{
-							color = 0x758189;
-				my_mlx_pixel_put(&data->img_, x, i, color);
-				i++;
-		}
+		horizontal_rayrander(data, hordist, horhitwall, PPDistance, x);
+	// {
+	// 	hordist *= cos(data->player.rotation - data->rayangle);
+	// 	PPhight = (SQRS / hordist) * PPDistance;
+	// 	y = ( HEIGHT / 2) - (PPhight / 2);
+	// 			// if(y < 0)
+	// 			// 	y = 0;;
+	// 				// y=(PPhight - HEIGHT)/2;
+	// 			// printf("------(%f\n", y);
+	// 	int y_top = y;
+	// 	int y_down = (HEIGHT / 2) + (PPhight / 2);
+	// 	size = data->xpm[0].img_height / PPhight;
+	// 	while (i < y)
+	// 	{
+	// 		color = 0x45adff;
+	// 		my_mlx_pixel_put(&data->img_, x, i, color);
+	// 		i++;
+	// 	}
+	// 	i = y_top;
+	// 	while(i < y_down)
+	// 	{
+	// 		if(sin(data->rayangle) > 0)
+	// 			color = get_pixels(&data->xpm[2],get_position(horhitwall[0], data->xpm[2].img_width), hight);
+	// 		else
+	// 			color = get_pixels(&data->xpm[3],get_position(horhitwall[0], data->xpm[3].img_width), hight);
+	// 		hight += size;
+	// 		my_mlx_pixel_put(&data->img_, x, i, color);
+	// 		i++;
+	// 	}
+	// 	while(i < HEIGHT)
+	// 	{
+	// 						color = 0x758189;
+	// 			my_mlx_pixel_put(&data->img_, x, i, color);
+	// 			i++;
+	// 	}
 
-	}
+	//}
 	free(verhitwall);
 	free(horhitwall);
 }
@@ -272,5 +361,6 @@ void    drow_2d(t_cub *data)
 		data->rayangle += FOV / CRNUM;
 		k++;
 	}
+	drow_minimap(data);
 	// draw_weapon(1, data);
 }

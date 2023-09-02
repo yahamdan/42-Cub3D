@@ -10,7 +10,7 @@
 # define WIDTH 1000
 # define HEIGHT 500
 # define SIZE 8
-# define SPEED 32
+# define SPEED 10
 # define FOV 1.0472
 # define CRNUM (WIDTH)
 # define SQRS 64
@@ -195,4 +195,6 @@ int		keey_hook(int key, t_cub *data);
 double	count_distance(t_cub *data, double x,  double y);
 double	rad(double ang);
 int	position_check(t_cub *data, float newx, float newy);
+void	drow_minimap(t_cub *data);
+
 #endif
