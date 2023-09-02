@@ -11,8 +11,8 @@ void	mlx_render_img(t_cub *data)
 
 int	position_check(t_cub *data, float newx, float newy)
 {
-	if (data->map[(int)(data->player.y / SQRS)][(int)(newx / SQRS)] != '1'
-		&& data->map[(int)(newy / SQRS)][(int)(data->player.x / SQRS)] != '1'
+	if (data->map[(int)((data->player.y ) / SQRS)][(int)(newx / SQRS)] != '1'
+		&& data->map[(int)(newy / SQRS)][(int)((data->player.x ) / SQRS)] != '1'
 		&& data->map[(int)(newy / SQRS)][(int)(newx / SQRS)] != '1')
 			return (1);
 	return (0);
@@ -20,7 +20,7 @@ int	position_check(t_cub *data, float newx, float newy)
 
 int	mouse_hook(int x, int y,t_cub *data)
 {
-	if (x >= WIDTH || x <= 0)
+	if (x >= WIDTH || x <= 0 || y >= HEIGHT || y <= 0 )
 		mlx_mouse_move(data->mlx_, data->win_, WIDTH / 2, HEIGHT /2);
 	if (x > data->mouse.x)
 	{
@@ -38,4 +38,9 @@ int	mouse_hook(int x, int y,t_cub *data)
 	data->mouse.y = y;
 	mlx_render_img(data);
 	return (0);
+}
+
+int event_hook(void)
+{
+	exit(0);
 }

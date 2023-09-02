@@ -6,10 +6,10 @@ SRC = parsing/parsing.c parsing/read_file.c parsing/colors.c parsing/check_chara
 	raycasting/rotation.c raycasting/move_player.c \
 	raycasting/raycasting_utils.c raycasting/vertical_check.c \
 	raycasting/horizontal_check.c raycasting/player.c \
-	raycasting/mlx_hook.c raycasting/mathch.c
+	raycasting/mlx_hook.c raycasting/mathch.c raycasting/minimap.c
  
-CC = clang
- CFLAGS = -fsanitize=address -g3 #-Wall -Wextra -Werror  
+CC = cc
+ CFLAGS = #-fsanitize=address -g3 #-Wall -Wextra -Werror  
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

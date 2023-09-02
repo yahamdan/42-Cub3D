@@ -10,7 +10,7 @@
 # define WIDTH 1000
 # define HEIGHT 500
 # define SIZE 8
-# define SPEED 32
+# define SPEED 20
 # define FOV 1.0472
 # define CRNUM (WIDTH)
 # define SQRS 64
@@ -159,7 +159,6 @@ void	ifvalid_space(char **map);
 void	ifvalid_floor(char **map);
 void	rgbtoint(t_path *path);
 char	**rectagle_map(char **map);
-void	draw_weapon(int x, t_weapon *weapon, t_cub *data);
 void	path_checker(t_pars *list, t_path **path);
 char	*pathfind(char *str);
 char	*findrgb(char *str);
@@ -204,4 +203,7 @@ int		keey_hook(int key, t_cub *data);
 double	count_distance(t_cub *data, double x,  double y);
 double	rad(double ang);
 int	position_check(t_cub *data, float newx, float newy);
+void	drow_minimap(t_cub *data);
+int event_hook(void);
+
 #endif

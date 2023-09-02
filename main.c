@@ -107,21 +107,21 @@ int	check_if_hitwall(t_cub *data, float x, float y)
 
 int	keey_hook(int key, t_cub *data)
 {
-	if (key == 65307)
-		exit(0);
 	data->player.xtmp = data->player.x;
 	data->player.ytmp = data->player.y;
+	if (key == 65307)
+		exit(0);
 	if (key == 119)
 		move_up(data);
-	else if (key == 115)
+	if (key == 115)
 		move_down(data);
-	else if (key == 97)
+	if (key == 97)
 		move_left(data);
-	else if (key == 100)
+	if (key == 100)
 		move_right(data);
-	else if (key == 65361)
+	if (key == 65361)
 		leftrotation(data);
-	else if (key == 65363)
+	if (key == 65363)
 		rightrotation(data);
 	if (position_check(data, data->player.xtmp, data->player.ytmp))
 	{
@@ -132,104 +132,9 @@ int	keey_hook(int key, t_cub *data)
 		&data->img_.line_length, &data->img_.endian);
 		drow_2d(data);
 		mlx_put_image_to_window(data->mlx_, data->win_, data->img_.img, 0, 0);
-		// if (key == 32)
-		// 	data->weapon[0].check = 32;
-		// printf("%d\n", data->weapon.width);
-		// static int i;
-		// while(i < 4)
-		// {
-		// 	int x = WIDTH / 2.3;
-		// 	int a = 0;
-		// 	while(a < data->weapon[i].img_width)
-		// 	{
-		// 	// if (key == 32)
-		// 	// {
-		// 	// 	i = 0;
-		// 	// 	while(i < 4)
-		// 	// 	{
-		// 	// 		x = WIDTH / 2.3;
-		// 	// 		a = 0;
-		// 	// 		while(a < data->weapon[i].img_width)
-		// 	// 		{
-		// 	// 			draw_weapon(x, &data->weapon[i], data);
-		// 	// 			x++;
-		// 	// 			a++;
-		// 	// 		}
-		// 	// 		i++;
-		// 	// 	}
-		// 	// }
-		// 		draw_weapon(x, &data->weapon[i], data);
-		// 		x++;
-		// 		a++;
-		// 	}
-		// 	int z = 0;
-		// 	// while (z < 1000000000)
-		// 	// 	z++;
-		// 	drow_2d(data);
-		// 	i++;
-		// }
-		// i = 0;
 	}
-	// static int i;
-	// while(i < 4)
-	// 	{
-	// 		int x = WIDTH / 2.3;
-	// 		int a = 0;
-	// 		while(a < data->weapon[i].img_width)
-	// 		{
-	// 		// if (key == 32)
-	// 		// {
-	// 		// 	i = 0;
-	// 		// 	while(i < 4)
-	// 		// 	{
-	// 		// 		x = WIDTH / 2.3;
-	// 		// 		a = 0;
-	// 		// 		while(a < data->weapon[i].img_width)
-	// 		// 		{
-	// 		// 			draw_weapon(x, &data->weapon[i], data);
-	// 		// 			x++;
-	// 		// 			a++;
-	// 		// 		}
-	// 		// 		i++;
-	// 		// 	}
-	// 		// }
-	// 			draw_weapon(x, &data->weapon[i], data);
-	// 			x++;
-	// 			a++;
-	// 		}
-	// 		int z = 0;
-	// 		// while (z < 1000000000)
-	// 		// 	z++;
-	// 		// drow_2d(data);
-	// 		i++;
-	// }
 	return (0);
 }
-
-void	setting_texweapons(t_cub *data)
-{
-	data->weapon = malloc(sizeof(t_weapon) * 5);
-	data->weapon[0].relative_path = "./textures/gun/frame1.xpm";
-	data->weapon[1].relative_path = "./textures/gun/frame2.xpm";
-	data->weapon[2].relative_path = "./textures/gun/frame3.xpm";
-	data->weapon[3].relative_path = "./textures/gun/frame4.xpm";
-	data->weapon[4].relative_path = "./textures/gun/frame5.xpm";
-	data->weapon[0].img = mlx_xpm_file_to_image(data->mlx_, data->weapon[0].relative_path, &data->weapon[0].img_width, &data->weapon[0].img_height);
-	data->weapon[0].data_img =  (char *)mlx_get_data_addr(data->weapon[0].img, &data->weapon[0].bits_per_pixel, &data->weapon[0].size_line, &data->weapon[0].endian);
-	///
-	data->weapon[1].img = mlx_xpm_file_to_image(data->mlx_, data->weapon[1].relative_path, &data->weapon[1].img_width, &data->weapon[1].img_height);
-	data->weapon[1].data_img =  (char *)mlx_get_data_addr(data->weapon[1].img, &data->weapon[1].bits_per_pixel, &data->weapon[1].size_line, &data->weapon[1].endian);
-	///
-	data->weapon[2].img = mlx_xpm_file_to_image(data->mlx_, data->weapon[2].relative_path, &data->weapon[2].img_width, &data->weapon[2].img_height);
-	data->weapon[2].data_img =  (char *)mlx_get_data_addr(data->weapon[2].img, &data->weapon[2].bits_per_pixel, &data->weapon[2].size_line, &data->weapon[2].endian);
-	///
-		data->weapon[3].img = mlx_xpm_file_to_image(data->mlx_, data->weapon[3].relative_path, &data->weapon[3].img_width, &data->weapon[3].img_height);
-	data->weapon[3].data_img =  (char *)mlx_get_data_addr(data->weapon[3].img, &data->weapon[3].bits_per_pixel, &data->weapon[3].size_line, &data->weapon[3].endian);
-	///
-	data->weapon[4].img = mlx_xpm_file_to_image(data->mlx_, data->weapon[4].relative_path, &data->weapon[4].img_width, &data->weapon[4].img_height);
-	data->weapon[4].data_img =  (char *)mlx_get_data_addr(data->weapon[4].img, &data->weapon[4].bits_per_pixel, &data->weapon[4].size_line, &data->weapon[4].endian);
-}
-
 
 void	setting_texwalls(t_cub *data)
 {
@@ -238,12 +143,13 @@ void	setting_texwalls(t_cub *data)
 	i = 0;
 	data->xpm = malloc(sizeof(t_xpm) * 4);
 	// data->xpm[0].relative_path = "./textures/map1/flag.xpm";
-	data->xpm[0].relative_path = data->path->WE_path;
+	data->xpm[1].relative_path = data->path->WE_path;
 	// data->xpm[1].relative_path = "./textures/map1/wall.xpm";
-	data->xpm[1].relative_path = data->path->EA_path;
+	data->xpm[0].relative_path = data->path->EA_path;
 	// data->xpm[2].relative_path = "./textures/map2/wall2.xpm";
-	data->xpm[2].relative_path = data->path.;
-	data->xpm[3].relative_path = "./textures/map1/svastika_tmp.xpm";
+	data->xpm[2].relative_path = data->path->SO_path;
+	// data->xpm[3].relative_path = "./textures/map1/svastika_tmp.xpm";
+	data->xpm[3].relative_path = data->path->NO_path;
 	data->xpm[0].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[0].relative_path, &data->xpm[0].img_width, &data->xpm[0].img_height);
 	data->xpm[1].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[1].relative_path, &data->xpm[1].img_width, &data->xpm[1].img_height);
 	data->xpm[2].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[2].relative_path, &data->xpm[2].img_width, &data->xpm[2].img_height);
@@ -288,6 +194,7 @@ void	ifvalid_mapname(char *av)
 }
 
 
+
 int main(int ac, char **av)
  {
 	(void)ac;
@@ -311,16 +218,12 @@ int main(int ac, char **av)
 	// exit (1);
 	data.mlx_ = mlx_init();
 	data.win_ = mlx_new_window(data.mlx_, WIDTH , HEIGHT, "Abomination3D");
-	// setting_texweapons(&data);
 	setting_texwalls(&data);
-	data.img_.img = mlx_new_image(data.mlx_, WIDTH, HEIGHT);
-	data.img_.addr = mlx_get_data_addr(data.img_.img, &data.img_.bits_per_pixel,
-		&data.img_.line_length, &data.img_.endian);
 	player_position(&data);
-	drow_2d(&data);
-	mlx_put_image_to_window(data.mlx_, data.win_, data.img_.img, 0, 0);
+	mlx_render_img(&data);
 	mlx_hook(data.win_, 2, 1L<<0, keey_hook, &data);
 	mlx_hook(data.win_, 6, 1L<<6 , mouse_hook, &data);
+	mlx_hook(data.win_, 17, 0, event_hook, NULL);
 	mlx_mouse_hide(data.mlx_, data.win_);
 	mlx_loop(data.mlx_);
 }
