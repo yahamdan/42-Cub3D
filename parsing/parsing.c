@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:43:54 by werrahma          #+#    #+#             */
-/*   Updated: 2023/09/01 18:17:33 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:40:08 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	error_handler(int i, t_flag flag)
 		|| flag.F == 0 || flag.NO == 0 \
 		|| flag.SO == 0 || flag.WE == 0))
 	{
-		write (2, "error path\n", 11);
+		write (2, "error in path\n", 14);
 		exit (1);
 	}
 }
