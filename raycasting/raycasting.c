@@ -6,7 +6,7 @@
 /*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:14:35 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/03 18:46:15 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/03 20:06:40 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ void	horizontal_rayrander(t_cub *data, double *hitwall, double pdist, int x)
 	hor_init(data, &cub, hordist, pdist);
 	rander_sky(data, &cub, x);
 	i = cub.y_top;
+	if (i < 0)
+	{
+		hight += cub.size * fabs(i);
+		i = 0;
+	}
 	while (i < cub.y_down)
 	{
 		color = get_horcolor(data, hight, hitwall);
@@ -68,14 +73,19 @@ void	vertical_rayrander(t_cub *data, double *verhitwall, double pdist, int x)
 	ver_init(data, &cub, verdist, pdist);
 	rander_sky(data, &cub, x);
 	i = cub.y_top;
+	if (i < 0)
+	{
+		hight += cub.size * fabs(i);
+		i = 0;
+	}
 	while (i < cub.y_down)
 	{
 		color = get_vercolor(data, hight, verhitwall);
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		if (i > HEIGHT)
 			break ;
-		hight += cub.size;
 		i++;
+		hight += cub.size;
 	}
 	rander_floor(data, i, x);
 }

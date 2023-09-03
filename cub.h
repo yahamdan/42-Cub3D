@@ -6,7 +6,7 @@
 /*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:34:58 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/03 18:47:45 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:02:38 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,17 @@ int		height_map(char **map);
 void	error_handler3(int flag);
 void	error_handler(int i, t_flag flag);
 int		shifting(char *r, char *g, char *b);
+void	setting_texwalls(t_cub *data);
+void	h_w_map(char **map, t_h_w *h_w);
+void	ifvalid_mapname(int ac, char *av);
+// void	create_list(t_pars **list, char *n_file);
+// void	ft_lstadd_back(t_pars **lst, t_pars *new);
+// t_pars	*ft_lstnew(char *str);
+// int	ft_strcmp(char *s1, char *s2);
+// char	**get_map(t_pars *list);
+// int	check_characters(char **map);
+// int is_mapclosed(char **map);
+
 
 // raycasting 
 void	rightrotation(t_cub *data);
@@ -216,5 +227,6 @@ void	rander_floor(t_cub *data, int i, int x);
 int		get_horcolor(t_cub *data, double hight, double *hitwall);
 void	ver_init(t_cub *data, t_help *cub, double vdist, double pdist);
 int		get_vercolor(t_cub *data, double hight, double *hitwall);
+void	mlx_drawer(t_cub *data);
 
 #endif
