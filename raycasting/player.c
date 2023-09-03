@@ -1,5 +1,16 @@
-#include "../cub.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/03 10:31:20 by yahamdan          #+#    #+#             */
+/*   Updated: 2023/09/03 10:31:22 by yahamdan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "../cub.h"
 
 void	player_angle(t_cub *data, int x, int y)
 {
@@ -15,8 +26,8 @@ void	player_angle(t_cub *data, int x, int y)
 
 void	player_position(t_cub *data)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (data->map[i])
@@ -28,7 +39,7 @@ void	player_position(t_cub *data)
 				|| data->map[i][j] == 'W' || data->map[i][j] == 'E')
 			{
 				data->player.x = (j * SQRS) + SQRS / 2;
-				data->player.y = (i * SQRS) + SQRS /2;
+				data->player.y = (i * SQRS) + SQRS / 2;
 				player_angle(data, i, j);
 				return ;
 			}

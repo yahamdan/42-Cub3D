@@ -10,8 +10,6 @@ void	my_mlx_pixel_put(t_immg *data, int x, int y, int color)
 	}
 }
 
-////my_mlx_pixel_put2(&data->img_, &data->xpm,x, y);
-
 int	get_pixels(t_xpm *xpm,int x, int y)
 {
 
@@ -49,93 +47,8 @@ void	dda_line(t_cub	*data, double x, double y, int color)
 	{
 		my_mlx_pixel_put(&data->img_, dda.xi, dda.yi, color);
 		dda.xi += dda.xinc;
-		// if ((dda.xi / 64))
 		dda.yi += dda.yinc;
 	}
-}
-
-void	draw_player(t_cub *data, int x, int y, int color)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (i < SIZE / 3)
-	{
-		j = 0;
-		while (j < SIZE / 3)
-		{
-			my_mlx_pixel_put(&data->img_, x + i, y + j, color);
-			my_mlx_pixel_put(&data->img_, x - i, y + j, color);
-			my_mlx_pixel_put(&data->img_, x + i, y - j, color);
-			my_mlx_pixel_put(&data->img_, x - i, y - j, color);
-			j++;
-		}
-		i++;
-	}
-}
-
-void	drow_map(t_cub *data, int i, int j , int color)
-{
-	int x;
-	int y;
-	y = i - SQRS;
-	while(y < i)
-	{
-		x = j - SQRS;
-		while(x < j)
-		{
-			if (x == j - 1)
-				my_mlx_pixel_put(&data->img_, x, y, 0x17202A);
-			else if (y == i - 1)
-				my_mlx_pixel_put(&data->img_, x, y, 0x17202A);
-			else
-				my_mlx_pixel_put(&data->img_, x, y, color);
-			x++;
-		}
-		y++;
-	}
-}
-
-int	check_if_hitwall(t_cub *data, float x, float y)
-{
-	if(data->map[(int)(x/ SQRS)]  && data->map[(int)(x/ SQRS)][(int)(y / SQRS)] == '1')
-		return (1);
-	return (0);
-}
-
-int	keey_hook(int key, t_cub *data)
-{
-	data->player.xtmp = data->player.x;
-	data->player.ytmp = data->player.y;
-	if (key == 65307)
-	{
-		mlx_destroy_image(data->mlx_, data->img_.img);
-		mlx_clear_window(data->mlx_, data->win_);
-		mlx_destroy_window(data->mlx_, data->win_);
-		exit(0);
-	}
-	if (key == 119)
-		move_up(data);
-	if (key == 115)
-		move_down(data);
-	if (key == 97)
-		move_left(data);
-	if (key == 100)
-		move_right(data);
-	if (key == 65361)
-		leftrotation(data);
-	if (key == 65363)
-		rightrotation(data);
-	if (position_check(data, data->player.xtmp, data->player.ytmp))
-	{
-		data->player.x = data->player.xtmp;
-		data->player.y = data->player.ytmp;
-		mlx_destroy_image(data->mlx_, data->img_.img);
-		mlx_render_img(data);
-	}
-	return (0);
 }
 
 void	setting_texwalls(t_cub *data)
@@ -199,10 +112,8 @@ int main(int ac, char **av)
  {
 	(void)ac;
 	t_cub   data;
-	t_weapon weapon;
 
     t_pars *list;
-    // t_path *path;~
 
 	list = NULL;
 	ifvalid_mapname(av[1]);

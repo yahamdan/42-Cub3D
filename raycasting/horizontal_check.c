@@ -1,51 +1,63 @@
-# include "../cub.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   horizontal_check.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/03 10:30:51 by yahamdan          #+#    #+#             */
+/*   Updated: 2023/09/03 10:30:58 by yahamdan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../cub.h"
 
 void	get_stepss(t_cub *data)
 {
-	data->hor.yintercept = floor((data->player.y / SQRS)) * SQRS;
+	data->hor.yin = floor((data->player.y / SQRS)) * SQRS;
 	if (sin(data->rayangle) > 0)
-		data->hor.yintercept += SQRS;
-	data->hor.xintercept = ((data->player.y - data->hor.yintercept) / tan(data->rayangle));
+		data->hor.yin += SQRS;
+	data->hor.xin = ((data->player.y - data->hor.yin) / tan(data->rayangle));
 	if (cos(data->rayangle) < 0)
-		data->hor.xintercept = data->player.x - fabs(data->hor.xintercept);
+		data->hor.xin = data->player.x - fabs(data->hor.xin);
 	else
-		data->hor.xintercept = data->player.x + fabs(data->hor.xintercept);
+		data->hor.xin = data->player.x + fabs(data->hor.xin);
 	data->hor.ystep = SQRS;
 	if (sin(data->rayangle) < 0)
 		data->hor.ystep *= -1;
 	data->hor.xstep = SQRS / tan(data->rayangle);
 	if ((cos(data->rayangle) < 0 && data->hor.xstep > 0)
 		|| (cos(data->rayangle) > 0 && data->hor.xstep < 0))
-	data->hor.xstep *= -1;
-	data->hor.next_horx = data->hor.xintercept;
-	data->hor.next_hory = data->hor.yintercept;
-	if(sin(data->rayangle) < 0)
-		data->hor.next_hory -= 0.001;
+		data->hor.xstep *= -1;
+	data->hor.nhorx = data->hor.xin;
+	data->hor.nhory = data->hor.yin;
+	if (sin(data->rayangle) < 0)
+		data->hor.nhory -= 0.001;
 }
 
-double	*horizontal_check(t_cub *data)
+double	*horizontal_check(t_cub *d)
 {
-	double *horhitwall;
+	double	*horhitwall;
 
 	horhitwall = malloc(2 * sizeof(double));
-	get_stepss(data);
+	get_stepss(d);
 	while (1)
 	{
-		if (data->hor.next_horx >= (SQRS * data->h_w.width) || data->hor.next_horx <= 0
-			|| data->hor.next_hory >= (SQRS* data->h_w.height) || data->hor.next_hory <= 0)
+		if (d->hor.nhorx >= (SQRS * d->h_w.width) || d->hor.nhorx <= 0
+			|| d->hor.nhory >= (SQRS * d->h_w.height) || d->hor.nhory <= 0)
 		{
 			horhitwall[0] = -1;
 			horhitwall[1] = -1;
-			break;
+			break ;
 		}
-		if (check_if_hitwall(data, data->hor.next_hory, data->hor.next_horx))
+		if (check_if_hitwall(d, d->hor.nhory, d->hor.nhorx))
 		{
-			horhitwall[0] = data->hor.next_horx;
-			horhitwall[1] = data->hor.next_hory;
-			break;
+			horhitwall[0] = d->hor.nhorx;
+			horhitwall[1] = d->hor.nhory;
+			break ;
 		}
-		data->hor.next_horx += data->hor.xstep;
-		data->hor.next_hory += data->hor.ystep;
+		d->hor.nhorx += d->hor.xstep;
+		d->hor.nhory += d->hor.ystep;
 	}
 	return (horhitwall);
 }
