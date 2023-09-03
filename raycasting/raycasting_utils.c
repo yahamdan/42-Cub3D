@@ -1,186 +1,69 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycasting_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/03 10:31:24 by yahamdan          #+#    #+#             */
+/*   Updated: 2023/09/03 21:22:42 by werrahma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../cub.h"
 
-
-int	get_position(double pos, int tex_width)
+void	hor_init(t_cub *data, t_help *cub, double hdist, double pdist)
 {
-	int	position;
-	// int  px = tex_width /( (int)pos % tex_width);
-	position = ((pos / SQRS) - (int)(pos / SQRS)) * tex_width;
-	// printf("%d\n", position);
-	// printf("x ==== %d\n", px);
-	// position = x1 * tex_width;
-	// position = (int)pos % tex_width;
-	// printf("pos ======= %f,,,, hei === %f\n pos final = %f\n", pos, height_wall, px);
-	return (position);
+	cub->pphight = (SQRS / hdist) * pdist;
+	cub->y = (HEIGHT / 2) - (cub->pphight / 2);
+	cub->y_top = cub->y;
+	cub->y_down = (HEIGHT / 2) + (cub->pphight / 2);
+	cub->size = data->xpm[0].img_height / cub->pphight;
 }
 
-void	horizontal_rayrander(t_cub *data, double hordist, double *horhitwall, double PPDistance, int x)
+void	rander_floor(t_cub *data, int i, int x)
 {
-	double	PPhight;
-	double	y;
-	double	hight = 0.0;
-	int color;
-	double size;
-	int		i = 0;
-	
-	hordist *= cos(data->player.rotation - data->rayangle);
-	PPhight = (SQRS / hordist) * PPDistance;
-	y = (HEIGHT / 2) - (PPhight / 2);
-	int y_top = y;
-	int y_down = (HEIGHT / 2) + (PPhight / 2);
-	size = data->xpm[0].img_height / PPhight;
-	while (i < y)
+	int	color;
+
+	while (i < HEIGHT)
 	{
-		//color = 0x45adff;
-		color	= data->path->c;
-		my_mlx_pixel_put(&data->img_, x, i, color);
-		i++;
-	}
-	i = y_top;
-	while(i < y_down)
-	{
-		if(sin(data->rayangle) > 0)
-			color = get_pixels(&data->xpm[2],get_position(horhitwall[0], data->xpm[2].img_width), hight);
-		else
-			color = get_pixels(&data->xpm[3],get_position(horhitwall[0], data->xpm[3].img_width), hight);
-		my_mlx_pixel_put(&data->img_, x, i, color);
-		if (i > HEIGHT)
-			break;
-		hight += size;
-		i++;
-	}
-	while(i < HEIGHT)
-	{
-		//color = 0x758189;
 		color = data->path->f;
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		i++;
 	}
 }
 
-void	vertical_rayrander(t_cub *data, double verdist, double *verhitwall, double PPDistance, int x)
+int	get_horcolor(t_cub *data, double hight, double *hitwall)
 {
-	double	PPhight;
-	double	y;
-	double	hight = 0.0;
-	int color;
-	double size;
-	int		i = 0;
+	int	color;
 
-	verdist *= cos(data->player.rotation - data->rayangle);
-	PPhight = (SQRS / verdist) * PPDistance;
-	y = (HEIGHT / 2) - (PPhight / 2);
-	int y_top = y;
-	int y_down = (HEIGHT / 2) + (PPhight / 2);
-	size = data->xpm[0].img_height / PPhight;
-	while (i < y)
-	{
-		//color = 0x45adff;
-		color	= data->path->c;
-		my_mlx_pixel_put(&data->img_, x, i, color);
-		i++;
-	}
-	i = y_top;
-	while(i < y_down)
-	{
-		if(cos(data->rayangle) > 0)
-			color = get_pixels(&data->xpm[0],get_position(verhitwall[1], data->xpm[0].img_width), hight);
-		else
-			color = get_pixels(&data->xpm[1],get_position(verhitwall[1], data->xpm[1].img_width), hight);
-		
-		my_mlx_pixel_put(&data->img_, x, i, color);
-		if (i > HEIGHT)
-			break;
-		hight += size;
-		i++;
-	}
-	while(i < HEIGHT)
-	{
-		//color = 0x758189;
-		color	= data->path->f;
-		my_mlx_pixel_put(&data->img_, x, i, color);
-		i++;
-	}
-}
-
-
-void	ray_caster(t_cub *data, int x)
-{
-	double	*verhitwall;
-	double	*horhitwall;
-	double	PPDistance;
-	double	PPhight;
-	double	verdist;
-	double	hordist;
-	double	y;
-	double size;
-	int		i = 0;
-	double	hight = 0.0;
-	int color;
-	int o = 0;
-	horhitwall = horizontal_check(data);
-	verhitwall =  vertical_check(data);
-	verdist = count_distance(data, verhitwall[0], verhitwall[1]);
-	hordist = count_distance(data, horhitwall[0], horhitwall[1]);
-	PPDistance = (WIDTH / 2) / tan(rad(30));
-	if (horhitwall[1] <= 0 || horhitwall[0] <=0)
-		vertical_rayrander(data, verdist, verhitwall, PPDistance, x);
-	else if (verhitwall[1] <= 0 || verhitwall[0] <= 0)
-		horizontal_rayrander(data, hordist, horhitwall, PPDistance,x);
-	else if (count_distance(data, horhitwall[0], horhitwall[1]) >= count_distance(data, verhitwall[0], verhitwall[1]))
-		vertical_rayrander(data, verdist, verhitwall, PPDistance, x);
+	if (sin(data->rayangle) > 0)
+		color = get_pixels(&data->xpm[2], \
+			get_position(hitwall[0], data->xpm[2].img_width), hight);
 	else
-		horizontal_rayrander(data, hordist, horhitwall, PPDistance, x);
-
-	free(verhitwall);
-	free(horhitwall);
+		color = get_pixels(&data->xpm[3], \
+			get_position(hitwall[0], data->xpm[3].img_width), hight);
+	return (color);
 }
 
-
-int	get_color_weapon(t_weapon *weapom,int x, int y)
+void	ver_init(t_cub *data, t_help *cub, double vdist, double pdist)
 {
-
-	char	*dst;
-	if (x >= 0 && x < weapom->img_width && y >= 0 && y < weapom->img_height)
-	{
-
-		dst = weapom->data_img + (y * weapom->size_line + x
-				* (weapom->bits_per_pixel / 8));
-		return (*(unsigned int *)dst);
-	}
-	return (0);
+	cub->pphight = (SQRS / vdist) * pdist;
+	cub->y = (HEIGHT / 2) - (cub->pphight / 2);
+	cub->y_top = cub->y;
+	cub->y_down = (HEIGHT / 2) + (cub->pphight / 2);
+	cub->size = data->xpm[0].img_height / cub->pphight;
 }
-void    drow_2d(t_cub *data)
-{
-	// int i,j;
-	// i = 0;
-	// while(data->map[i])
-	// {
-	// 	j = 0;
-	// 	while(data->map[i][j])
 
-	// 	{
-	// 		if (data->map[i][j] == '1')
-	// 			drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0x2F2D2C);
-	// 		else if (data->map[i][j] != '1' && data->map[i][j] != '\n' && data->map[i][j] != ' ')
-	// 			drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0xB8AFAF);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	// my_mlx_pixel_put(&data->img_, data->player.x, data->player.y, 0x0000FF);
-	//draw_player(data, data->player.x, data->player.y, 0x0000FF);
-	//dda_line(data, data->player.xintercept, data->player.yintercept);
-	// double  x,y;
-	// x = data->player, t_weapon *weapon.x , hight = data->player.y;
-	int k = 0;
-	data->rayangle = data->player.rotation - rad(30);
-	while(k < CRNUM)
-	{
-		ray_caster(data, k);
-		data->rayangle += FOV / CRNUM;
-		k++;
-	}
-	drow_minimap(data);
+int	get_vercolor(t_cub *data, double hight, double *hitwall)
+{
+	int	color;
+
+	if (cos(data->rayangle) > 0)
+		color = get_pixels(&data->xpm[0], \
+			get_position(hitwall[1], data->xpm[0].img_width), hight);
+	else
+		color = get_pixels(&data->xpm[1], \
+			get_position(hitwall[1], data->xpm[1].img_width), hight);
+	return (color);
 }

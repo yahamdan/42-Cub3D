@@ -1,50 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   vertical_check.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/03 10:31:31 by yahamdan          #+#    #+#             */
+/*   Updated: 2023/09/03 10:31:33 by yahamdan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub.h"
 
 void	get_steps(t_cub *data)
 {
-	data->ver.xintercept = floor(data->player.x / SQRS) * SQRS;
-	if(cos(data->rayangle) > 0)
-		data->ver.xintercept += SQRS;
-	data->ver.yintercept = (data->player.x - data->ver.xintercept) * tan(data->rayangle) ;
+	data->ver.xin = floor(data->player.x / SQRS) * SQRS;
+	if (cos(data->rayangle) > 0)
+		data->ver.xin += SQRS;
+	data->ver.yin = (data->player.x - data->ver.xin) * tan(data->rayangle);
 	if (sin(data->rayangle) < 0)
-		data->ver.yintercept = data->player.y - fabs(data->ver.yintercept);
+		data->ver.yin = data->player.y - fabs(data->ver.yin);
 	else
-		data->ver.yintercept = data->player.y + fabs(data->ver.yintercept);
+		data->ver.yin = data->player.y + fabs(data->ver.yin);
 	data->ver.xstep = SQRS;
 	if (cos(data->rayangle) < 0)
 		data->ver.xstep *= -1;
 	data->ver.ystep = SQRS * tan(data->rayangle);
-	if((sin(data->rayangle) > 0 && data->ver.ystep < 0)
+	if ((sin(data->rayangle) > 0 && data->ver.ystep < 0)
 		|| (sin(data->rayangle) < 0 && data->ver.ystep > 0))
 		data->ver.ystep *= -1;
-	data->ver.next_verx = data->ver.xintercept;
-	data->ver.next_very = data->ver.yintercept;
-	if(cos(data->rayangle) < 0)
-		data->ver.next_verx -= 0.001;
+	data->ver.nverx = data->ver.xin;
+	data->ver.nvery = data->ver.yin;
+	if (cos(data->rayangle) < 0)
+		data->ver.nverx -= 0.001;
 }
 
-double	*vertical_check(t_cub *data)
+double	*vertical_check(t_cub *d)
 {
-	double * hitwall;
+	double	*hitwall;
+
 	hitwall = malloc(2 * sizeof(double));
-	get_steps(data);
-	while(1)
+	get_steps(d);
+	while (1)
 	{
-		if (data->ver.next_very >= (SQRS * data->h_w.height) || data->ver.next_very <= 0
-			|| data->ver.next_verx >= (SQRS * data->h_w.width) || data->ver.next_verx <= 0)
+		if (d->ver.nvery >= (SQRS * d->h_w.height) || d->ver.nvery <= 0
+			|| d->ver.nverx >= (SQRS * d->h_w.width) || d->ver.nverx <= 0)
 		{
 			hitwall[0] = -1;
 			hitwall[1] = -1;
-			break;
+			break ;
 		}
-		if (check_if_hitwall(data, (data->ver.next_very), (data->ver.next_verx)))
+		if (check_if_hitwall(d, (d->ver.nvery), (d->ver.nverx)))
 		{
-			hitwall[0] = data->ver.next_verx;
-			hitwall[1] = data->ver.next_very;
-			break;
+			hitwall[0] = d->ver.nverx;
+			hitwall[1] = d->ver.nvery;
+			break ;
 		}
-		data->ver.next_verx += data->ver.xstep;
-		data->ver.next_very += data->ver.ystep;
+		d->ver.nverx += d->ver.xstep;
+		d->ver.nvery += d->ver.ystep;
 	}
-	return(hitwall);
+	return (hitwall);
 }

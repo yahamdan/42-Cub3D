@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 17:17:13 by werrahma          #+#    #+#             */
-/*   Updated: 2023/09/01 18:18:25 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:20:45 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,37 @@
 
 void	init_struct(t_flag *flag)
 {
-	flag->C = 0;
-	flag->EA = 0;
-	flag->F = 0;
-	flag->NO = 0;
-	flag->SO = 0;
-	flag->WE = 0;
+	flag->c = 0;
+	flag->ea = 0;
+	flag->f = 0;
+	flag->no = 0;
+	flag->so = 0;
+	flag->we = 0;
 }
 
 void	if_duplicate(t_pars *list, t_path **path, t_flag *flag)
 {
 	if (!ft_strncmp(list->string, "NO ", 3))
 	{
-		if (flag->NO == 0)
-			(*path)->NO_path = pathfind(list->string);
+		if (flag->no == 0)
+			(*path)->no_path = pathfind(list->string);
 		else
 		{
 			write(2, "duplicate\n", 10);
 			exit(1);
 		}
-		flag->NO++;
+		flag->no++;
 	}
 	else if (!ft_strncmp(list->string, "WE ", 3))
 	{
-		if (flag->WE == 0)
-			(*path)->WE_path = pathfind(list->string);
+		if (flag->we == 0)
+			(*path)->we_path = pathfind(list->string);
 		else
 		{
 			write(2, "duplicate\n", 10);
 			exit(1);
 		}
-		flag->WE++;
+		flag->we++;
 	}
 }
 
@@ -52,25 +52,25 @@ void	if_duplicate2(t_pars *list, t_path **path, t_flag *flag)
 {
 	if (!ft_strncmp(list->string, "EA ", 3))
 	{
-		if (flag->EA == 0)
-			(*path)->EA_path = pathfind(list->string);
+		if (flag->ea == 0)
+			(*path)->ea_path = pathfind(list->string);
 		else
 		{
 			write(2, "duplicate\n", 10);
 			exit(1);
 		}
-		flag->EA++;
+		flag->ea++;
 	}
 	else if (!ft_strncmp(list->string, "SO ", 3))
 	{
-		if (flag->SO == 0)
-			(*path)->SO_path = pathfind(list->string);
+		if (flag->so == 0)
+			(*path)->so_path = pathfind(list->string);
 		else
 		{
 			write(2, "duplicate\n", 10);
 			exit(1);
 		}
-		flag->SO++;
+		flag->so++;
 	}
 }
 
@@ -78,25 +78,25 @@ void	if_duplicate3(t_pars *list, t_path **path, t_flag *flag)
 {
 	if (!ft_strncmp(list->string, "F ", 2))
 	{
-		if (flag->F == 0)
-			(*path)->F_path = findrgb(list->string);
+		if (flag->f == 0)
+			(*path)->f_path = findrgb(list->string);
 		else
 		{
 			write(2, "duplicate\n", 10);
 			exit(1);
 		}
-		flag->F++;
+		flag->f++;
 	}
 	else if (!ft_strncmp(list->string, "C ", 2))
 	{
-		if (flag->C == 0)
-			(*path)->C_path = findrgb(list->string);
+		if (flag->c == 0)
+			(*path)->c_path = findrgb(list->string);
 		else
 		{
 			write(2, "duplicate\n", 10);
 			exit(1);
 		}
-		flag->C++;
+		flag->c++;
 	}
 }
 

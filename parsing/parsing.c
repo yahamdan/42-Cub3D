@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:43:54 by werrahma          #+#    #+#             */
-/*   Updated: 2023/09/03 16:40:08 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:19:00 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	error_handler(int i, t_flag flag)
 {
-	if (i != 6 || (flag.C == 0 || flag.EA == 0 \
-		|| flag.F == 0 || flag.NO == 0 \
-		|| flag.SO == 0 || flag.WE == 0))
+	if (i != 6 || (flag.c == 0 || flag.ea == 0 \
+		|| flag.f == 0 || flag.no == 0 \
+		|| flag.so == 0 || flag.we == 0))
 	{
 		write (2, "error in path\n", 14);
 		exit (1);
