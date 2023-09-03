@@ -40,7 +40,10 @@ int	mouse_hook(int x, int y,t_cub *data)
 	return (0);
 }
 
-int event_hook(void)
+int event_hook(t_cub *data)
 {
+	mlx_destroy_image(data->mlx_, data->img_.img);
+	mlx_clear_window(data->mlx_, data->win_);
+	mlx_destroy_window(data->mlx_, data->win_);
 	exit(0);
 }

@@ -32,7 +32,6 @@ void	horizontal_rayrander(t_cub *data, double hordist, double *horhitwall, doubl
 	size = data->xpm[0].img_height / PPhight;
 	while (i < y)
 	{
-		//color = 0x45adff;
 		color	= data->path->c;
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		i++;
@@ -52,7 +51,6 @@ void	horizontal_rayrander(t_cub *data, double hordist, double *horhitwall, doubl
 	}
 	while(i < HEIGHT)
 	{
-		//color = 0x758189;
 		color = data->path->f;
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		i++;
@@ -76,7 +74,6 @@ void	vertical_rayrander(t_cub *data, double verdist, double *verhitwall, double 
 	size = data->xpm[0].img_height / PPhight;
 	while (i < y)
 	{
-		//color = 0x45adff;
 		color	= data->path->c;
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		i++;
@@ -97,7 +94,6 @@ void	vertical_rayrander(t_cub *data, double verdist, double *verhitwall, double 
 	}
 	while(i < HEIGHT)
 	{
-		//color = 0x758189;
 		color	= data->path->f;
 		my_mlx_pixel_put(&data->img_, x, i, color);
 		i++;
@@ -132,7 +128,6 @@ void	ray_caster(t_cub *data, int x)
 		vertical_rayrander(data, verdist, verhitwall, PPDistance, x);
 	else
 		horizontal_rayrander(data, hordist, horhitwall, PPDistance, x);
-
 	free(verhitwall);
 	free(horhitwall);
 }
@@ -184,28 +179,9 @@ void	draw_weapon(int x, t_weapon *weapon, t_cub *data)
 }
 void    drow_2d(t_cub *data)
 {
-	// int i,j;
-	// i = 0;
-	// while(data->map[i])
-	// {
-	// 	j = 0;
-	// 	while(data->map[i][j])
+	int	k;
 
-	// 	{
-	// 		if (data->map[i][j] == '1')
-	// 			drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0x2F2D2C);
-	// 		else if (data->map[i][j] != '1' && data->map[i][j] != '\n' && data->map[i][j] != ' ')
-	// 			drow_map(data, ((i + 1) * SQRS), ((j + 1) * SQRS), 0xB8AFAF);
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
-	// my_mlx_pixel_put(&data->img_, data->player.x, data->player.y, 0x0000FF);
-	//draw_player(data, data->player.x, data->player.y, 0x0000FF);
-	//dda_line(data, data->player.xintercept, data->player.yintercept);
-	// double  x,y;
-	// x = data->player, t_weapon *weapon.x , hight = data->player.y;
-	int k = 0;
+	k = 0;
 	data->rayangle = data->player.rotation - rad(30);
 	while(k < CRNUM)
 	{

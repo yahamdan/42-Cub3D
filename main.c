@@ -110,7 +110,12 @@ int	keey_hook(int key, t_cub *data)
 	data->player.xtmp = data->player.x;
 	data->player.ytmp = data->player.y;
 	if (key == 65307)
+	{
+		mlx_destroy_image(data->mlx_, data->img_.img);
+		mlx_clear_window(data->mlx_, data->win_);
+		mlx_destroy_window(data->mlx_, data->win_);
 		exit(0);
+	}
 	if (key == 119)
 		move_up(data);
 	if (key == 115)
@@ -127,6 +132,7 @@ int	keey_hook(int key, t_cub *data)
 	{
 		data->player.x = data->player.xtmp;
 		data->player.y = data->player.ytmp;
+		mlx_destroy_image(data->mlx_, data->img_.img);
 		mlx_render_img(data);
 	}
 	return (0);
@@ -217,7 +223,7 @@ int main(int ac, char **av)
 	t_weapon weapon;
 
     t_pars *list;
-    // t_path *path;
+    // t_path *path;~
 
 	list = NULL;
 	ifvalid_mapname(av[1]);
@@ -239,7 +245,7 @@ int main(int ac, char **av)
 	mlx_render_img(&data);
 	mlx_hook(data.win_, 2, 1L<<0, keey_hook, &data);
 	mlx_hook(data.win_, 6, 1L<<6 , mouse_hook, &data);
-	mlx_hook(data.win_, 17, 0, event_hook, NULL);
+	mlx_hook(data.win_, 17, 0, event_hook, &data);
 	mlx_mouse_hide(data.mlx_, data.win_);
 	mlx_loop(data.mlx_);
 }

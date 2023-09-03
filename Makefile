@@ -9,7 +9,7 @@ SRC = parsing/parsing.c parsing/read_file.c parsing/colors.c parsing/check_chara
 	raycasting/mlx_hook.c raycasting/mathch.c raycasting/minimap.c
  
 CC = cc
- CFLAGS = #-fsanitize=address -g3 #-Wall -Wextra -Werror  
+ CFLAGS =  #-g3 -Wall -Wextra -Werror  
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

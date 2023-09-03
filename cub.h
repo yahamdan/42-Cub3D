@@ -205,6 +205,6 @@ double	count_distance(t_cub *data, double x,  double y);
 double	rad(double ang);
 int	position_check(t_cub *data, float newx, float newy);
 void	drow_minimap(t_cub *data);
-int event_hook(void);
+int event_hook(t_cub *data);
 
 #endif
