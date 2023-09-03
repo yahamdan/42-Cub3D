@@ -159,7 +159,6 @@ void	ifvalid_space(char **map);
 void	ifvalid_floor(char **map);
 void	rgbtoint(t_path *path);
 char	**rectagle_map(char **map);
-void	draw_weapon(int x, t_weapon *weapon, t_cub *data);
 void	path_checker(t_pars *list, t_path **path);
 char	*pathfind(char *str);
 char	*findrgb(char *str);

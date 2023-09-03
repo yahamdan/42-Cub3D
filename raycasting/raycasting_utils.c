@@ -146,37 +146,6 @@ int	get_color_weapon(t_weapon *weapom,int x, int y)
 	}
 	return (0);
 }
-
-void	draw_weapon(int x, t_weapon *weapon, t_cub *data)
-{
-	int top_weapon = HEIGHT /2.3;
-	int y = 0;
-	int h = 0;
-	static int a = 0;
-	unsigned int  color ;
-	unsigned int tmp_color;
-	while (y < weapon->img_height && a < weapon->img_width)
-	{
-		color = get_color_weapon(weapon, a, y);
-		tmp_color = color;
-		if ((tmp_color >> 24) == 0)
-			my_mlx_pixel_put(&data->img_, x, top_weapon, color);
-		// else
-		// 	my_mlx_pixel_put(&data->img_, x, top_weapon, 0xff0000);
-		top_weapon++;
-		// a++;
-		y++;
-	}
-	if (a == weapon->img_width)
-		a= 0;
-	a++;
-	// while (top_weapon < HEIGHT)
-	// {
-		// printf("height ===== %d,,,,,, wi === %d ,,,,,, %d\n", HEIGHT, WIDTH, top_weapon);
-		// mlx_put_image_to_window(data->mlx_, data->win_, data->->img, WIDTH /2.3, HEIGHT/1.26);
-		// top_weapon++;
-	// }
-}
 void    drow_2d(t_cub *data)
 {
 	int	k;
