@@ -10,28 +10,6 @@ void	my_mlx_pixel_put(t_immg *data, int x, int y, int color)
 	}
 }
 
-////my_mlx_pixel_put2(&data->img_, &data->xpm,x, y);
-
-int	get_pixels(t_xpm *xpm,int x, int y)
-{
-
-	char	*dst;
-	// char	*dst1;
-	// printf("%s\n", xpm->data_img);
-	if (x >= 0 && x < xpm->img_width && y >= 0 && y < xpm->img_height)
-	{
-
-		dst = xpm->data_img + (y * xpm->size_line + x
-				* (xpm->bits_per_pixel / 8));
-		// // printf("%s\n", dst);
-		// dst1 = data->addr + (y * data->line_length + x
-		// 		* (data->bits_per_pixel / 8));
-		return (*(unsigned int *)dst);
-		// *(unsigned int *)dst1 = *(unsigned int *)dst;
-	}
-	return (0);
-}
-
 void	dda_line(t_cub	*data, double x, double y, int color)
 {
 	t_dda	dda;
@@ -132,74 +110,14 @@ int	keey_hook(int key, t_cub *data)
 	return (0);
 }
 
-void	setting_texwalls(t_cub *data)
-{
-	int	i;
-
-	i = 0;
-	data->xpm = malloc(sizeof(t_xpm) * 4);
-	// data->xpm[0].relative_path = "./textures/map1/flag.xpm";
-	data->xpm[1].relative_path = data->path->WE_path;
-	// data->xpm[1].relative_path = "./textures/map1/wall.xpm";
-	data->xpm[0].relative_path = data->path->EA_path;
-	// data->xpm[2].relative_path = "./textures/map2/wall2.xpm";
-	data->xpm[2].relative_path = data->path->SO_path;
-	// data->xpm[3].relative_path = "./textures/map1/svastika_tmp.xpm";
-	data->xpm[3].relative_path = data->path->NO_path;
-	data->xpm[0].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[0].relative_path, &data->xpm[0].img_width, &data->xpm[0].img_height);
-	data->xpm[1].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[1].relative_path, &data->xpm[1].img_width, &data->xpm[1].img_height);
-	data->xpm[2].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[2].relative_path, &data->xpm[2].img_width, &data->xpm[2].img_height);
-	data->xpm[3].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[3].relative_path, &data->xpm[3].img_width, &data->xpm[3].img_height);
-	while (i < 4)
-	{
-		if (!data->xpm[i].img)
-		{
-			write(2, "invalid texture\n", 15);
-			exit(1);
-		}
-		i++;
-	}
-	data->xpm[0].data_img = (char *)mlx_get_data_addr(data->xpm[0].img, &data->xpm[0].bits_per_pixel, &data->xpm[0].size_line, &data->xpm[0].endian);
-	data->xpm[1].data_img = (char *)mlx_get_data_addr(data->xpm[1].img, &data->xpm[1].bits_per_pixel, &data->xpm[1].size_line, &data->xpm[1].endian);
-	data->xpm[2].data_img = (char *)mlx_get_data_addr(data->xpm[2].img, &data->xpm[2].bits_per_pixel, &data->xpm[2].size_line, &data->xpm[2].endian);
-	data->xpm[3].data_img = (char *)mlx_get_data_addr(data->xpm[3].img, &data->xpm[3].bits_per_pixel, &data->xpm[3].size_line, &data->xpm[3].endian);
-}
-
-void	h_w_map(char **map, t_h_w *h_w)
-{
-
-	h_w->height = 0;
-	h_w->width = 0;
-	while(map[h_w->height])
-		h_w->height++;
-	h_w->width = ft_strlen(map[0]);
-}
-
-void	ifvalid_mapname(char *av)
-{
-	int	i;
-
-	i = 0;
-	while (av[i] != '.')
-		i++;
-	if (ft_strcmp(&av[i], ".cub"))
-	{
-		write(2, "invalid name map\n", 17);
-		exit(1);
-	}
-}
 
 int main(int ac, char **av)
  {
-	(void)ac;
-	t_cub   data;
-	t_weapon weapon;
-
-    t_pars *list;
-    // t_path *path;
+	t_cub	data;
+	t_pars *list;
 
 	list = NULL;
-	ifvalid_mapname(av[1]);
+	ifvalid_mapname(ac , av[1]);
 	create_list(&list, av[1]);
 	data.map = get_map(list);
 	path_checker(list, &data.path);
@@ -208,8 +126,7 @@ int main(int ac, char **av)
 	check_characters(data.map);
 	rgbtoint(data.path);
 	data.map = rectagle_map(data.map);
-	h_w_map(data.map, &data.h_w); //// that's function is return a struct of height and width of map;
-	// exit (1);
+	h_w_map(data.map, &data.h_w);
 	data.mlx_ = mlx_init();
 	data.win_ = mlx_new_window(data.mlx_, WIDTH , HEIGHT, "Abomination3D");
 	setting_texwalls(&data);

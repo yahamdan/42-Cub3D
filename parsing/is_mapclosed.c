@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:21:34 by werrahma          #+#    #+#             */
-/*   Updated: 2023/09/01 18:45:28 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:39:58 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,8 @@ void	firstandlast_line(char **map, int i)
 void	is_mapclosed(char **map)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	if (!map[i])
 		error_handler_(1);
 	map = ignor_space(map);

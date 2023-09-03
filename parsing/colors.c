@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:15:21 by werrahma          #+#    #+#             */
-/*   Updated: 2023/09/01 18:27:14 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:39:49 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ void	count_comma(char *path)
 
 void	rgbtoint(t_path *path)
 {
-	int		i;
 	char	**ceiling;
 	char	**floor;
 
-	i = 0;
 	count_comma(path->C_path);
 	count_comma(path->F_path);
 	ceiling = ft_split(path->C_path, ',');

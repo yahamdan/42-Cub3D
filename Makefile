@@ -1,7 +1,7 @@
 NAME = cub
 LIBFT = libft/libft.a
 
-SRC = parsing/parsing.c parsing/read_file.c parsing/colors.c parsing/check_characters.c parsing/is_mapclosed.c parsing/ft_strcmp.c parsing/path_checker.c parsing/make_rectangle_map.c main.c parsing/get_map.c parsing/get_next_line_utils.c parsing/get_next_line.c \
+SRC = init_textures.c parsing/parsing.c parsing/read_file.c parsing/colors.c parsing/check_characters.c parsing/is_mapclosed.c parsing/ft_strcmp.c parsing/path_checker.c parsing/make_rectangle_map.c main.c parsing/get_map.c parsing/get_next_line_utils.c parsing/get_next_line.c \
 	ft_lstadd_back.c ft_lstlast.c ft_lstnew.c \
 	raycasting/rotation.c raycasting/move_player.c \
 	raycasting/raycasting_utils.c raycasting/vertical_check.c \
@@ -9,7 +9,7 @@ SRC = parsing/parsing.c parsing/read_file.c parsing/colors.c parsing/check_chara
 	raycasting/mlx_hook.c raycasting/mathch.c raycasting/minimap.c
  
 CC = cc
- CFLAGS = #-fsanitize=address -g3 #-Wall -Wextra -Werror  
+ CFLAGS = -fsanitize=address -g3 #-Wall -Wextra -Werror  
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)
