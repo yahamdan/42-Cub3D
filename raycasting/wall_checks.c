@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   wall_checks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:31:34 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/03 19:25:39 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:11:55 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
+
+int	get_position(double pos, int tex_width)
+{
+	int	position;
+
+	position = ((pos / SQRS) - (int)(pos / SQRS)) * tex_width;
+	return (position);
+}
 
 int	check_if_hitwall(t_cub *data, float x, float y)
 {

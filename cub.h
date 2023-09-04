@@ -6,7 +6,7 @@
 /*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:34:58 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/03 21:03:32 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/04 09:58:15 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@
 
 typedef struct s_path
 {
-	char	*SO_path;
-	char	*WE_path;
-	char	*EA_path;
-	char	*NO_path;
-	char	*F_path;
-	char	*C_path;
+	char	*so_path;
+	char	*we_path;
+	char	*ea_path;
+	char	*no_path;
+	char	*f_path;
+	char	*c_path;
 	int		c;
 	int		f;
 }				t_path;
@@ -45,17 +45,6 @@ typedef struct s_h_w
 	int	width;
 }				t_h_w;
 
-typedef struct s_weapon
-{
-	void	*img;
-	char	*relative_path;
-	int		img_width;
-	int		img_height;
-	char	*data_img;
-	int width, height, bits_per_pixel, size_line, endian;
-	int		check;
-}				t_weapon;
-
 typedef struct s_xpm
 {
 	void	*img;
@@ -63,7 +52,11 @@ typedef struct s_xpm
 	int		img_width;
 	int		img_height;
 	char	*data_img;
-	int width, height, bits_per_pixel, size_line, endian;
+	int		width;
+	int		height;
+	int		bits_per_pixel;
+	int		size_line;
+	int		endian;
 }				t_xpm;
 
 typedef struct s_horcheck
@@ -133,7 +126,6 @@ typedef struct s_cub
 	struct s_path		*path;
 	struct s_immg		img_;
 	struct s_mouse		mouse;
-	struct s_weapon		*weapon;
 	struct s_player		player;
 	struct s_horcheck	hor;
 	struct s_vercheck	ver;
@@ -147,12 +139,12 @@ typedef struct s_pars
 
 typedef struct s_flag
 {
-	int	SO;
-	int	WE;
-	int	EA;
-	int	NO;
-	int	F;
-	int	C;
+	int	so;
+	int	we;
+	int	ea;
+	int	no;
+	int	f;
+	int	c;
 }				t_flag;
 
 typedef struct s_help
@@ -189,16 +181,7 @@ int		shifting(char *r, char *g, char *b);
 void	setting_texwalls(t_cub *data);
 void	h_w_map(char **map, t_h_w *h_w);
 void	ifvalid_mapname(int ac, char *av);
-// void	create_list(t_pars **list, char *n_file);
-// void	ft_lstadd_back(t_pars **lst, t_pars *new);
-// t_pars	*ft_lstnew(char *str);
-// int	ft_strcmp(char *s1, char *s2);
-// char	**get_map(t_pars *list);
-// int	check_characters(char **map);
-// int is_mapclosed(char **map);
-
-
-// raycasting 
+int		get_position(double pos, int tex_width);
 void	rightrotation(t_cub *data);
 void	leftrotation(t_cub *data);
 void	move_up(t_cub *data);

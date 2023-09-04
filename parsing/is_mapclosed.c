@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is_mapclosed.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/31 16:21:34 by werrahma          #+#    #+#             */
-/*   Updated: 2023/09/03 18:48:52 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:08:24 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	firstandlast_line(char **map, int i)
 	j = 0;
 	while (map[i] && map[i][j])
 	{
-		if (map[i][j] != '1' && map[i][j] != ' ')
+		if (map[i][j] != '1' && map[i][j] != ' ' && map[i][j] != '\0')
 			error_handler_(0);
 		j++;
 	}
@@ -53,9 +53,10 @@ void	is_mapclosed(char **map)
 		i++;
 	i--;
 	firstandlast_line(map, i);
+	i = 1;
 	while (map[i])
 	{
-		if ((map[i] && !map[i][0]) || map[i][0] != '1'
+		if (map[i][0] != '1'
 			|| map[i][ft_strlen(map[i]) - 1] != '1')
 			error_handler_(0);
 		i++;

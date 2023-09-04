@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/24 13:59:08 by werrahma          #+#    #+#             */
-/*   Updated: 2023/07/31 13:30:04 by werrahma         ###   ########.fr       */
+/*   Created: 2023/02/24 16:53:42 by werrahma          #+#    #+#             */
+/*   Updated: 2023/09/04 09:58:31 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
-t_pars	*ft_lstnew(char *str)
+t_pars	*ft_lstlast(t_pars *lst)
 {
-	t_pars	*new;
-
-	new = NULL;
-	new = malloc(sizeof(t_pars));
-	new->string = ft_strdup(str);
-	new->next = NULL;
-	return (new);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }

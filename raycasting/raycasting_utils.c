@@ -3,22 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:31:24 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/03 18:26:39 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:22:42 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub.h"
-
-int	get_position(double pos, int tex_width)
-{
-	int	position;
-
-	position = ((pos / SQRS) - (int)(pos / SQRS)) * tex_width;
-	return (position);
-}
 
 void	hor_init(t_cub *data, t_help *cub, double hdist, double pdist)
 {
@@ -74,17 +66,4 @@ int	get_vercolor(t_cub *data, double hight, double *hitwall)
 		color = get_pixels(&data->xpm[1], \
 			get_position(hitwall[1], data->xpm[1].img_width), hight);
 	return (color);
-}
-
-int	get_color_weapon(t_weapon *weapom, int x, int y)
-{
-	char	*dst;
-
-	if (x >= 0 && x < weapom->img_width && y >= 0 && y < weapom->img_height)
-	{
-		dst = weapom->data_img + (y * weapom->size_line + x
-				* (weapom->bits_per_pixel / 8));
-		return (*(unsigned int *)dst);
-	}
-	return (0);
 }

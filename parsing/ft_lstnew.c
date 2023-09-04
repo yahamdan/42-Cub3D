@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 09:46:21 by werrahma          #+#    #+#             */
-/*   Updated: 2022/10/27 15:04:33 by werrahma         ###   ########.fr       */
+/*   Created: 2023/02/24 13:59:08 by werrahma          #+#    #+#             */
+/*   Updated: 2023/09/04 09:58:37 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../cub.h"
 
-int	ft_isascii(int ar)
+t_pars	*ft_lstnew(char *str)
 {
-	if (ar >= 0 && ar <= 127)
-		return (1);
-	return (0);
+	t_pars	*new;
+
+	new = NULL;
+	new = malloc(sizeof(t_pars));
+	new->string = ft_strdup(str);
+	new->next = NULL;
+	return (new);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 13:15:21 by werrahma          #+#    #+#             */
-/*   Updated: 2023/09/03 18:48:44 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:20:45 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ void	rgbtoint(t_path *path)
 	char	**ceiling;
 	char	**floor;
 
-	count_comma(path->C_path);
-	count_comma(path->F_path);
-	ceiling = ft_split(path->C_path, ',');
-	floor = ft_split(path->F_path, ',');
+	count_comma(path->c_path);
+	count_comma(path->f_path);
+	ceiling = ft_split(path->c_path, ',');
+	floor = ft_split(path->f_path, ',');
 	iscolorvalid(ceiling);
 	iscolorvalid(floor);
 	if (!ceiling[0] || !ceiling[1] || !ceiling[2] \

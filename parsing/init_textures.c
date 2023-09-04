@@ -6,11 +6,11 @@
 /*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:26:29 by werrahma          #+#    #+#             */
-/*   Updated: 2023/09/03 18:52:07 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/04 09:54:20 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int	get_pixels(t_xpm *xpm, int x, int y)
 {
@@ -72,10 +72,10 @@ void	if_texinvalid(t_cub *data)
 void	setting_texwalls(t_cub *data)
 {
 	data->xpm = malloc(sizeof(t_xpm) * 4);
-	data->xpm[1].relative_path = data->path->WE_path;
-	data->xpm[0].relative_path = data->path->EA_path;
-	data->xpm[2].relative_path = data->path->SO_path;
-	data->xpm[3].relative_path = data->path->NO_path;
+	data->xpm[1].relative_path = data->path->we_path;
+	data->xpm[0].relative_path = data->path->ea_path;
+	data->xpm[2].relative_path = data->path->so_path;
+	data->xpm[3].relative_path = data->path->no_path;
 	data->xpm[0].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[0] \
 		.relative_path, &data->xpm[0].img_width, &data->xpm[0].img_height);
 	data->xpm[1].img = mlx_xpm_file_to_image(data->mlx_, data->xpm[1] \
