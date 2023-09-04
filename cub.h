@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:34:58 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/03 21:21:55 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/04 12:31:23 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,10 @@ typedef struct s_help
 	double	size;
 	int		y_top;
 	int		y_down;
+	double	hight;
+	int		color;
+	double	hordist;
+	double	verdist;
 }				t_help;
 
 void	create_list(t_pars **list, char *n_file);

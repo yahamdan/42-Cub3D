@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:14:35 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/03 20:06:40 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/04 12:30:38 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,30 +29,27 @@ void	rander_sky(t_cub *data, t_help *cub, int x)
 void	horizontal_rayrander(t_cub *data, double *hitwall, double pdist, int x)
 {
 	t_help	cub;
-	double	hight;
-	int		color;
 	int		i;
-	double	hordist;
 
-	hordist = count_distance(data, hitwall[0], hitwall[1]);
-	hight = 0.0;
+	cub.hordist = count_distance(data, hitwall[0], hitwall[1]);
+	cub.hight = 0.0;
 	i = 0;
-	hordist *= cos(data->player.rotation - data->rayangle);
-	hor_init(data, &cub, hordist, pdist);
+	cub.hordist *= cos(data->player.rotation - data->rayangle);
+	hor_init(data, &cub, cub.hordist, pdist);
 	rander_sky(data, &cub, x);
 	i = cub.y_top;
 	if (i < 0)
 	{
-		hight += cub.size * fabs(i);
+		cub.hight += cub.size * fabs(i);
 		i = 0;
 	}
 	while (i < cub.y_down)
 	{
-		color = get_horcolor(data, hight, hitwall);
-		my_mlx_pixel_put(&data->img_, x, i, color);
+		cub.color = get_horcolor(data, cub.hight, hitwall);
+		my_mlx_pixel_put(&data->img_, x, i, cub.color);
 		if (i > HEIGHT)
 			break ;
-		hight += cub.size;
+		cub.hight += cub.size;
 		i++;
 	}
 	rander_floor(data, i, x);
@@ -61,31 +58,28 @@ void	horizontal_rayrander(t_cub *data, double *hitwall, double pdist, int x)
 void	vertical_rayrander(t_cub *data, double *verhitwall, double pdist, int x)
 {
 	t_help	cub;
-	double	hight;
-	int		color;
 	int		i;
-	double	verdist;
 
-	verdist = count_distance(data, verhitwall[0], verhitwall[1]);
-	hight = 0.0;
+	cub.verdist = count_distance(data, verhitwall[0], verhitwall[1]);
+	cub.hight = 0.0;
 	i = 0;
-	verdist *= cos(data->player.rotation - data->rayangle);
-	ver_init(data, &cub, verdist, pdist);
+	cub.verdist *= cos(data->player.rotation - data->rayangle);
+	ver_init(data, &cub, cub.verdist, pdist);
 	rander_sky(data, &cub, x);
 	i = cub.y_top;
 	if (i < 0)
 	{
-		hight += cub.size * fabs(i);
+		cub.hight += cub.size * fabs(i);
 		i = 0;
 	}
 	while (i < cub.y_down)
 	{
-		color = get_vercolor(data, hight, verhitwall);
-		my_mlx_pixel_put(&data->img_, x, i, color);
+		cub.color = get_vercolor(data, cub.hight, verhitwall);
+		my_mlx_pixel_put(&data->img_, x, i, cub.color);
 		if (i > HEIGHT)
 			break ;
 		i++;
-		hight += cub.size;
+		cub.hight += cub.size;
 	}
 	rander_floor(data, i, x);
 }
