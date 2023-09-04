@@ -6,7 +6,7 @@
 /*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:34:58 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/04 12:31:23 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/04 12:32:57 by werrahma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define WIDTH 1000
 # define HEIGHT 500
 # define SIZE 8
-# define SPEED 10
+# define SPEED 8
 # define FOV 1.0472
 # define SQRS 64
 # define PI 3.14159265359

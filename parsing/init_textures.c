@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_textures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:26:29 by werrahma          #+#    #+#             */
-/*   Updated: 2023/09/03 21:20:22 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/04 09:54:20 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub.h"
+#include "../cub.h"
 
 int	get_pixels(t_xpm *xpm, int x, int y)
 {
