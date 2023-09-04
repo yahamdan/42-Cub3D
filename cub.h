@@ -6,7 +6,7 @@
 /*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:34:58 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/03 19:02:38 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:03:32 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define WIDTH 1000
 # define HEIGHT 500
 # define SIZE 8
-# define SPEED 10
+# define SPEED 8
 # define FOV 1.0472
 # define SQRS 64
 # define PI 3.14159265359

@@ -6,7 +6,7 @@
 /*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 19:00:58 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/03 20:13:04 by yahamdan         ###   ########.fr       */
+/*   Updated: 2023/09/03 21:05:16 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,3 @@ void	my_mlx_pixel_put(t_immg *data, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	}
 }
- 
