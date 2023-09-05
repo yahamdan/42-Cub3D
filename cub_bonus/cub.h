@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:34:58 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/04 12:32:57 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/04 12:55:35 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,6 @@ double	*vertical_check(t_cub *data);
 void	my_mlx_pixel_put(t_immg *data, int x, int y, int color);
 double	count_distance(t_cub *data, double x, double y);
 int		check_if_hitwall(t_cub *data, float x, float y);
-void	dda_line(t_cub	*data, double x, double y, int color);
 int		get_pixels(t_xpm *xpm, int x, int y);
 void	mlx_render_img(t_cub *data);
 int		mouse_hook(int x, int y, t_cub *data);
@@ -214,6 +213,5 @@ void	rander_floor(t_cub *data, int i, int x);
 int		get_horcolor(t_cub *data, double hight, double *hitwall);
 void	ver_init(t_cub *data, t_help *cub, double vdist, double pdist);
 int		get_vercolor(t_cub *data, double hight, double *hitwall);
-void	mlx_drawer(t_cub *data);
 
 #endif

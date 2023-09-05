@@ -1,4 +1,4 @@
-NAME = cub
+NAME = cub3D
 LIBFT = libft/libft.a
 
 SRC = parsing/init_textures.c parsing/parsing.c parsing/read_file.c parsing/colors.c parsing/check_characters.c parsing/is_mapclosed.c\
@@ -11,11 +11,10 @@ SRC = parsing/init_textures.c parsing/parsing.c parsing/read_file.c parsing/colo
 	raycasting/wall_checks.c raycasting/raycasting.c raycasting/mlx_.c
  
 CC = cc
- CFLAGS = #-fsanitize=address -g3 #-Wall -Wextra -Werror  
+ CFLAGS = #-Wall -Wextra -Werror #-fsanitize=address -g3
 OBJ = $(SRC:.c=.o)
 
-all : $(NAME)
-
+bonus : $(NAME)
 
 $(NAME) : $(OBJ)
 	$(MAKE) -C ./libft
@@ -29,4 +28,4 @@ fclean : clean
 	rm -rf libft/*.a
 	rm -rf $(NAME)
 
-re : fclean all
+re : fclean bonus

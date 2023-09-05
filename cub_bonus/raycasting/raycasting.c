@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: werrahma <werrahma@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yahamdan <yahamdan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 18:14:35 by yahamdan          #+#    #+#             */
-/*   Updated: 2023/09/04 12:30:38 by werrahma         ###   ########.fr       */
+/*   Updated: 2023/09/04 12:46:17 by yahamdan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	horizontal_rayrander(t_cub *data, double *hitwall, double pdist, int x)
 	i = cub.y_top;
 	if (i < 0)
 	{
-		cub.hight += cub.size * fabs(i);
+		cub.hight += cub.size * abs(i);
 		i = 0;
 	}
 	while (i < cub.y_down)
@@ -69,7 +69,7 @@ void	vertical_rayrander(t_cub *data, double *verhitwall, double pdist, int x)
 	i = cub.y_top;
 	if (i < 0)
 	{
-		cub.hight += cub.size * fabs(i);
+		cub.hight += cub.size * abs(i);
 		i = 0;
 	}
 	while (i < cub.y_down)
